@@ -2,6 +2,7 @@ const express = require('express');
 const session = require('express-session');
 const bodyParser = require('body-parser');
 const redis = require('connect-redis')(session);
+
 const app = express();
 
 const PORT = process.env.APP_HOST_PORT;
