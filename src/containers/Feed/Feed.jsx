@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import './Feed.scss';
+import Header from '../../components/Header';
 
 class Feed extends Component {
   constructor(props) {
@@ -20,6 +21,7 @@ class Feed extends Component {
 
     return (
       <div className="feed-container">
+        <Header />
         <h1 className="title">Feed</h1>
         <div className="entry-container">
 
