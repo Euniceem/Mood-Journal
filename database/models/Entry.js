@@ -25,8 +25,8 @@ class Entry extends bookshelf.Model {
     return this.hasMany('Entry_Emotion');
   }
 
-  entryActions() {
-    return this.hasMany('Entry_Action');
+  entryActivities() {
+    return this.hasMany('Entry_Activity');
   }
 }
 
