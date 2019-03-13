@@ -1,5 +1,12 @@
 import React, { Component } from 'react';
+import { library } from '@fortawesome/fontawesome-svg-core';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faArrowLeft } from '@fortawesome/free-solid-svg-icons';
 import './MoodEntry.scss';
+
+import NotesActions from '../NotesActions';
+
+library.add(faArrowLeft);
 
 class MoodEntry extends Component {
   constructor(props) {
@@ -9,6 +16,7 @@ class MoodEntry extends Component {
     // To prevent the refs from being the same, we need to append the key or id of each mood slider to the ref name.
 
     this.state = {
+      isNotesOpen: true,
       // initial slider values
       happiness : 3,
       stress : 3,
@@ -32,8 +40,10 @@ class MoodEntry extends Component {
     this.setState({ [field] : value });
   }
 
-  openNotesAndActions(e) {
+  openNotesAndActions = () => {
     console.log(`Adding notes and/or actions!`);
+
+    this.setState({ isNotesOpen : !this.state.isNotesOpen });
   }
 
   handleSubmit(e) {
@@ -41,6 +51,7 @@ class MoodEntry extends Component {
   }
 
   componentDidMount() {
+    // render a list of all existing sliders so we can access them in the state.
     this.setState({
 
     });
@@ -48,83 +59,97 @@ class MoodEntry extends Component {
 
   render() {
     return (
-      <div className="component-mood-entry">
-        <div className="select-emotion">
-          <ul className="list-emotion">
-            <li>
-              <img src="" alt=""/>
-              <div className="text">Amazing</div>
-            </li>
-            
-            <li>
-              <img src="" alt=""/>
-              <div className="text">Good</div>
-            </li>
-            
-            <li>
-              <img src="" alt=""/>
-              <div className="text">OK</div>
-            </li>
-            
-            <li>
-              <img src="" alt=""/>
-              <div className="text">Bad</div>
-            </li>
-            
-            <li>
-              <img src="" alt=""/>
-              <div className="text">Awful</div>
-            </li>
-          </ul>
-        </div>
-  
-        <div className="sliders">
-          {/* Number of sliders will be loaded onto props and dynamically rendered eventually */}
-          <div className="slider-wrap">
-            <div className="affect">
-              <span className="field">Happiness:</span> <span className="percentage">{ this.state.happiness }%</span>
-            </div>
-
-            <input onChange={ this.updateInput } data-field="happiness" ref={ this.happiness } type="range" min="0" max="100" value={ this.state.happiness } className="slider" />
-          </div>
-  
-          <div className="slider-wrap">
-            <div className="affect">
-            <span className="field">Stress:</span> <span className="percentage">{ this.state.stress }%</span>
-            </div>
-
-            <input onChange={ this.updateInput } data-field="stress" ref={ this.stress } type="range" min="0" max="100" value={ this.state.stress } className="slider" />
-          </div>
-  
-          <div className="slider-wrap">
-            <div className="affect">
-            <span className="field">Anxiety:</span> <span className="percentage">{ this.state.anxiety }%</span>
-            </div>
-
-            <input onChange={ this.updateInput } data-field="anxiety" ref={ this.anxiety } type="range" min="0" max="100" value={ this.state.anxiety } className="slider" />
-          </div>
-  
-          <div className="slider-wrap">
-            <div className="affect">
-            <span className="field">Fatigue:</span> <span className="percentage">{ this.state.fatigue }%</span>
-            </div>
-
-            <input onChange={ this.updateInput } data-field="fatigue" ref={ this.fatigue } type="range" min="0" max="100" value={ this.state.fatigue } className="slider" />
+      <>
+        <div className="header">
+          <div className="title-wrap">
+            {/* possible switch to React router in the future. pass in Header component with dynamic information on its props. For example, pass in the function that decides what to do when you click the "back" button on props and call it in the header component in an onClick. */}
+            <FontAwesomeIcon onClick={ this.state.isNotesOpen ? this.openNotesAndActions : null } className="fa-icon" icon="arrow-left" />
+            <span className="title">{ this.state.isNotesOpen ? 'Notes & Actions' : 'Add an Entry' }</span>
           </div>
         </div>
-  
-        <div className="buttons">
-          <div className="buttons-wrap">
-            <div className="add-more">
-              <button onClick={ this.openNotesAndActions }>+ Notes/Actions</button>
+
+        { this.state.isNotesOpen ? 
+          <NotesActions isNotesOpen={ this.state.isNotesOpen } handleSubmit={ this.handleSubmit } />
+          :
+          <div className="component-mood-entry">
+            <div className="select-emotion">
+              <ul className="list-emotion">
+                <li>
+                  <img src="" alt=""/>
+                  <div className="text">Amazing</div>
+                </li>
+                
+                <li>
+                  <img src="" alt=""/>
+                  <div className="text">Good</div>
+                </li>
+                
+                <li>
+                  <img src="" alt=""/>
+                  <div className="text">OK</div>
+                </li>
+                
+                <li>
+                  <img src="" alt=""/>
+                  <div className="text">Bad</div>
+                </li>
+                
+                <li>
+                  <img src="" alt=""/>
+                  <div className="text">Awful</div>
+                </li>
+              </ul>
             </div>
-  
-            <div className="submit-wrap">
-              <button onClick={ this.handleSubmit }>Submit Entry</button>
+      
+            <div className="sliders">
+              {/* Number of sliders will be loaded onto props and dynamically rendered eventually */}
+              <div className="slider-wrap">
+                <div className="affect">
+                  <span className="field">Happiness:</span> <span className="percentage">{ this.state.happiness }%</span>
+                </div>
+    
+                <input onChange={ this.updateInput } data-field="happiness" ref={ this.happiness } type="range" min="0" max="100" value={ this.state.happiness } className="slider" />
+              </div>
+      
+              <div className="slider-wrap">
+                <div className="affect">
+                <span className="field">Stress:</span> <span className="percentage">{ this.state.stress }%</span>
+                </div>
+    
+                <input onChange={ this.updateInput } data-field="stress" ref={ this.stress } type="range" min="0" max="100" value={ this.state.stress } className="slider" />
+              </div>
+      
+              <div className="slider-wrap">
+                <div className="affect">
+                <span className="field">Anxiety:</span> <span className="percentage">{ this.state.anxiety }%</span>
+                </div>
+    
+                <input onChange={ this.updateInput } data-field="anxiety" ref={ this.anxiety } type="range" min="0" max="100" value={ this.state.anxiety } className="slider" />
+              </div>
+      
+              <div className="slider-wrap">
+                <div className="affect">
+                <span className="field">Fatigue:</span> <span className="percentage">{ this.state.fatigue }%</span>
+                </div>
+    
+                <input onChange={ this.updateInput } data-field="fatigue" ref={ this.fatigue } type="range" min="0" max="100" value={ this.state.fatigue } className="slider" />
+              </div>
+            </div>
+      
+            <div className="buttons">
+              <div className="buttons-wrap">
+                <div className="add-more">
+                  <button onClick={ this.openNotesAndActions }>+ Notes/Actions</button>
+                </div>
+      
+                <div className="submit-wrap">
+                  <button onClick={ this.handleSubmit }>Submit Entry</button>
+                </div>
+              </div>
             </div>
           </div>
-        </div>
-      </div>
+        }
+      </>
     );
   }
 }

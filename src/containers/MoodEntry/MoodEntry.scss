@@ -1,11 +1,12 @@
 @import '../../../sass/config';
+@import '../Header-Unused/Header';
 
 .component-mood-entry {
   width: 100%;
   height: 100%;
   margin: auto;
   font-family: $primary-font, $font-type;
-  overflow-y: scroll;
+  // overflow-y: scroll;
 
   .select-emotion {
     display: flex;

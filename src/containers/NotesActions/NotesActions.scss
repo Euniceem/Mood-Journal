@@ -1,0 +1,30 @@
+@import '../../../sass/config';
+
+/*
+<div className="notes-actions">
+        <div className="actions-wrap">
+          <div className="title">Select a few actions:</div>
+          <div className="actions">
+            <div className="action">Work</div>
+*/
+
+.notes-actions {
+  background-color: $background-color-2;
+  font-family: $primary-font, $font-type;
+  color: $font-color-black;
+  width: 100%;
+  height: 25%;
+
+  .actions-wrap {
+    .title {
+
+    }
+
+    .actions {
+
+      .action {
+
+      }
+    }
+  }
+}
