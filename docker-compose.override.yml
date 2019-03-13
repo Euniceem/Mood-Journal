@@ -13,7 +13,7 @@ services:
       ENVIRONMENT: production
       NODE_ENV: production
     ports:
-      - "${APP_HOST_PORT}:${APP_CONTAINER_PORT}"
+      - "${EXPRESS_HOST_PORT}:${EXPRESS_CONTAINER_PORT}"
     networks:
       - my-app-network
   postgres-primary-db:

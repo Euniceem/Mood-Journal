@@ -4,7 +4,7 @@ const bodyParser = require('body-parser');
 const redis = require('connect-redis')(session);
 const app = express();
 
-const PORT = process.env.APP_HOST_PORT;
+const PORT = process.env.EXPRESS_HOST_PORT;
 const SESSION_SECRET = process.env.SESSION_SECRET;
 
 app.use(session({
