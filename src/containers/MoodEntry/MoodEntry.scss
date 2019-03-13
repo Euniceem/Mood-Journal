@@ -151,7 +151,7 @@
           transition: all 150ms ease-out;
           outline: none;
 
-          &:hover, &:after { border: 0.05rem solid $border-hover-1; color: $font-hover-1; }
+          &:hover, &:active { border: 0.05rem solid $border-hover-1; color: $font-hover-1; }
         }
       }
   
@@ -166,7 +166,7 @@
           transition: all 150ms ease-out;
           outline: none;
 
-          &:hover, &:after { background-color: $background-hover-1; }
+          &:hover, &:active { background-color: $background-hover-1; }
         }
       }
     }

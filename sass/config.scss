@@ -12,6 +12,7 @@ $font-color-white: white;
 $font-color-black: rgb(42, 133, 118);
 $font-color-1: rgb(14, 142, 121);
 $font-hover-1: rgb(4, 110, 93);
+$font-active-1: rgb(172, 255, 241);
 
 $background-color-white: white;
 $background-color-1: rgb(14, 142, 121);
@@ -27,5 +28,9 @@ $slider-hover-1: rgb(4, 110, 93);
 $border-color-1: rgb(14, 142, 121);
 $border-hover-1: rgb(4, 110, 93);
 
-$padding-standard: 2rem;
+$shadow-color-1: rgba(52, 167, 147, 0.6);
+
+$component-drop-shadow: 0px 0.3rem 0;
+
+$pad-standard: 1rem;
 $margin-standard: 1.6rem;
