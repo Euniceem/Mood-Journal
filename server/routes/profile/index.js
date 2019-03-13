@@ -2,10 +2,11 @@ const express = require('express');
 const router = express.Router();
 const bcrypt = require('bcryptjs');
 const User = require('../../../database/models/User');
+const isAuthenticated = require('../isAuth');
 
 const saltRounds = 12;
 
-router.put('/profile/password', (req, res) => {
+router.put('/profile/password', isAuthenticated, (req, res) => {
   const id = req.user.id;
   const { oldPassword, newPassword } = req.body;
 
