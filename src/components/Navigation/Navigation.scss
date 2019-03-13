@@ -1,11 +1,15 @@
 
 .navigation-container{
  display: flex;
- flex: 1;
+//  flex: 1;
  justify-content: center;
  height: 35px;
  width: 100%;
  border: 1px solid black;
+ position: fixed;
+ bottom: 0;
+ left: 0;
+ background-color: white;
 
  div{
    width: 33.33%;

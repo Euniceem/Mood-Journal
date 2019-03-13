@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import './Data.scss';
+import Header from '../../components/Header';
 
 class Data extends Component {
   constructor(props) {
@@ -9,6 +10,7 @@ class Data extends Component {
   render() {
     return (
       <div className="data-container">
+        <Header />
         <h1 className="title">Data</h1>
       </div>
     )
