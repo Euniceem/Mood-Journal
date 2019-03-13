@@ -46,8 +46,13 @@
         padding-right: 1%;
         flex-basis: 29%;
 
+        .name {
+          width: 75%;
+          text-align: left;
+        }
+        
         .fa-icon {
-          margin-left: $margin-standard / 2;
+          width: 20%
         }
 
         &:hover, &:active {
