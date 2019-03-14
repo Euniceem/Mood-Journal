@@ -22,7 +22,7 @@ class NotesActions extends Component {
   render() {
     return (
       <div className="notes-actions">
-        <div className="title">Select a few actions:</div>
+        <div className="title">Select a few actions</div>
 
         <div className="actions-wrap">
           <div className="actions">
@@ -55,6 +55,11 @@ class NotesActions extends Component {
               <FontAwesomeIcon onClick={ this.removeAction } className="fa-icon" icon="times" />
             </div>
           </div>
+        </div>
+
+        <div className="notes-wrap">
+          <div className="title">Notes</div>
+          <textarea placeholder="Tell us more about yourself." name="" id="" cols="30" rows="10"></textarea>
         </div>
       </div>
     );
