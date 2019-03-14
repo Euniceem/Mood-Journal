@@ -1,7 +1,7 @@
 exports.up = function(knex, Promise) {
   return knex.schema.alterTable('emotions', table => {
     table
-      .boolean('is_deleted')
+      .boolean('is_displayed')
       .notNullable()
       .defaultTo(false);
   });
@@ -9,6 +9,6 @@ exports.up = function(knex, Promise) {
 
 exports.down = function(knex, Promise) {
   return knex.schema.alterTable('emotions', table => {
-    table.dropColumn('is_deleted');
+    table.dropColumn('is_displayed');
   });
 };
