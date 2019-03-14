@@ -3,21 +3,22 @@ export const LOAD_ENTRIES = 'LOAD ENTIRES';
 
 /** Action Creators*/
 export const loadEntries = () => {
-  return (dispatch) => {
-    return fetch(`/api/entries/`, {
-    })
-      .then((response) => {
+  return dispatch => {
+    return fetch(`/api/entries/`, {})
+      .then(response => {
         if (!response.ok) {
           throw Error(response.statusText);
         }
         return response.json();
       })
-      .then((entry) => {
-        console.log(entry)
+      .then(entries => {
         return dispatch({
           type: LOAD_ENTRIES,
-          payload: entry
+          payload: entries
         });
+      })
+      .catch(err => {
+        console.log(err);
       });
-  }
-}
+  };
+};
