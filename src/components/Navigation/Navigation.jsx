@@ -16,8 +16,8 @@ const Navigation = (props) => {
         <Link to="/feed" className="link"> FEED </Link>
       </div>
 
-      <div className="calender">
-        <Link to="/calender" className="link"> CALENDER </Link>
+      <div className="calendar">
+        <Link to="/calendar" className="link"> CALENDAR </Link>
       </div>
 
     </div>
