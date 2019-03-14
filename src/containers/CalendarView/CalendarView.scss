@@ -1,0 +1,108 @@
+$border-color: #E7E7E7;
+$background-color: rgb(14, 142, 121);
+$weekend-color: #B96E41;
+$primary-color: #3E3C3B;
+
+.calender-container{
+  width: 100%;
+
+.title{
+  text-align: center;
+  margin-top: 0;
+}
+
+.react-calendar {
+  margin: auto;
+  border: 0.019px solid $border-color;
+  color: $primary-color;
+  margin-bottom: 15px;
+
+  .react-calendar__navigation {
+    background-color: $background-color;
+    height: 50px;
+
+    button{
+      font-size: 18px;
+    }
+
+    .react-calendar__navigation__prev2-button, .react-calendar__navigation__next2-button{
+      display: none;
+    }
+
+    .react-calendar__navigation__prev-button, .react-calendar__navigation__next-button{
+      color: white;
+    }
+
+    .react-calendar__navigation__label {
+      color: white;
+    }
+  }
+
+  .react-calendar__month-view{
+
+    .react-calendar__month-view__weekdays{
+      text-align: center;
+      text-transform: uppercase;
+      font-weight: bold;
+      font-size: 0.75em;
+
+      abbr{
+        text-decoration: none !important;
+      }
+    }
+
+    .react-calendar__month-view__days{
+      border: 0.019px solid $border-color;
+
+      abbr{
+        position: relative;
+        bottom: 10px;
+        left:2.5px;
+        font-size: 12px;
+        line-height: 30px;
+        
+      }
+    }
+
+    .react-calendar__month-view__days__day--weekend {
+      color: $weekend-color;
+  }
+
+    .react-calendar__tile{
+      padding: 1em 0.30em;
+      border: 0.019px solid $border-color;
+      text-align: left;
+      background-color: white;
+
+    }
+
+    .react-calendar__tile--active {
+      color: white;
+      background: $background-color;
+
+      // abbr {
+      //   border-radius: 49%; 
+      //   // width: 20px;
+      //   padding: 5px;
+      //   background: $background-color;
+      //   // border: 2px solid $background-color;
+      // }
+  }
+
+    .react-calendar__month-view__days__day--neighboringMonth {
+      color: #A4A4A4;
+  }
+  }
+}
+
+.calendar-day-entry-container{
+  border: 1px solid $background-color;
+  width: 90%;
+  height: 100px;
+  margin: auto;
+
+  .day-entry-title{
+    text-align: center;
+  }
+}
+}
