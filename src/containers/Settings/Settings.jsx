@@ -24,9 +24,15 @@ class Settings extends Component {
         <div className="user-profile-edit-container">
           <h2 className="user-title">Edit Profile</h2>
           <form className="user-form">
-            <label className="email-label">Email:</label>
-            <input type="text" className="email-input" placeholder={this.state.email} />
-            <button className="edit-user-btn">EDIT</button>
+            <div className="email-container">
+              <label className="email-label">Email:</label>
+              <input type="text" className="email-input" placeholder={this.state.email} />
+            </div>
+            <div className="password-container">
+              <label className="password-label">Password: </label>
+              <input type="text" className="password-input" />
+              <button className="edit-user-btn">EDIT</button>
+            </div>
           </form>
         </div>
 
