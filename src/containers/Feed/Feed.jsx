@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
-import './Feed.scss';
+import { connect } from 'react-redux';
 import Header from '../../components/Header';
+import { loadEntries } from '../../actions';
+import './Feed.scss';
 
 class Feed extends Component {
   constructor(props) {
@@ -17,8 +19,12 @@ class Feed extends Component {
     }
   }
 
-  render() {
+  componentDidMount() {
+    this.props.loadEntries()
+  }
 
+  render() {
+    console.log(this.props)
     return (
       <div className="feed-container">
         <Header />
@@ -144,5 +150,25 @@ class Feed extends Component {
     )
   }
 }
+
+const mapStateToProps = (state) => {
+  return {
+    entries: state.entries,
+  }
+}
+
+const mapDispatchToProps = (dispatch) => {
+  return {
+    loadEntries: () => {
+      const actionObject = loadEntries()
+      return dispatch(actionObject);
+    }
+  }
+}
+
+Feed = connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(Feed);
 
 export default Feed;
