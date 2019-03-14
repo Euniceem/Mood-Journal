@@ -22,7 +22,7 @@ class NotesActions extends Component {
   render() {
     return (
       <div className="notes-actions">
-        <div className="title">Select a few actions</div>
+        <div className="title-wrap"><span className="title">Select a few actions</span></div>
 
         <div className="actions-wrap">
           <div className="actions">
@@ -58,8 +58,22 @@ class NotesActions extends Component {
         </div>
 
         <div className="notes-wrap">
-          <div className="title">Notes</div>
-          <textarea placeholder="Tell us more about yourself." name="" id="" cols="30" rows="10"></textarea>
+          <div className="notes">
+            <div className="title">Notes</div>
+            <textarea placeholder="Tell us more about yourself." name="" id="" cols="30" rows="10"></textarea>
+          </div>
+        </div>
+
+        <div className="buttons-wrap">
+          <div className="buttons">
+            <div className="close">
+              <button onClick={ this.props.openNotesAndActions }>Close</button>
+            </div>
+  
+            <div className="submit-all">
+              <button onClick={ this.handleSubmit }>Submit Entry</button>
+            </div>
+          </div>
         </div>
       </div>
     );

@@ -16,7 +16,7 @@ class MoodEntry extends Component {
     // To prevent the refs from being the same, we need to append the key or id of each mood slider to the ref name.
 
     this.state = {
-      isNotesOpen: false,
+      isNotesOpen: true,
       // initial slider values
       happiness : 3,
       stress : 3,
@@ -41,7 +41,7 @@ class MoodEntry extends Component {
   }
 
   openNotesAndActions = () => {
-    console.log(`Adding notes and/or actions!`);
+    console.log(`User toggled entry details page!`);
 
     this.setState({ isNotesOpen : !this.state.isNotesOpen });
   }
@@ -69,7 +69,7 @@ class MoodEntry extends Component {
         </div>
 
         { this.state.isNotesOpen ? 
-          <NotesActions isNotesOpen={ this.state.isNotesOpen } handleSubmit={ this.handleSubmit } />
+          <NotesActions openNotesAndActions={ this.openNotesAndActions } isNotesOpen={ this.state.isNotesOpen } handleSubmit={ this.handleSubmit } />
           :
           <div className="component-mood-entry">
             <div className="select-emotion">

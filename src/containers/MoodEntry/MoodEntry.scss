@@ -4,7 +4,8 @@
 .component-mood-entry {
   width: 100%;
   height: fit-content;
-  margin: auto;
+  margin-top: $margin-standard;
+  margin-bottom: $margin-standard;
   font-family: $primary-font, $font-type;
 
   .select-emotion {
