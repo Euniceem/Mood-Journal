@@ -12,6 +12,10 @@ class Entry_Activity extends bookshelf.Model {
     return true;
   }
 
+  get hidden() {
+    return ['id', 'entry_id', 'created_at', 'updated_at'];
+  }
+
   entry() {
     return this.belongsTo('Entry');
   }

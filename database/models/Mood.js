@@ -10,6 +10,10 @@ class Mood extends bookshelf.Model {
     return true;
   }
 
+  get hidden() {
+    return ['id', 'created_at', 'updated_at'];
+  }
+
   entries() {
     return this.hasMany('Entry');
   }

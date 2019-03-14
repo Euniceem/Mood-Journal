@@ -11,6 +11,10 @@ class Custom_Activity extends bookshelf.Model {
     return true;
   }
 
+  get hidden() {
+    return ['id', 'created_at', 'updated_at'];
+  }
+
   user() {
     return this.belongsTo('User');
   }

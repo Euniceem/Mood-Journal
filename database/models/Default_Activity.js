@@ -10,6 +10,10 @@ class Default_Activity extends bookshelf.Model {
     return true;
   }
 
+  get hidden() {
+    return ['id', 'created_at', 'updated_at'];
+  }
+
   entry_activities() {
     return this.hasMany('Entry_Activity');
   }

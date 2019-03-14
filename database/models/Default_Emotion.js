@@ -10,6 +10,10 @@ class Default_Emotion extends bookshelf.Model {
     return true;
   }
 
+  get hidden() {
+    return ['id', 'created_at', 'updated_at'];
+  }
+
   entry_emotions() {
     return this.hasMany('Entry_Emotion');
   }
