@@ -1,6 +1,7 @@
 const bookshelf = require('./bookshelf');
 require('./Entry');
-require('./Activity');
+require('./Default_Activity');
+require('./Custom_Activity');
 
 class Entry_Activity extends bookshelf.Model {
   get tableName() {
@@ -11,12 +12,20 @@ class Entry_Activity extends bookshelf.Model {
     return true;
   }
 
+  get hidden() {
+    return ['id', 'entry_id', 'created_at', 'updated_at'];
+  }
+
   entry() {
     return this.belongsTo('Entry');
   }
 
-  activity() {
-    return this.belongsTo('Activity');
+  default_activity() {
+    return this.belongsTo('Default_Activity');
+  }
+
+  custom_activity() {
+    return this.belongsTo('Custom_Activity');
   }
 }
 
