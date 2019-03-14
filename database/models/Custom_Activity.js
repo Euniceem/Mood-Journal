@@ -12,7 +12,7 @@ class Custom_Activity extends bookshelf.Model {
   }
 
   get hidden() {
-    return ['id', 'created_at', 'updated_at'];
+    return ['is_deleted', 'created_at', 'updated_at'];
   }
 
   user() {
