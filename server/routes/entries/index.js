@@ -31,8 +31,6 @@ router.get('/entries/time', isAuthenticated, (req, res) => {
   const start = req.body.start;
   const end = req.body.end;
 
-  console.log(start, end);
-
   Entry.query(qb => {
     qb.where('user_id', user_id)
       .andWhere('created_at', '>', start)
