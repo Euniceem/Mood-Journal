@@ -26,14 +26,19 @@ router.get('/entries', isAuthenticated, (req, res) => {
     });
 });
 
-router.get('/entries/:id', isAuthenticated, (req, res) => {
+router.get('/entries/time', isAuthenticated, (req, res) => {
   const user_id = req.user.id;
-  const entry_id = req.params.id;
+  const start = req.body.start;
+  const end = req.body.end;
+
+  console.log(start, end);
 
   Entry.query(qb => {
-    qb.where('id', entry_id).andWhere('user_id', user_id);
+    qb.where('user_id', user_id)
+      .andWhere('created_at', '>', start)
+      .andWhere('created_at', '<', end);
   })
-    .fetch({
+    .fetchAll({
       withRelated: [
         'mood',
         'entryActivities.default_activity',
@@ -42,13 +47,13 @@ router.get('/entries/:id', isAuthenticated, (req, res) => {
         'entryEmotions.custom_emotion'
       ]
     })
-    .then(entry => {
-      if (!entry) {
+    .then(entries => {
+      if (!entries) {
         res.status(404);
         return res.end('entry not found');
       }
 
-      res.json(entry);
+      res.json(entries);
     })
     .catch(err => {
       res.status(500);
