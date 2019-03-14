@@ -111,6 +111,30 @@
 
       &:last-child { margin-bottom: $margin-standard * 2; }
     }
+
+    .edit-sliders {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      margin-top: $margin-standard / 2;
+      margin-bottom: $margin-standard;
+      width: 100%;
+
+      .button-wrap {
+        display: flex;
+        justify-content: flex-end;
+        align-items: center;
+        width: 80%;
+
+        button {
+          font-family: $primary-font, $font-type;
+          font-size: 0.9rem;
+          background-color: $background-color-white;
+          padding: $pad-standard / 2;
+          border: none;
+        }
+      }
+    }
   }
 
   .buttons {
