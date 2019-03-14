@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { Link } from 'react-router-dom';
 import './Header.scss';
 
 class Header extends Component {
@@ -9,25 +10,13 @@ class Header extends Component {
       showMenu: false
     }
 
-    this.dropMenu = this.dropMenu.bind(this)
-    this.closeMenu = this.closeMenu.bind(this);
+    this.handleMenu = this.handleMenu.bind(this);
   }
 
-  dropMenu(e) {
-    e.preventDefault();
-
-    this.setState({ showMenu: true }, () => {
-      document.addEventListener('click', this.closeMenu);
-    });
-  }
-
-  closeMenu(e) {
-    if (!this.dropdownMenu.contains(e.target)) {
-
-      this.setState({ showMenu: false }, () => {
-        document.removeEventListener('click', this.closeMenu);
-      });
-    }
+  handleMenu() {
+    this.setState({
+      showMenu: !this.state.showMenu
+    })
   }
 
   render() {
@@ -35,7 +24,7 @@ class Header extends Component {
     return (
       <div className="header-container">
         <div className="nav-menu-container">
-          <div className="menu-icon" onClick={this.dropMenu}>
+          <div className="menu-icon" onClick={this.handleMenu}>
             <div className="line"></div>
             <div className="line"></div>
             <div className="line"></div>
@@ -44,11 +33,11 @@ class Header extends Component {
           {
             this.state.showMenu
               ? (
-                <div className="menu" ref={(element) => {
-                  this.dropdownMenu = element;
-                }}>
-                  <div className="link">Home</div>
-                  <div className="link">Settings</div>
+                <div className="menu"
+                >
+                  <Link to="/feed" className="link">Home</Link>
+                  <Link to="/settings" className="link">Settings</Link>
+                  <Link to="/login" className="link">Login</Link>
                   <div className="link">Logout</div>
                 </div>
               )
