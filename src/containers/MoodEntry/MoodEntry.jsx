@@ -4,6 +4,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faArrowLeft } from '@fortawesome/free-solid-svg-icons';
 import './MoodEntry.scss';
 
+import EditSliders from '../EditSliders';
 import NotesActions from '../NotesActions';
 
 library.add(faArrowLeft);
@@ -16,7 +17,8 @@ class MoodEntry extends Component {
     // To prevent the refs from being the same, we need to append the key or id of each mood slider to the ref name.
 
     this.state = {
-      isNotesOpen: false,
+      isEditSlidersOpen : false,
+      isNotesOpen : false,
       // initial slider values
       happiness : 3,
       stress : 3,
@@ -38,6 +40,12 @@ class MoodEntry extends Component {
     const field = e.target.dataset.field;
 
     this.setState({ [field] : value });
+  }
+
+  openEditSliders = () => {
+    console.log(`User wants to edit their sliders!`);
+
+    this.setState({ isEditSlidersOpen : !this.state.isEditSlidersOpen });
   }
 
   openNotesAndActions = () => {
@@ -63,12 +71,25 @@ class MoodEntry extends Component {
         <div className="header">
           <div className="title-wrap">
             {/* possible switch to React router in the future. pass in Header component with dynamic information on its props. For example, pass in the function that decides what to do when you click the "back" button on props and call it in the header component in an onClick. */}
-            <FontAwesomeIcon onClick={ this.state.isNotesOpen ? this.openNotesAndActions : null } className="fa-icon" icon="arrow-left" />
-            <span className="title">{ this.state.isNotesOpen ? 'Notes & Actions' : 'Add an Entry' }</span>
+            <FontAwesomeIcon 
+              onClick={ 
+                this.state.isEditSlidersOpen ? this.openEditSliders
+                : this.state.isNotesOpen ? this.openNotesAndActions 
+                : null } 
+              className="fa-icon" 
+              icon="arrow-left" 
+            />
+            <span className="title">{ 
+                this.state.isEditSlidersOpen ? 'Edit Sliders'
+                : this.state.isNotesOpen ? 'Notes & Actions'
+                : 'Add an Entry' }
+            </span>
           </div>
         </div>
 
-        { this.state.isNotesOpen ? 
+        { this.state.isEditSlidersOpen ?
+          <EditSliders />
+          : this.state.isNotesOpen ? 
           <NotesActions openNotesAndActions={ this.openNotesAndActions } isNotesOpen={ this.state.isNotesOpen } handleSubmit={ this.handleSubmit } />
           :
           <div className="component-mood-entry">
@@ -137,7 +158,7 @@ class MoodEntry extends Component {
 
               <div className="edit-sliders">
                 <div className="button-wrap">
-                  <button>Edit Sliders</button>
+                  <button onClick={ this.openEditSliders }>Edit Sliders</button>
                 </div>
               </div>
             </div>
