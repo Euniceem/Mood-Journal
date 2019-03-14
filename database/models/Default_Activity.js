@@ -1,9 +1,9 @@
 const bookshelf = require('./bookshelf');
 require('./Entry_Activity');
 
-class Activity extends bookshelf.Model {
+class Default_Activity extends bookshelf.Model {
   get tableName() {
-    return 'activities';
+    return 'default_activities';
   }
 
   get hasTimestamps() {
@@ -15,4 +15,4 @@ class Activity extends bookshelf.Model {
   }
 }
 
-module.exports = bookshelf.model('Activity', Activity);
+module.exports = bookshelf.model('Default_Activity', Default_Activity);

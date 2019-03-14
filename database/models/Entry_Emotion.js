@@ -1,6 +1,7 @@
 const bookshelf = require('./bookshelf');
 require('./Entry');
-require('./Emotion');
+require('./Default_Emotion');
+require('./Custom_Emotion');
 
 class Entry_Emotion extends bookshelf.Model {
   get tableName() {
@@ -15,8 +16,12 @@ class Entry_Emotion extends bookshelf.Model {
     return this.belongsTo('Entry');
   }
 
-  emotion() {
-    return this.belongsTo('Emotion');
+  default_emotion() {
+    return this.belongsTo('Default_Emotion');
+  }
+
+  custom_emotion() {
+    return this.belongsTo('Custom_Emotion');
   }
 }
 

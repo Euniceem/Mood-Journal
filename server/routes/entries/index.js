@@ -75,8 +75,8 @@ router.post('/entries', isAuthenticated, (req, res) => {
   const { mood_id, notes, emotions, activities } = req.body;
   const entry = { user_id, mood_id, notes };
 
-  Entry.forge()
-    .save(entry, { method: 'insert' })
+  Entry.forge(entry)
+    .save(null, { method: 'insert' })
     .then(newEntry => {
       const entry_id = newEntry.id;
 

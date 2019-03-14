@@ -26,9 +26,7 @@ router.post('/register', (req, res) => {
         password: hash
       })
         .save()
-        .then(() => {
-          return res.json({ success: true });
-        })
+        .then(() => res.json({ success: true }))
         .catch(err => {
           res.status(500);
           return res.json(err);

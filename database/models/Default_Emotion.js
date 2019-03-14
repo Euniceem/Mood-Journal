@@ -1,9 +1,9 @@
 const bookshelf = require('./bookshelf');
 require('./Entry_Emotion');
 
-class Emotion extends bookshelf.Model {
+class Default_Emotion extends bookshelf.Model {
   get tableName() {
-    return 'emotions';
+    return 'default_emotions';
   }
 
   get hasTimestamps() {
@@ -15,4 +15,4 @@ class Emotion extends bookshelf.Model {
   }
 }
 
-module.exports = bookshelf.model('Emotion', Emotion);
+module.exports = bookshelf.model('Default_Emotion', Default_Emotion);
