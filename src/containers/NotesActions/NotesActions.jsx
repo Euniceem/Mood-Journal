@@ -22,7 +22,7 @@ class NotesActions extends Component {
   render() {
     return (
       <div className="notes-actions">
-        <div className="title-wrap"><span className="title">Select a few actions</span></div>
+        <div className="title-wrap"><span className="title">Select a few activities...</span></div>
 
         <div className="actions-wrap">
           <div className="actions">

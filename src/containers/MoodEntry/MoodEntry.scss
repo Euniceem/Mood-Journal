@@ -4,8 +4,7 @@
 .component-mood-entry {
   width: 100%;
   height: fit-content;
-  margin-top: $margin-standard;
-  margin-bottom: $margin-standard;
+  margin-bottom: $margin-standard / 2;
   font-family: $primary-font, $font-type;
 
   .select-emotion {
@@ -163,8 +162,10 @@
         button {
           background-color: $background-color-1;
           color: $font-color-white;
+          font-weight: bold;
           transition: all 150ms ease-out;
           outline: none;
+          width: 100%;
 
           &:hover, &:active { background-color: $background-hover-1; }
         }

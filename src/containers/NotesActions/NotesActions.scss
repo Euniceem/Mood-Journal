@@ -7,11 +7,15 @@
   height: fit-content;
 
   .title-wrap {
+    display: flex;
+    justify-content: center;
+    align-items: center;
     margin-top: $margin-standard / 2;
     margin-bottom: $margin-standard / 2;
     width: 100%;
 
     .title {
+      display: block;
       font-size: 1.1rem;
       font-weight: bold;
       text-align: left;
@@ -32,7 +36,8 @@
       flex-wrap: wrap;
       background-color: $background-color-2;
       border-radius: $radius-minimal;
-      box-shadow: $component-drop-shadow $shadow-color-1;
+      // box-shadow: $component-drop-shadow $shadow-color-1;
+      box-shadow: $component-light-shadow $shadow-color-2;
       width: 95%;
       height: fit-content;
 
@@ -85,7 +90,8 @@
       align-items: center;
       background-color: $background-color-2;
       border-radius: $radius-minimal;
-      box-shadow: $component-drop-shadow $shadow-color-1;
+      // box-shadow: $component-drop-shadow $shadow-color-1;
+      box-shadow: $component-light-shadow $shadow-color-2;
       margin-top: $margin-standard * 2;
       width: 85%;
       min-height: 16rem;
@@ -121,6 +127,7 @@
     display: flex;
     justify-content: center;
     margin-top: $margin-standard * 2;
+    margin-bottom: $margin-standard;
     width: 100%;
 
     .buttons {
@@ -157,9 +164,11 @@
           transition: all 150ms ease-out;
           // box-shadow: $component-drop-shadow $background-hover-1;
           border-radius: $radius-minimal;
-          padding: $pad-standard / 2 $pad-standard * 2 $pad-standard / 2 $pad-standard * 2;
+          padding-top: $pad-standard / 2;
+          padding-bottom: $pad-standard / 2;
           outline: none;
           border: none;
+          width: 100%;
 
           &:hover, &:active {
             background-color: $background-hover-1;
