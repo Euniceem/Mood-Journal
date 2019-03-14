@@ -5,7 +5,7 @@ import './App.scss';
 import Navigation from '../../components/Navigation';
 import Feed from '../../containers/Feed';
 import Data from '../../containers/Data';
-import Calender from '../../containers/Calender';
+import CalendarView from '../../containers/CalendarView';
 
 class App extends Component {
   render() {
@@ -16,7 +16,7 @@ class App extends Component {
             <Switch>
               <Route exact={true} path='/feed' component={Feed} />
               <Route exact={true} path='/data' component={Data} />
-              <Route exact={true} path='/calender' component={Calender} />
+              <Route exact={true} path='/calender' component={CalendarView} />
             </Switch>
             <Navigation />
           </>
