@@ -11,7 +11,13 @@ router.get('/entries', isAuthenticated, (req, res) => {
   Entry.where('user_id', user_id)
     .orderBy('created_at', 'DESC')
     .fetchAll({
-      withRelated: ['mood', 'entryActivities.activity', 'entryEmotions.emotion']
+      withRelated: [
+        'mood',
+        'entryActivities.default_activity',
+        'entryActivities.custom_activity',
+        'entryEmotions.default_emotion',
+        'entryEmotions.custom_emotion'
+      ]
     })
     .then(entries => res.json(entries))
     .catch(err => {
@@ -28,7 +34,13 @@ router.get('/entries/:id', isAuthenticated, (req, res) => {
     qb.where('id', entry_id).andWhere('user_id', user_id);
   })
     .fetch({
-      withRelated: ['mood', 'entryActivities.activity', 'entryEmotions.emotion']
+      withRelated: [
+        'mood',
+        'entryActivities.default_activity',
+        'entryActivities.custom_activity',
+        'entryEmotions.default_emotion',
+        'entryEmotions.custom_emotion'
+      ]
     })
     .then(entry => {
       if (!entry) {
@@ -52,17 +64,15 @@ router.put('/entries/:id', isAuthenticated, (req, res) => {
   Entry.query(qb => {
     qb.where('id', entry_id).andWhere('user_id', user_id);
   })
-    .fetch({
-      withRelated: ['mood', 'entryActivities.activity', 'entryEmotions.emotion']
-    })
+    .fetch()
     .then(entry => {
       if (!entry) {
-        res.status(400);
+        res.status(404);
         return res.end('entry not found');
       }
 
       entry.save({ notes }, { patch: true });
-      return res.json({ success: true });
+      return res.end('successfully edited item');
     })
     .catch(err => {
       res.status(500);
@@ -72,7 +82,15 @@ router.put('/entries/:id', isAuthenticated, (req, res) => {
 
 router.post('/entries', isAuthenticated, (req, res) => {
   const user_id = req.user.id;
-  const { mood_id, notes, emotions, activities } = req.body;
+  const {
+    mood_id,
+    notes,
+    default_activities,
+    custom_activities,
+    default_emotions,
+    custom_emotions
+  } = req.body;
+
   const entry = { user_id, mood_id, notes };
 
   Entry.forge(entry)
@@ -80,20 +98,43 @@ router.post('/entries', isAuthenticated, (req, res) => {
     .then(newEntry => {
       const entry_id = newEntry.id;
 
-      activities.forEach(activity_id => {
-        Entry_Activity.forge({
-          entry_id: entry_id,
-          activity_id: activity_id
-        }).save();
-      });
+      if (default_activities) {
+        default_activities.forEach(default_activity_id => {
+          Entry_Activity.forge({
+            entry_id: entry_id,
+            default_activity_id: default_activity_id
+          }).save();
+        });
+      }
 
-      emotions.forEach(entryEmotion => {
-        Entry_Emotion.forge({
-          entry_id: entry_id,
-          emotion_id: entryEmotion.emotion_id,
-          percent: entryEmotion.percent
-        }).save();
-      });
+      if (custom_activities) {
+        custom_activities.forEach(custom_activity_id => {
+          Entry_Activity.forge({
+            entry_id: entry_id,
+            custom_activity_id: custom_activity_id
+          }).save();
+        });
+      }
+
+      if (default_emotions) {
+        default_emotions.forEach(defaultEmotion => {
+          Entry_Emotion.forge({
+            entry_id: entry_id,
+            default_emotion_id: defaultEmotion.default_emotion_id,
+            percent: defaultEmotion.percent
+          }).save();
+        });
+      }
+
+      if (custom_emotions) {
+        custom_emotions.forEach(customEmotion => {
+          Entry_Emotion.forge({
+            entry_id: entry_id,
+            custom_emotion_id: customEmotion.custom_emotion_id,
+            percent: customEmotion.percent
+          }).save();
+        });
+      }
 
       return res.end('successfully created entry');
     })
@@ -103,15 +144,24 @@ router.post('/entries', isAuthenticated, (req, res) => {
     });
 });
 
-router.delete('/api/entries/:id', isAuthenticated, (req, res) => {
+router.delete('/entries/:id', isAuthenticated, (req, res) => {
   const user_id = req.user.id;
   const entry_id = req.params.id;
 
   Entry.query(qb => {
     qb.where('id', entry_id).andWhere('user_id', user_id);
   })
-    .destroy()
-    .then(() => {
+    .fetch()
+    .then(entry => {
+      if (!entry) {
+        res.status(404);
+        return res.end('entry not found');
+      }
+
+      Entry_Activity.where('entry_id', entry_id).destroy();
+      Entry_Emotion.where('entry_id', entry_id).destroy();
+      entry.destroy();
+
       res.end('successfully deleted item');
     })
     .catch(err => {
