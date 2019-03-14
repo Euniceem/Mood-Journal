@@ -1,0 +1,120 @@
+$font-family: 'Montserrat', sans-serif;
+$title-color: #D6C7B1; 
+$border-color: #E7E7E7;
+$font-color: #C0C0C0;
+$button-color: rgb(4, 110, 93);
+
+.settings-container{
+  font-family: $font-family;
+  width: 100%;
+
+  .title-container{
+    text-align: center;
+    color: $title-color;
+    border-bottom: 1px solid $border-color;
+    width: 95%;
+    margin: auto; 
+    font-size: 16px;
+  }
+
+  .user-profile-edit-container{
+    border-bottom: 1px solid $border-color;
+    width: 95%;
+    margin: auto; 
+
+    .user-title{
+      margin-left: 10px;
+      color: $title-color;
+      margin-bottom: 2em;
+    }
+
+    .user-form{
+      margin-left: 10px;
+      color: $font-color;
+      margin-bottom: 2em;
+
+
+      .email-input{
+      font-size: 14px;
+      }
+
+      .edit-user-btn{
+        font-size: 14px;
+        margin-left: 2em;
+        color: $button-color;
+        border: 1px solid $button-color;
+        background-color: white;
+        padding: 5px;
+        border-radius: 8px; 
+      }
+
+      .edit-user-btn:active{
+        background-color: $button-color;
+        color: white;
+      }
+    }
+  }
+
+  .edit-homepage{
+    border-bottom: 1px solid $border-color;
+    margin-bottom: 50px;
+    width: 95%;
+    margin: auto; 
+
+    .homepage-title{
+      margin-left: 10px;
+      color: $title-color;
+      margin-bottom: 2em;
+      margin-top: 1em;
+    }
+
+    .homepage-btn-container{
+      display: flex;
+      margin-bottom: 2em;
+      justify-content: space-evenly;
+
+      button{
+      font-size: 14px;
+      color: $button-color;
+      border: 1px solid $button-color;
+      background-color: white;
+      border-radius: 8px; 
+      padding: 10px;
+      width: 100px;
+      }
+
+      button:active{
+        background-color: $button-color;
+        color: white;
+      }
+
+      button:focus{
+        background-color: $button-color;
+        color: white;
+      }
+    }
+  }
+
+  .done-btn-container{
+    display: flex;
+    justify-content: center;
+    margin-top: 1em;
+
+    .done-btn{
+      font-size: 16px;
+      color: $button-color;
+      border: 1px solid $button-color;
+      background-color: white;
+      padding: 10px;
+      border-radius: 8px; 
+      width: 95%;
+      font-weight: 450;
+    }
+
+    .done-btn:active{
+      background-color: $button-color;
+      color: white;
+    }
+  }
+
+}
