@@ -17,7 +17,7 @@ class MoodEntry extends Component {
     // To prevent the refs from being the same, we need to append the key or id of each mood slider to the ref name.
 
     this.state = {
-      isEditSlidersOpen : false,
+      isEditSlidersOpen : true,
       isNotesOpen : false,
       // initial slider values
       happiness : 3,
@@ -88,7 +88,7 @@ class MoodEntry extends Component {
         </div>
 
         { this.state.isEditSlidersOpen ?
-          <EditSliders />
+          <EditSliders openEditSliders={ this.openEditSliders } isEditSlidersOpen={ this.state.isEditSlidersOpen } />
           : this.state.isNotesOpen ? 
           <NotesActions openNotesAndActions={ this.openNotesAndActions } isNotesOpen={ this.state.isNotesOpen } handleSubmit={ this.handleSubmit } />
           :

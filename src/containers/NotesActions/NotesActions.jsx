@@ -1,10 +1,8 @@
 import React, { Component } from 'react';
-import { library } from '@fortawesome/fontawesome-svg-core';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faTimes } from '@fortawesome/free-solid-svg-icons';
 import './NotesActions.scss';
 
-library.add(faTimes);
+import Tag from '../../components/Tag';
 
 class NotesActions extends Component {
   constructor(props) {
@@ -26,34 +24,15 @@ class NotesActions extends Component {
 
         <div className="actions-wrap">
           <div className="actions">
-            
-            <div className="action"><span className="name">Working</span>
-              <FontAwesomeIcon onClick={ this.removeAction } className="fa-icon" icon="times" />
-            </div>
-            <div className="action"><span className="name">Breakfast</span>
-              <FontAwesomeIcon onClick={ this.removeAction } className="fa-icon" icon="times" />
-            </div>
-            <div className="action"><span className="name">Relaxing</span>
-              <FontAwesomeIcon onClick={ this.removeAction } className="fa-icon" icon="times" />
-            </div>
-            <div className="action"><span className="name">Sports</span>
-              <FontAwesomeIcon onClick={ this.removeAction } className="fa-icon" icon="times" />
-            </div>
-            <div className="action"><span className="name">Gym</span>
-              <FontAwesomeIcon onClick={ this.removeAction } className="fa-icon" icon="times" />
-            </div>
-            <div className="action"><span className="name">Going Out</span>
-              <FontAwesomeIcon onClick={ this.removeAction } className="fa-icon" icon="times" />
-            </div>
-            <div className="action"><span className="name">Sleeping</span>
-              <FontAwesomeIcon onClick={ this.removeAction } className="fa-icon" icon="times" />
-            </div>
-            <div className="action"><span className="name">Family</span>
-              <FontAwesomeIcon onClick={ this.removeAction } className="fa-icon" icon="times" />
-            </div>
-            <div className="action"><span className="name">Friends</span>
-              <FontAwesomeIcon onClick={ this.removeAction } className="fa-icon" icon="times" />
-            </div>
+            <Tag className="action" tagName="Working" removeHandler={ this.removeAction } />
+            <Tag className="action" tagName="Breakfast" removeHandler={ this.removeAction } />
+            <Tag className="action" tagName="Relaxing" removeHandler={ this.removeAction } />
+            <Tag className="action" tagName="Sports" removeHandler={ this.removeAction } />
+            <Tag className="action" tagName="Gym" removeHandler={ this.removeAction } />
+            <Tag className="action" tagName="Going Out" removeHandler={ this.removeAction } />
+            <Tag className="action" tagName="Sleeping" removeHandler={ this.removeAction } />
+            <Tag className="action" tagName="Family" removeHandler={ this.removeAction } />
+            <Tag className="action" tagName="Friends" removeHandler={ this.removeAction } />
           </div>
         </div>
 

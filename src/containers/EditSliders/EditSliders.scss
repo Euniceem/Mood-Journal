@@ -1,4 +1,142 @@
 @import '../../../sass/config';
 @import '../Header-Unused/Header';
 
+.edit-sliders {
+  font-family: $primary-font, $font-type;
+  color: $font-color-black;
+  height: 100%;
 
+  .presets {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-top: $margin-standard / 2;
+    margin-bottom: $margin-standard / 2;
+    height: 100%;
+
+    .title {
+      font-family: $primary-font, $font-type;
+      font-weight: 600;
+      font-size: 1.3rem;
+      color: $font-color-1;
+      margin-bottom: $margin-standard;
+      width: 90%;
+    }
+
+    .current-wrap {
+      // width: 90%;
+      // height: 20%;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      width: 90%;
+      height: 25%;
+
+      .title {
+        font-size: 1rem;
+        color: $font-color-1;
+        margin-bottom: $margin-standard / 2;
+        width: 100%;
+      }
+      
+      .current-presets {
+        display: flex;
+        flex-direction: row;
+        flex-wrap: wrap;
+        background-color: $background-color-2;
+        box-shadow: $component-light-shadow $shadow-color-2;
+        border-radius: $radius-minimal;
+        width: 100%;
+        height: 80%;
+
+        .preset {
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          transition: all 50ms ease-in;
+          border-radius: 3rem;
+          margin-top: $margin-standard / 2;
+          padding-top: 0.35rem;
+          padding-bottom: 0.35rem;
+          margin-left: 1%;
+          margin-right: 1%;
+          padding-left: 1%;
+          padding-right: 1%;
+          flex-basis: 45%;
+          height: 20%;
+
+          &:last-child { margin-bottom: $margin-standard / 2; }
+
+          .name {
+            width: 75%;
+            text-align: center;
+          }
+
+          .fa-icon {
+            width: 20%;
+          }
+
+          &:hover, &:active {
+            background-color: $background-hover-2;
+            color: $font-active-1;
+          }
+        }
+      }
+    }
+
+    .add-presets-wrap {
+      width: 90%;
+
+      .title {
+        font-size: 1rem;
+        color: $font-color-1;
+        margin-top: $margin-standard / 2;
+        margin-bottom: $margin-standard / 2;
+        width: 100%;
+      }
+
+      .add-presets {
+        .preset {
+          font-family: $primary-font, $font-type;
+        }
+      }
+
+      .custom-wrap {
+        margin-top: $margin-standard / 2;
+
+        .text {
+          font-family: $primary-font, $font-type;
+          font-weight: bold;
+          color: $font-color-1;
+          padding: 0 $pad-standard 0 $pad-standard;
+        }
+
+        .button {
+          font-family: $primary-font, $font-type;
+          font-weight: bold;
+          color: $font-color-1;
+          border: none;
+          border-left: 0.05rem solid $border-color-1;
+          padding: 0 $pad-standard 0 $pad-standard;
+          margin-left: $margin-standard;
+        }
+      }
+    }
+
+    .buttons-wrap {
+      .buttons {
+        .close {
+          button {
+
+          }
+        }
+
+        .done {
+          button {
+
+          }
+        }
+      }
+    }
+  }
+}
