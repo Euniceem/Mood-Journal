@@ -22,6 +22,7 @@ const PrivateRoute = ({ component: Component, isAuth, ...rest }) => {
             <Redirect
               to={{
                 pathname: "/login",
+                state: { from: props.location }
               }}
             />
           )
@@ -33,7 +34,7 @@ const PrivateRoute = ({ component: Component, isAuth, ...rest }) => {
 class App extends Component {
 
   render() {
-    let isAuthenticated = this.props.email ? this.props.loggedIn === true : null
+    let isAuthenticated = this.props.email ? this.props.isLoggedIn : null
 
     return (
       <div className="App">
