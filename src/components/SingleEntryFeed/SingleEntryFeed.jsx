@@ -18,6 +18,24 @@ const SingleEntryFeed = (props) => {
     )
   });
 
+  // const moodColor = () => {
+  //   if (props.entryData.mood.name === 'Amazing') {
+  //     return "amazing"
+  //   }
+  //   if (props.entryData.mood.name === 'Good') {
+  //     return "good"
+  //   }
+  //   if (props.entryData.mood.name === 'Average') {
+  //     return "average"
+  //   }
+  //   if (props.entryData.mood.name === 'Bad') {
+  //     return "bad"
+  //   }
+  //   if (props.entryData.mood.name === 'Awful') {
+  //     return "awful"
+  //   }
+  // }
+
   return (
     <div className="entry-container">
 
