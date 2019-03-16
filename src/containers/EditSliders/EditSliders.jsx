@@ -15,6 +15,8 @@ class EditSliders extends Component {
 
   updateSliders = () => {
     // call an action to update the database with the new sliders. update the state in MoodEntry.jsx and cause the page to re-render with the updated sliders.
+
+    console.log(`User wants to update sliders!`);
   }
 
   render() {
@@ -45,13 +47,13 @@ class EditSliders extends Component {
               <Tag className="preset" tagName="Boredom" removeHandler={ this.removePreset } />
               <Tag className="preset" tagName="Tension" removeHandler={ this.removePreset } />
             </div>
-
-            {/* the custom feature is pretty much like POSTing a new kanban card to the database */}
-            <div className="custom-wrap">
-              <span className="text">Custom</span>
-              <span className="button">+</span>
-            </div>
           </div>
+        </div>
+
+        {/* the custom feature is pretty much like POSTing a new kanban card to the database */}
+        <div className="custom-wrap">
+          <span className="text">Custom Slider</span>
+          <span className="button">+</span>
         </div>
 
         <div className="buttons-wrap">
