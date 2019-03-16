@@ -302,12 +302,6 @@ router.get('/data', isAuthenticated, (req, res) => {
             activities: {},
             emotions: {},
             totalEntries: 0
-          },
-          24: {
-            moodSum: 0,
-            activities: {},
-            emotions: {},
-            totalEntries: 0
           }
         }
       );
