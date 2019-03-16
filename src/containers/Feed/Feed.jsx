@@ -24,7 +24,6 @@ class Feed extends Component {
   }
 
   render() {
-    console.log(this.props)
     return (
       <div className="feed-container">
         <Header />
