@@ -1,60 +1,10 @@
+$font-family: 'Montserrat', sans-serif;
 
 .feed-container{
+font-family: $font-family;
 
   .title{
     text-align: center;
     margin-top: 0;
-  }
-
-  .entry-container{
-    border: 1px solid black;
-    margin-bottom: 10px;
-    height: 205px;
-    overflow: hidden;
-    margin: 10px;
-
-
-    .time-date-container{
-      text-align: center;
-      margin-right: 5px;
-
-      .date {
-        margin-right: 5px;
-      }
-    }
-
-    .content-container{
-      margin: 5px;
-      
-      .emotions-main-container{
-        display: flex;
-        justify-content: space-around;
-        margin: 10px;
-        
-          .mood{
-            border: 1px solid black;
-            width: 45%;
-            height: 80px;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-          }
-
-          .emotion-title{
-            margin-right: 4.5em;
-          }
-
-          .emotion{
-             margin-left: 5px;
-             margin-bottom: 2.5px;
-          }
-      }
-
-      .actions-container{
-        display: flex;
-        justify-content: space-around;
-        margin-bottom: 10px;
-      }
-    }
   }
 }
