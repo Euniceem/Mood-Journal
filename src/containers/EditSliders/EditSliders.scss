@@ -1,0 +1,232 @@
+@import '../../../sass/config';
+@import '../Header-Unused/Header';
+
+.edit-sliders {
+  font-family: $primary-font, $font-type;
+  color: $font-color-black;
+  height: 100%;
+
+  .presets {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-top: $margin-standard / 2;
+    margin-bottom: $margin-standard;
+    // height: 100%;
+
+    .title {
+      font-family: $primary-font, $font-type;
+      font-weight: 600;
+      font-size: 1.3rem;
+      color: $font-color-1;
+      margin-bottom: $margin-standard;
+      width: 90%;
+    }
+
+    .current-wrap {
+      // width: 90%;
+      // height: 20%;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      width: 90%;
+      height: 25%;
+
+      .title {
+        font-size: 1rem;
+        color: $font-color-1;
+        margin-bottom: $margin-standard / 2;
+        width: 100%;
+      }
+      
+      .current-presets {
+        display: flex;
+        flex-direction: row;
+        flex-wrap: wrap;
+        background-color: $background-color-2;
+        box-shadow: $component-light-shadow $shadow-color-2;
+        border-radius: $radius-minimal;
+        width: 100%;
+        // height: 80%;
+        height: fit-content;
+
+        .preset {
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          transition: all 50ms ease-in;
+          padding-top: 0.2rem;
+          padding-bottom: 0.2rem;
+          border-radius: 3rem;
+          margin-top: $margin-standard / 2;
+          margin-left: 1%;
+          margin-right: 1%;
+          padding-left: 1%;
+          padding-right: 1%;
+          flex-basis: 45%;
+          height: 20%;
+
+          &:last-child { margin-bottom: $margin-standard / 2; }
+
+          .name {
+            width: 75%;
+            text-align: center;
+          }
+
+          .fa-icon {
+            width: 20%;
+          }
+
+          &:hover, &:active {
+            background-color: $background-hover-2;
+            color: $font-active-1;
+          }
+        }
+      }
+    }
+
+    .add-presets-wrap {
+      // width: 90%;
+      // height: 20%;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      width: 90%;
+      height: 25%;
+
+      .title {
+        font-size: 1rem;
+        color: $font-color-1;
+        margin-top: $margin-standard / 1.5;
+        margin-bottom: $margin-standard / 2;
+        width: 100%;
+      }
+      
+      .add-presets {
+        display: flex;
+        flex-direction: row;
+        flex-wrap: wrap;
+        background-color: $background-color-white;
+        border: 0.05rem solid $border-color-1;
+        box-shadow: $component-light-shadow $shadow-color-gray;
+        border-radius: $radius-minimal;
+        width: 100%;
+        // height: 80%;
+        height: fit-content;
+
+        .preset {
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          transition: all 50ms ease-in;
+          padding-top: 0.2rem;
+          padding-bottom: 0.2rem;
+          border-radius: 3rem;
+          margin-top: $margin-standard / 2;
+          margin-left: 1%;
+          margin-right: 1%;
+          padding-left: 1%;
+          padding-right: 1%;
+          flex-basis: 45%;
+          height: 20%;
+
+          &:last-child { margin-bottom: $margin-standard / 2; }
+
+          .name {
+            width: 75%;
+            text-align: center;
+          }
+
+          .fa-icon {
+            width: 20%;
+          }
+
+          &:hover, &:active {
+            background-color: $background-hover-2;
+            color: $font-active-1;
+          }
+        }
+      }
+    }
+  }
+
+  .custom-wrap {
+    display: flex;
+    justify-content: flex-end;
+    margin-top: $margin-standard / 2;
+    width: 95%;
+
+    .text {
+      font-family: $primary-font, $font-type;
+      font-weight: bold;
+      // color: $font-color-1;
+      padding: 0 $pad-standard 0 $pad-standard;
+    }
+
+    .button {
+      font-family: $primary-font, $font-type;
+      font-weight: bold;
+      // color: $font-color-1;
+      border: none;
+      border-left: 0.05rem solid $border-color-1;
+      padding: 0 $pad-standard 0 $pad-standard;
+      // margin-left: $margin-standard;
+    }
+  }
+
+  .buttons-wrap {
+    display: flex;
+    justify-content: center;
+    margin-top: $margin-standard * 2;
+    margin-bottom: $margin-standard;
+    width: 100%;
+
+    .buttons {
+      display: flex;
+      align-items: center;
+      width: 85%;
+
+      .close {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        width: 50%;
+
+        button {
+          font-family: $primary-font, $font-type;
+          font-size: 0.95rem;
+          background-color: $background-color-white;
+          border: none;
+        }
+      }
+
+      .done {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        width: 50%;
+
+        button {
+          font-family: $primary-font, $font-type;
+          font-weight: bold;
+          font-size: 1.07rem;
+          background-color: $background-color-1;
+          color: white;
+          transition: all 150ms ease-out;
+          // box-shadow: $component-drop-shadow $background-hover-1;
+          border-radius: $radius-minimal;
+          padding-top: $pad-standard / 2;
+          padding-bottom: $pad-standard / 2;
+          outline: none;
+          border: none;
+          width: 100%;
+
+          &:hover, &:active {
+            background-color: $background-hover-1;
+            color: white;
+          }
+        }
+      }
+    }
+  }
+}

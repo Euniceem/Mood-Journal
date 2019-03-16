@@ -1,0 +1,27 @@
+@import '../../../sass/config';
+
+.header {
+  display: flex;
+  align-items: center;
+  background-color: $header-color-1;
+  min-height: fit-content;
+
+  .title-wrap {
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    font-family: $primary-font, $font-type;
+    font-size: 1.4rem;
+    font-weight: 800;
+    letter-spacing: 0.08rem;
+    color: white;
+    padding: 0.85rem;
+    width: 100%;
+
+    .fa-icon {
+      flex-basis: 5%;
+      margin-right: $margin-standard / 2;
+      font-size: 1rem;
+    }
+  }
+}

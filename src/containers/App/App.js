@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 import { Route, Switch, Redirect, BrowserRouter as Router } from 'react-router-dom';
 import './App.scss';
 
+import MoodEntry from '../MoodEntry';
 import Navigation from '../../components/Navigation';
 import Feed from '../../containers/Feed';
 import Data from '../../containers/Data';
@@ -32,7 +33,6 @@ const PrivateRoute = ({ component: Component, isAuth, ...rest }) => {
 }
 
 class App extends Component {
-
   render() {
     let isAuthenticated = this.props.email ? this.props.isLoggedIn : null
 
