@@ -354,7 +354,7 @@ router.get('/data', isAuthenticated, (req, res) => {
         }
       }
 
-      res.json({ dayOfWeek: groupByDayOfWeek, hour: groupByHour });
+      res.json({ avgWeek: groupByDayOfWeek, avgDay: groupByHour });
     })
     .catch(err => {
       console.log(err);
