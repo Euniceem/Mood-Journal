@@ -1,11 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
-<<<<<<< HEAD
-import App from './containers/App/App.js';
-=======
 import App from './containers/App/App';
->>>>>>> dev
 import * as serviceWorker from './serviceWorker';
 
 import ReduxThunk from 'redux-thunk';
@@ -19,7 +15,6 @@ const composeEnhancers =
     window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__({
       // Specify extension's options like name, actionsBlacklist, actionsCreators, serialize...
     }) : compose;
-
 
 const enhancer = composeEnhancers(
   applyMiddleware(ReduxThunk)

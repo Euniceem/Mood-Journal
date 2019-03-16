@@ -33,7 +33,6 @@ const PrivateRoute = ({ component: Component, isAuth, ...rest }) => {
 }
 
 class App extends Component {
-
   render() {
     let isAuthenticated = this.props.email ? this.props.isLoggedIn : null
 
