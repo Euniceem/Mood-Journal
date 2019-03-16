@@ -10,7 +10,7 @@ const FeedList = (props) => {
     let currentDay = currentDate.getDate();
     let threeDaysAgo = currentDate.getDate() - 3;
 
-    if (entryDay === currentDay && entryDay >= threeDaysAgo) {
+    if (entryDay >= threeDaysAgo && entryDay <= currentDay) {
 
       return (
         <SingleEntryFeed key={entry.id}
