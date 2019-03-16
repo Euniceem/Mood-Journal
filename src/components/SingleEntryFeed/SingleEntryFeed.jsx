@@ -9,7 +9,7 @@ const SingleEntryFeed = (props) => {
 
   const emotionList = props.entryData.entryEmotions.map(emotions => {
     return (
-      < div className="emotion" > {emotions}</div >
+      < div key={emotions.id} className="emotion" > {emotions}</div >
     )
   });
 
