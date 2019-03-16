@@ -2,6 +2,7 @@ import React from 'react';
 import SingleEntryFeed from '../SingleEntryFeed';
 
 const FeedList = (props) => {
+  console.log(props)
   const feedList = props.entries.map(entry => {
 
     let entryDate = new Date(entry.created_at)
@@ -10,8 +11,10 @@ const FeedList = (props) => {
     let currentDay = currentDate.getDate();
     let threeDaysAgo = currentDate.getDate() - 3;
 
-    if (entryDay === currentDay && entryDay >= threeDaysAgo) {
+    if (entryDay >= threeDaysAgo) {
 
+      console.log(entry)
+      console.log('hit')
       return (
         <SingleEntryFeed key={entry.id}
           entryData={entry}

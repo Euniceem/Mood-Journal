@@ -2,6 +2,8 @@ import React from 'react';
 import './SingleEntryFeed.scss';
 
 const SingleEntryFeed = (props) => {
+  console.log(props)
+
   let date = new Date(props.entryData.created_at);
   let time = new Date(props.entryData.created_at);
 
@@ -37,7 +39,8 @@ const SingleEntryFeed = (props) => {
   }
 
   return (
-    <div className={`entry-container ${moodColor()}`}>
+    < div className={`entry-container ${moodColor()}`
+    }>
 
       <div className="time-date-container">
         <span className="date">{date.toDateString()}</span>
@@ -68,7 +71,7 @@ const SingleEntryFeed = (props) => {
 
         <div className="notes">Notes: {props.entryData.notes}</div>
       </div>
-    </div>
+    </div >
   )
 }
 

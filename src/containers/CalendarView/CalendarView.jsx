@@ -42,6 +42,7 @@ class CalendarView extends Component {
           minDetail="decade"
           view="month"
           onClickDay={this.onChangeDay}
+          tileClassName="test"
         />
         {this.state.showDayEntry === true ?
           <div className="calendar-day-entry-container">
