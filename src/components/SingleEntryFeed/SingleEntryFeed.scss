@@ -1,3 +1,14 @@
+$red: #FF9696;
+$dark-red: #FF3535;
+$orange: #FFCB96;
+$dark-orange: #FFAD5B;
+$green: #97E3AD;
+$dark-green: #419058;
+$blue: #79A2C1;
+$dark-blue: #2B7FBF;
+$grey: #D0D0D0;
+$dark-grey: #7E7E7E;
+$font-family: 'Montserrat', sans-serif;
 
 .entry-container{
   border: 1px solid black;
@@ -5,11 +16,16 @@
   height: 205px;
   overflow: hidden;
   margin: 10px;
-
-
+  border-radius: 8px; 
+  font-family: $font-family;
+  
   .time-date-container{
     text-align: center;
     margin-right: 5px;
+
+    span{
+      font-size: 20px;
+    }
 
     .date {
       margin-right: 5px;
@@ -25,7 +41,7 @@
       margin: 10px;
       
         .mood{
-          border: 1px solid black;
+          border: 1px solid white;
           width: 45%;
           height: 80px;
           display: flex;
@@ -46,7 +62,92 @@
     .actions-container{
       display: flex;
       justify-content: space-around;
-      margin-bottom: 10px;
+      margin-bottom: 20px;
     }
   }
+}
+
+.amazing{
+  border: 2px solid $dark-red;
+
+  .time-date-container{
+    width: 100%;
+    background-color: $red;
+  }
+
+  .content-container{    
+    .emotions-main-container{
+        .mood{
+          color: $red;
+        }
+      }
+    }
+}
+
+.good{
+  border: 2px solid $dark-orange;
+
+  .time-date-container{
+    width: 100%;
+    background-color: $orange;
+  }
+
+  .content-container{    
+    .emotions-main-container{
+        .mood{
+          color: $orange;
+        }
+      }
+    }
+}
+
+.average{
+  border: 2px solid $dark-green;
+
+  .time-date-container{
+    width: 100%;
+    background-color: $green;
+  }
+
+  .content-container{    
+    .emotions-main-container{
+        .mood{
+          color: $green;
+        }
+      }
+    }
+}
+
+.bad{
+  border: 2px solid $dark-blue;
+
+  .time-date-container{
+    width: 100%;
+    background-color: $blue;
+  }
+
+  .content-container{    
+    .emotions-main-container{
+        .mood{
+          color: $blue;
+        }
+      }
+    }
+}
+
+.awful{
+  border: 2px solid $dark-grey;
+
+  .time-date-container{
+    width: 100%;
+    background-color: $grey;
+  }
+
+  .content-container{    
+    .emotions-main-container{
+        .mood{
+          color: $grey;
+        }
+      }
+    }
 }
