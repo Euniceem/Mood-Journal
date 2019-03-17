@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { Link } from 'react-router-dom';
 import { library } from '@fortawesome/fontawesome-svg-core';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faArrowLeft } from '@fortawesome/free-solid-svg-icons';
@@ -17,7 +18,7 @@ class MoodEntry extends Component {
     // To prevent the refs from being the same, we need to append the key or id of each mood slider to the ref name.
 
     this.state = {
-      isEditSlidersOpen : true,
+      isEditSlidersOpen : false,
       isNotesOpen : false,
       // initial slider values
       happiness : 3,
@@ -71,14 +72,16 @@ class MoodEntry extends Component {
         <div className="header">
           <div className="title-wrap">
             {/* possible switch to React router in the future. pass in Header component with dynamic information on its props. For example, pass in the function that decides what to do when you click the "back" button on props and call it in the header component in an onClick. */}
-            <FontAwesomeIcon 
-              onClick={ 
-                this.state.isEditSlidersOpen ? this.openEditSliders
-                : this.state.isNotesOpen ? this.openNotesAndActions 
-                : null } 
-              className="fa-icon" 
-              icon="arrow-left" 
-            />
+            <Link to="/feed" className="link">
+              <FontAwesomeIcon 
+                onClick={ 
+                  this.state.isEditSlidersOpen ? this.openEditSliders
+                  : this.state.isNotesOpen ? this.openNotesAndActions 
+                  : null } 
+                className="fa-icon" 
+                icon="arrow-left" 
+              />
+            </Link>
             <span className="title">{ 
                 this.state.isEditSlidersOpen ? 'Edit Sliders'
                 : this.state.isNotesOpen ? 'Notes & Actions'

@@ -9,7 +9,8 @@ class Header extends Component {
     super(props)
 
     this.state = {
-      showMenu: false
+      showMenu: false,
+      showMoodEntry: false
     }
 
 
@@ -21,6 +22,12 @@ class Header extends Component {
     this.setState({
       showMenu: !this.state.showMenu
     })
+  }
+
+  toggleMoodEntry = () => {
+    this.setState({
+      showMoodEntry: !this.state.showMoodEntry
+    });
   }
 
   handleLogout(e) {
@@ -67,7 +74,7 @@ class Header extends Component {
 
         <h1 className="main-title">Mood Journal</h1>
 
-        <div className="add-btn">+</div>
+        <Link to="/entry" className="link" id="add-btn">+</Link>
       </div>
     )
   }
