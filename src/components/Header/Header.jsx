@@ -74,7 +74,7 @@ class Header extends Component {
 
         <h1 className="main-title">Mood Journal</h1>
 
-        <Link to="/entry" className="link" id="add-btn">+</Link>
+        <Link to="/entry" className="link" id="add-btn" onClick={ this.props.resetStateOnClick }>+</Link>
       </div>
     )
   }

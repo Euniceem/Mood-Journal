@@ -56,6 +56,15 @@ class MoodEntry extends Component {
     this.setState({ isNotesOpen : !this.state.isNotesOpen });
   }
 
+  resetStateOnClick = () => {
+    console.log('RESETTING STATE');
+
+    this.setState({
+      isEditSlidersOpen : false,
+      isNotesOpen : false
+    });
+  }
+
   handleSubmit(e) {
     console.log(`Made a submission!`);
   }
@@ -92,7 +101,7 @@ class MoodEntry extends Component {
           </div>
         </div> */}
 
-        <Header />
+        <Header resetStateOnClick={ this.resetStateOnClick } />
 
         { this.state.isEditSlidersOpen ?
           <EditSliders openEditSliders={ this.openEditSliders } isEditSlidersOpen={ this.state.isEditSlidersOpen } />
