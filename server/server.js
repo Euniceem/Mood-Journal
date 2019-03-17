@@ -28,7 +28,7 @@ if (!SESSION_SECRET) {
 
 const app = express();
 
-app.use(express.static('public'));
+app.use(express.static('build'));
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 
