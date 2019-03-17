@@ -98,10 +98,10 @@ $primary-color: #3E3C3B;
 .calendar-day-entry-container{
   border: 1px solid $background-color;
   width: 90%;
-  height: 100px;
+  // height: 100px;
   margin: auto;
 
-  .day-entry-title{
+  .calendar-day-entry-date-title{
     text-align: center;
   }
 }
