@@ -6,9 +6,8 @@ import FeedList from '../../components/FeedList';
 import './Feed.scss';
 
 class Feed extends Component {
-
   componentDidMount() {
-    this.props.loadEntries()
+    this.props.loadEntries();
   }
 
   render() {
@@ -18,24 +17,24 @@ class Feed extends Component {
         <h1 className="title">Recent Activity</h1>
         <FeedList entries={this.props.entries} />
       </div>
-    )
+    );
   }
 }
 
-const mapStateToProps = (state) => {
+const mapStateToProps = state => {
   return {
-    entries: state.entries,
-  }
-}
+    entries: state.entries
+  };
+};
 
-const mapDispatchToProps = (dispatch) => {
+const mapDispatchToProps = dispatch => {
   return {
     loadEntries: () => {
-      const actionObject = loadEntries()
+      const actionObject = loadEntries();
       return dispatch(actionObject);
     }
-  }
-}
+  };
+};
 
 Feed = connect(
   mapStateToProps,
