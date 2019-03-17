@@ -5,11 +5,17 @@ const FeedList = props => {
   const feedList = props.entries.map(entry => {
     let entryDate = new Date(entry.created_at);
     let entryDay = entryDate.getDate();
+    let entryMonth = entryDate.getMonth();
     let currentDate = new Date();
     let currentDay = currentDate.getDate();
-    let threeDaysAgo = currentDate.getDate() - 3;
+    let currentMonth = currentDate.getMonth();
+    let threeDaysAgo = new Date(currentDate.getDate() - 3);
 
-    if (entryDay === currentDay || entryDay <= threeDaysAgo) {
+    if (
+      entryMonth === currentMonth &&
+      entryDay <= currentDay &&
+      entryDay >= threeDaysAgo
+    ) {
       return <SingleEntryFeed key={entry.id} entryData={entry} />;
     } else {
       return null;

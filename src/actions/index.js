@@ -6,8 +6,8 @@ export const LOAD_ENTRIES = 'LOAD ENTIRES';
 export const FETCHED_DATA = 'FETCHED_DATA';
 
 /** Action Creators*/
-export const register = (user) => {
-  return (dispatch) => {
+export const register = user => {
+  return dispatch => {
     return fetch('/api/register', {
       method: 'POST',
       headers: {
@@ -15,26 +15,26 @@ export const register = (user) => {
       },
       body: JSON.stringify(user)
     })
-      .then((response) => {
+      .then(response => {
         if (!response.ok) {
-          throw Error(response.statusText)
+          throw Error(response.statusText);
         }
-        return response.json()
+        return response.json();
       })
-      .then((user) => {
+      .then(user => {
         return dispatch({
           type: REGISTER_USER,
           payload: user
-        })
+        });
       })
-      .catch((err) => {
-        console.log(err)
-      })
-  }
-}
+      .catch(err => {
+        console.log(err);
+      });
+  };
+};
 
-export const login = (user) => {
-  return (dispatch) => {
+export const login = user => {
+  return dispatch => {
     return fetch('/api/login', {
       method: 'POST',
       headers: {
@@ -42,54 +42,53 @@ export const login = (user) => {
       },
       body: JSON.stringify(user)
     })
-      .then((response) => {
+      .then(response => {
         if (!response.ok) {
-          throw Error(response.statusText)
+          throw Error(response.statusText);
         }
-        return response.json()
+        return response.json();
       })
-      .then((user) => {
-        console.log('user', user)
+      .then(user => {
         localStorage.setItem('email', user.email);
         localStorage.setItem('loggedIn', true);
         return dispatch({
           type: LOGIN_USER,
           payload: user
-        })
+        });
       })
-      .catch((err) => {
-        console.log(err)
-      })
-  }
-}
+      .catch(err => {
+        console.log(err);
+      });
+  };
+};
 
 export const logout = () => {
-  return (dispatch) => {
+  return dispatch => {
     return fetch('/api/logout', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json'
-      },
+      }
     })
-      .then((response) => {
+      .then(response => {
         if (!response.ok) {
-          throw Error(response.statusText)
+          throw Error(response.statusText);
         }
-        return response.json()
+        return response.json();
       })
-      .then((user) => {
+      .then(user => {
         localStorage.removeItem('email');
         localStorage.removeItem('loggedIn');
         return dispatch({
           type: LOGOUT_USER,
           payload: user
-        })
+        });
       })
-      .catch((err) => {
-        console.log(err)
-      })
-  }
-}
+      .catch(err => {
+        console.log(err);
+      });
+  };
+};
 
 export const loadEntries = () => {
   return dispatch => {
