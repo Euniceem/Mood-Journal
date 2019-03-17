@@ -9,7 +9,7 @@ background-color: $background-color-3;
 color: white;
 
   .menu-icon{
-    margin-left: 10px;
+    margin-left: $margin-standard / 2;
 
     .line{
       width: 30px;
@@ -41,11 +41,11 @@ color: white;
     color: white;
     display: flex;
     flex-direction: column;
-    padding: 10px;
+    padding: $pad-standard / 2 0 $pad-standard / 2 0;
   }
 
     #add-btn{
-    margin-right: 10px;
+    margin-right: $margin-standard / 2;
     font-size: 50px;
     }
 }
