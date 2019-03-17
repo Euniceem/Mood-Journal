@@ -1,0 +1,199 @@
+@import '../../../sass/config';
+@import '../Header-Unused/Header';
+
+.component-mood-entry {
+  width: 100%;
+  height: fit-content;
+  margin-bottom: $margin-standard / 2;
+  font-family: $primary-font, $font-type;
+
+  .select-emotion {
+    display: flex;
+    justify-content: center;
+    width: 100%;
+
+    .list-emotion {
+      display: flex;
+      width: 95%;
+
+      li {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        flex-basis: 20%;
+        height: fit-content;
+
+        img {
+          display: block;
+          background-image: url('https://www.blackfootfamilydentistry.com/wp-content/uploads/2016/10/orionthemes-placeholder-image.png');
+          background-position: center;
+          background-repeat: no-repeat;
+          background-size: 400%;
+          border-radius: 50%;
+          overflow: hidden;
+          margin-top: $margin-standard;
+          margin-bottom: $margin-standard / 2;
+          height: 3rem;
+          width: 3rem;
+        }
+
+        .text {
+          text-align: center;
+          width: 80%;
+        }
+      }
+    }
+  }
+
+  .sliders {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    .slider-wrap {
+      margin-top: $margin-standard * 2;
+      width: 80%;
+
+      .affect {
+        display: flex;
+        align-items: center;
+        margin-left: 0.5rem;
+
+        .field {
+          flex-basis: 50%;
+        }
+
+        .percentage {
+          flex-basis: 50%;
+          font-weight: 700;
+          font-size: 1.4rem;
+          text-align: right;
+          color: $font-color-1;
+          margin-right: $margin-standard / 5;
+        }
+      }
+
+      .slider {
+        margin-top: $margin-standard / 2;
+        width: 100%;
+
+        & {
+          -webkit-appearance: none;
+          width: 100%;
+          height: 15px;
+          border-radius: 5px;   
+          background: #d3d3d3;
+          outline: none;
+          opacity: 0.7;
+          -webkit-transition: .2s;
+          transition: opacity .2s;
+        }
+        
+        &::-webkit-slider-thumb {
+          -webkit-appearance: none;
+          appearance: none;
+          width: 25px;
+          height: 25px;
+          border-radius: 50%; 
+          background: $background-color-1;
+          cursor: pointer;
+        }
+        
+        &::-moz-range-thumb {
+          width: 25px;
+          height: 25px;
+          border-radius: 50%;
+          background: $header-color-1;
+          cursor: pointer;
+        }
+      }
+
+      &:last-child { margin-bottom: $margin-standard * 2; }
+    }
+
+    .edit-sliders {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      margin-top: $margin-standard / 2;
+      margin-bottom: $margin-standard;
+      width: 100%;
+
+      .button-wrap {
+        display: flex;
+        justify-content: flex-end;
+        align-items: center;
+        width: 80%;
+
+        button {
+          font-family: $primary-font, $font-type;
+          font-size: 0.9rem;
+          background-color: $background-color-white;
+          padding: $pad-standard / 2;
+          border: none;
+        }
+      }
+    }
+  }
+
+  .buttons {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: $margin-standard / 2;
+    width: 100%;
+
+    .buttons-wrap {
+      display: flex;
+      width: 90%;
+
+      .add-more, .submit-wrap {
+        display: flex;
+        width: 50%;
+        
+        & button {
+          font-family: $primary-font, $font-type;
+          font-size: 1rem;
+          border-radius: 0.3rem;
+          padding: 0.6rem;
+          width: 95%;
+          border: none;
+        }
+      }
+
+      .add-more {
+        display: flex;
+        justify-content: flex-start;
+        width: 50%;
+  
+        button {
+          background-color: $background-color-white;
+          color: $font-color-1;
+          border: 0.05rem solid $border-color-1;
+          transition: all 150ms ease-out;
+          outline: none;
+
+          &:hover, &:active { border: 0.05rem solid $border-hover-1; color: $font-hover-1; }
+        }
+      }
+  
+      .submit-wrap {
+        display: flex;
+        justify-content: flex-end;
+        width: 50%;
+  
+        button {
+          background-color: $background-color-1;
+          color: $font-color-white;
+          font-weight: bold;
+          transition: all 150ms ease-out;
+          outline: none;
+          width: 100%;
+
+          &:hover, &:active { background-color: $background-hover-1; }
+        }
+      }
+    }
+  }
+}

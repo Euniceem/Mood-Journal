@@ -4,6 +4,11 @@ import './CalendarEntryView.scss';
 const CalendarEntryView = (props) => {
   console.log("ENTRIES", props.entries)
   console.log("DATE", props.date)
+
+  const entryDayEmotionList = props.entries.map(entries => {
+    return entries.entryEmotions
+  })
+
   const entryDay = props.entries.map(entries => {
     let date = new Date(entries.created_at).toDateString()
     let time = new Date(entries.created_at).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })
@@ -16,6 +21,10 @@ const CalendarEntryView = (props) => {
 
           <div className="calendar-day-single-entry-left-container">
             <div className="calendar-day-single-entry-mood">{entries.mood.name}</div>
+          </div>
+
+          <div className="calendar-day-single-entry-right-container">
+            <div className="calendar-day-single-entry-emotion"></div>
           </div>
         </div>
       )
