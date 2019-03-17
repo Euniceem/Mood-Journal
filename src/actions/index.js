@@ -5,24 +5,6 @@ export const LOGOUT_USER = 'LOGOUT_USER';
 export const LOAD_ENTRIES = 'LOAD ENTIRES';
 
 /** Action Creators*/
-
-export const generateEntries = entry => {
-  console.log(entry, 2);
-  return () => {
-    return fetch('/api/entries', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify(entry)
-    })
-      .then(res => {
-        if (!res.ok) {
-          throw new Error(res.statusText);
-        }
-      })
-      .catch(err => console.log(err));
-  };
-};
-
 export const register = (user) => {
   return (dispatch) => {
     return fetch('/api/register', {

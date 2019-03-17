@@ -37,54 +37,6 @@ const PrivateRoute = ({ component: Component, isAuth, ...rest }) => {
 class App extends Component {
   constructor(props) {
     super(props);
-
-    this.generateEntries = this.generateEntries.bind(this);
-  }
-
-  generateEntries() {
-    const start = new Date('2019-01-01 20:19:21.637+00');
-    const end = new Date();
-  
-    for (let i = 0; i < 216; i++) {
-      let entry = {
-        mood_id: Math.ceil(Math.random() * 5),
-        notes: `Lorem ipsum dolor sit amet`,
-        default_activities: [
-          Math.ceil(Math.random() * 3),
-          Math.ceil(Math.random() * 2 + 3)
-        ],
-        custom_activities: [Math.ceil(Math.random() * 3)],
-        default_emotions: [
-          {
-            default_emotion_id: 1,
-            percent: Math.ceil(Math.random() * 100)
-          },
-          {
-            default_emotion_id: 2,
-            percent: Math.ceil(Math.random() * 100)
-          },
-          {
-            default_emotion_id: 3,
-            percent: Math.ceil(Math.random() * 100)
-          },
-          {
-            default_emotion_id: 4,
-            percent: Math.ceil(Math.random() * 100)
-          }
-        ],
-        custom_emotions: [
-          {
-            custom_emotion_id: Math.ceil(Math.random() * 2),
-            percent: Math.ceil(Math.random() * 100)
-          }
-        ],
-        created_at: new Date(
-          start.getTime() + Math.random() * (end.getTime() - start.getTime())
-        )
-      };
-  
-      this.props.generateEntries(entry);
-    }
   }
 
   render() {
@@ -92,7 +44,6 @@ class App extends Component {
 
     return (
       <div className="App">
-        <button onClick={ this.generateEntries }>asdjadsjklasdjkl</button>
         <Router>
           <>
             <Switch>
@@ -119,17 +70,8 @@ const mapStateToProps = state => {
   }
 }
 
-const mapDispatchToProps = dispatch => {
-  return {
-    generateEntries : entry => {
-      dispatch(generateEntries(entry));
-    }
-  }
-}
-
 App = connect(
-  mapStateToProps,
-  mapDispatchToProps
+  mapStateToProps
 )(App);
 
 export default App;
