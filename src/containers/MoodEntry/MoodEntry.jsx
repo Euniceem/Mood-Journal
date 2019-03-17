@@ -5,6 +5,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faArrowLeft } from '@fortawesome/free-solid-svg-icons';
 import './MoodEntry.scss';
 
+import Header from '../../components/Header';
 import EditSliders from '../EditSliders';
 import NotesActions from '../NotesActions';
 
@@ -62,17 +63,18 @@ class MoodEntry extends Component {
   componentDidMount() {
     // render a list of all existing sliders so we can access them in the state.
     this.setState({
-
+      isEditSlidersOpen : false,
+      isNotesOpen : false
     });
   }
 
   render() {
     return (
       <>
-        <div className="header">
-          <div className="title-wrap">
+        {/* <div className="header">
+          <div className="title-wrap"> */}
             {/* possible switch to React router in the future. pass in Header component with dynamic information on its props. For example, pass in the function that decides what to do when you click the "back" button on props and call it in the header component in an onClick. */}
-            <Link to="/feed" className="link">
+            {/* <Link to="/feed" className="link">
               <FontAwesomeIcon 
                 onClick={ 
                   this.state.isEditSlidersOpen ? this.openEditSliders
@@ -88,7 +90,9 @@ class MoodEntry extends Component {
                 : 'Add an Entry' }
             </span>
           </div>
-        </div>
+        </div> */}
+
+        <Header />
 
         { this.state.isEditSlidersOpen ?
           <EditSliders openEditSliders={ this.openEditSliders } isEditSlidersOpen={ this.state.isEditSlidersOpen } />
