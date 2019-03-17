@@ -15,8 +15,6 @@ const FeedList = (props) => {
 
     if (entryMonth === currentMonth && entryDay >= threeDaysAgo && entryDay <= currentDay) {
 
-      console.log(entry)
-      console.log('hit')
       return (
         <SingleEntryFeed key={entry.id}
           entryData={entry}
