@@ -3,8 +3,6 @@ import { connect } from 'react-redux';
 import { Route, Switch, Redirect, BrowserRouter as Router } from 'react-router-dom';
 import './App.scss';
 
-import { generateEntries } from '../../actions';
-
 import MoodEntry from '../MoodEntry';
 import Navigation from '../../components/Navigation';
 import Feed from '../../containers/Feed';
