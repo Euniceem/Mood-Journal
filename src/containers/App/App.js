@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Route, Switch, Redirect, BrowserRouter as Router } from 'react-router-dom';
+import { generateEntries } from '../../actions';
 import './App.scss';
 
 import MoodEntry from '../MoodEntry';
@@ -33,6 +34,8 @@ const PrivateRoute = ({ component: Component, isAuth, ...rest }) => {
 }
 
 class App extends Component {
+
+
   render() {
     let isAuthenticated = this.props.email ? this.props.isLoggedIn : null
 
@@ -55,6 +58,9 @@ class App extends Component {
     );
   }
 }
+
+
+
 
 const mapStateToProps = state => {
   return {

@@ -109,3 +109,21 @@ export const loadEntries = () => {
       });
   };
 };
+
+
+export const generateEntries = entry => {
+  console.log(entry, 2);
+  return () => {
+    return fetch('/api/entries', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(entry)
+    })
+      .then(res => {
+        if (!res.ok) {
+          throw new Error(res.statusText);
+        }
+      })
+      .catch(err => console.log(err));
+  };
+};

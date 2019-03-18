@@ -38,6 +38,8 @@ class CalendarView extends Component {
   }
 
 
+
+
   render() {
 
     const entryDate = this.props.entries.filter(entries => {
