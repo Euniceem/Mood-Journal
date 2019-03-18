@@ -33,6 +33,10 @@ const PrivateRoute = ({ component: Component, isAuth, ...rest }) => {
 }
 
 class App extends Component {
+  constructor(props) {
+    super(props);
+  }
+
   render() {
     let isAuthenticated = this.props.email ? this.props.isLoggedIn : null
 
@@ -47,6 +51,7 @@ class App extends Component {
               <PrivateRoute isAuth={isAuthenticated} exact={true} path='/data' component={Data} />
               <PrivateRoute isAuth={isAuthenticated} exact={true} path='/calendar' component={CalendarView} />
               <PrivateRoute isAuth={isAuthenticated} exact={true} path='/settings' component={Settings} />
+              <PrivateRoute isAuth={isAuthenticated} exact={true} path='/entry' component={MoodEntry} />
             </Switch>
             <Navigation />
           </>
@@ -64,7 +69,7 @@ const mapStateToProps = state => {
 }
 
 App = connect(
-  mapStateToProps,
+  mapStateToProps
 )(App);
 
 export default App;

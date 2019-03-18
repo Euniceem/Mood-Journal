@@ -5,8 +5,8 @@ export const LOGOUT_USER = 'LOGOUT_USER';
 export const LOAD_ENTRIES = 'LOAD ENTIRES';
 
 /** Action Creators*/
-export const register = user => {
-  return dispatch => {
+export const register = (user) => {
+  return (dispatch) => {
     return fetch('/api/register', {
       method: 'POST',
       headers: {

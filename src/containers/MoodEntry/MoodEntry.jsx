@@ -1,9 +1,11 @@
 import React, { Component } from 'react';
+import { Link } from 'react-router-dom';
 import { library } from '@fortawesome/fontawesome-svg-core';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faArrowLeft } from '@fortawesome/free-solid-svg-icons';
 import './MoodEntry.scss';
 
+import Header from '../../components/Header';
 import EditSliders from '../EditSliders';
 import NotesActions from '../NotesActions';
 
@@ -17,7 +19,7 @@ class MoodEntry extends Component {
     // To prevent the refs from being the same, we need to append the key or id of each mood slider to the ref name.
 
     this.state = {
-      isEditSlidersOpen : true,
+      isEditSlidersOpen : false,
       isNotesOpen : false,
       // initial slider values
       happiness : 3,
@@ -54,6 +56,15 @@ class MoodEntry extends Component {
     this.setState({ isNotesOpen : !this.state.isNotesOpen });
   }
 
+  resetStateOnClick = () => {
+    console.log('RESETTING STATE');
+
+    this.setState({
+      isEditSlidersOpen : false,
+      isNotesOpen : false
+    });
+  }
+
   handleSubmit(e) {
     console.log(`Made a submission!`);
   }
@@ -61,31 +72,36 @@ class MoodEntry extends Component {
   componentDidMount() {
     // render a list of all existing sliders so we can access them in the state.
     this.setState({
-
+      isEditSlidersOpen : false,
+      isNotesOpen : false
     });
   }
 
   render() {
     return (
       <>
-        <div className="header">
-          <div className="title-wrap">
+        {/* <div className="header">
+          <div className="title-wrap"> */}
             {/* possible switch to React router in the future. pass in Header component with dynamic information on its props. For example, pass in the function that decides what to do when you click the "back" button on props and call it in the header component in an onClick. */}
-            <FontAwesomeIcon 
-              onClick={ 
-                this.state.isEditSlidersOpen ? this.openEditSliders
-                : this.state.isNotesOpen ? this.openNotesAndActions 
-                : null } 
-              className="fa-icon" 
-              icon="arrow-left" 
-            />
+            {/* <Link to="/feed" className="link">
+              <FontAwesomeIcon 
+                onClick={ 
+                  this.state.isEditSlidersOpen ? this.openEditSliders
+                  : this.state.isNotesOpen ? this.openNotesAndActions 
+                  : null } 
+                className="fa-icon" 
+                icon="arrow-left" 
+              />
+            </Link>
             <span className="title">{ 
                 this.state.isEditSlidersOpen ? 'Edit Sliders'
                 : this.state.isNotesOpen ? 'Notes & Actions'
                 : 'Add an Entry' }
             </span>
           </div>
-        </div>
+        </div> */}
+
+        <Header resetStateOnClick={ this.resetStateOnClick } />
 
         { this.state.isEditSlidersOpen ?
           <EditSliders openEditSliders={ this.openEditSliders } isEditSlidersOpen={ this.state.isEditSlidersOpen } />
