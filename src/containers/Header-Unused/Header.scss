@@ -18,10 +18,14 @@
     padding: 0.85rem;
     width: 100%;
 
-    .fa-icon {
-      flex-basis: 5%;
-      margin-right: $margin-standard / 2;
-      font-size: 1rem;
+    .link {
+      color: white;
+
+      .fa-icon {
+        flex-basis: 5%;
+        margin-right: $margin-standard / 2;
+        font-size: 1rem;
+      }
     }
   }
 }
