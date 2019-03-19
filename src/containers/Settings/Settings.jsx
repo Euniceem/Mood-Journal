@@ -11,11 +11,15 @@ class Settings extends Component {
     this.state = {
       email: this.props.editEmail,
       password: "",
-      isEmailValid: true
-    }
+      newPassword: "",
+      isEmailValid: false,
+      isPasswordValid: false
+    };
+
     this.checkEmailIsValid = this.checkEmailIsValid.bind(this);
+    this.checkPasswordIsValid = this.checkPasswordIsValid.bind(this);
     this.handleInputChange = this.handleInputChange.bind(this);
-    this.handleSubmitChange = this.handleSubmitChange.bind(this);
+    this.handleProfileSubmitChange = this.handleProfileSubmitChange.bind(this);
   }
 
   checkEmailIsValid() {
@@ -27,54 +31,60 @@ class Settings extends Component {
     }
   }
 
+  checkPasswordIsValid() {
+    if (this.state.password === this.state.newPassword && this.state.newPassword.length > 7) {
+      return this.setState({ isPasswordValid: false })
+    } else {
+      return this.setState({ isPasswordValid: true })
+    }
+  }
+
   handleInputChange(e) {
-    const value = e.target.name;
-    console.log('value', e.target)
+    const value = e.target.value;
     switch (e.target.name) {
       case 'email':
         this.setState({ email: value })
         break;
       case 'password':
         this.setState({ password: value })
+        break;
+      case 'newPassword':
+        this.setState({ newPassword: value })
+        break;
       default:
         break;
     }
   }
 
-  handleSubmitChange(e) {
+  handleProfileSubmitChange(e) {
     e.preventDefault();
 
     const email = { email: this.state.email };
-    const password = { password: this.state.password };
+    const oldPassword = { password: this.state.password };
+    const newPassword = { password: this.state.newPassword };
 
-    if (!password) {
-      this.props.editEmail(email)
-        .then(() => {
-          this.setState({ email: "" })
+    this.props.onEditEmail(email)
+      .then(() => {
+        this.setState({ email: "" })
+      })
+      .catch((err) => {
+        console.log(err)
+      });
+    this.props.onEditPassword(oldPassword, newPassword)
+      .then(() => {
+        this.setState({
+          password: "",
+          newPassword: ""
         })
-        .catch((err) => {
-          console.log(err)
-        });
-    } else {
-      this.props.editEmail(email)
-        .then(() => {
-          this.setState({ email: "" })
-        })
-        .catch((err) => {
-          console.log(err)
-        });
-      this.props.editPassword(password)
-        .then(() => {
-          this.setState({ password: "" })
-        })
-        .catch((err) => {
-          console.log(err)
-        });
-    };
+      })
+      .catch((err) => {
+        console.log(err)
+      });
   };
 
   render() {
-    console.log(this.props)
+    // console.log(this.props)
+    //Tenary
 
     return (
       <div className="settings-container">
@@ -91,15 +101,19 @@ class Settings extends Component {
               <input name="email" type="text" className="email-input" placeholder={this.state.email}
                 onKeyUp={this.checkEmailIsValid} value={this.state.email} onChange={this.handleInputChange} />
             </div>
-            <div className="password-container">
-              <label className="password-label">Password: </label>
+            <div className="old-password-container">
+              <label className="password-label">Current Password: </label>
               <input name="password" type="password" className="password-input"
                 value={this.state.password} onChange={this.handleInputChange} />
-
+            </div>
+            <div className="new-password-container">
+              <label className="new-password-label">New Password</label>
+              <input name="newPassword" type="password" className="new-password-input"
+                value={this.state.newPassword} onChange={this.handleInputChange} />
               {this.state.isEmailValid ?
-                <button className="edit-user-btn" onClick={this.handleSubmitChange}>EDIT</button>
-                :
                 <button className="edit-user-disabled-btn" disabled>EDIT</button>
+                :
+                <button className="edit-user-btn" onClick={this.handleProfileSubmitChange}>EDIT</button>
               }
             </div>
           </form>
@@ -136,8 +150,8 @@ const mapDispatchToProps = (dispatch) => {
 
       return dispatch(actionObject);
     },
-    onEditPassword: (editedPassword) => {
-      const actionObject = editPassword(editedPassword)
+    onEditPassword: (oldPassword, editedPassword) => {
+      const actionObject = editPassword(oldPassword, editedPassword)
 
       return dispatch(actionObject);
     }

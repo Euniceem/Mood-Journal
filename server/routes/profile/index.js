@@ -49,7 +49,6 @@ router.put('/profile/password', isAuthenticated, (req, res) => {
           if (!res) {
             return false;
           }
-
           return true;
         })
         .catch(err => false);
