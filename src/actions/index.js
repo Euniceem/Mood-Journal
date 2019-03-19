@@ -3,11 +3,12 @@ export const REGISTER_USER = 'REGISTER_USER';
 export const LOGIN_USER = 'LOGIN_USER';
 export const LOGOUT_USER = 'LOGOUT_USER';
 export const LOAD_ENTRIES = 'LOAD ENTIRES';
+export const LOAD_ENTRY = 'LOAD_ENTRY';
 export const FETCHED_DATA = 'FETCHED_DATA';
 
 /** Action Creators*/
-export const register = (user) => {
-  return (dispatch) => {
+export const register = user => {
+  return dispatch => {
     return fetch('/api/register', {
       method: 'POST',
       headers: {
@@ -103,6 +104,27 @@ export const loadEntries = () => {
         return dispatch({
           type: LOAD_ENTRIES,
           payload: entries
+        });
+      })
+      .catch(err => {
+        console.log(err);
+      });
+  };
+};
+
+export const loadEntry = id => {
+  return dispatch => {
+    return fetch(`/api/entries/${id}`, {})
+      .then(response => {
+        if (!response.ok) {
+          throw Error(response.statusText);
+        }
+        return response.json();
+      })
+      .then(entry => {
+        return dispatch({
+          type: LOAD_ENTRY,
+          payload: entry
         });
       })
       .catch(err => {

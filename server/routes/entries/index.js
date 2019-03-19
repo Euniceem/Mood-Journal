@@ -59,6 +59,29 @@ router.get('/entries/time', isAuthenticated, (req, res) => {
     });
 });
 
+router.get('/entries/:id', isAuthenticated, (req, res) => {
+  const user_id = req.user.id;
+  const entry_id = req.params.id;
+
+  Entry.query(qb => {
+    qb.where('id', entry_id).andWhere('user_id', user_id);
+  })
+    .fetch({
+      withRelated: [
+        'mood',
+        'entryActivities.default_activity',
+        'entryActivities.custom_activity',
+        'entryEmotions.default_emotion',
+        'entryEmotions.custom_emotion'
+      ]
+    })
+    .then(entries => res.json(entries))
+    .catch(err => {
+      res.status(500);
+      return res.end('error fetching entry');
+    });
+})
+
 router.put('/entries/:id', isAuthenticated, (req, res) => {
   const user_id = req.user.id;
   const entry_id = req.params.id;
