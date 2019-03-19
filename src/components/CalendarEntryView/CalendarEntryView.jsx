@@ -1,5 +1,6 @@
 import React from 'react';
 import CalendarEntryEmotionsView from '../CalendarEntryEmotionsView';
+import { Link } from 'react-router-dom';
 import './CalendarEntryView.scss';
 
 const CalendarEntryView = (props) => {
@@ -11,22 +12,24 @@ const CalendarEntryView = (props) => {
 
     if (date === stateDate) {
       return (
-        <div key={entries.id} className="calendar-day-single-entry-container">
-          <div className="day-entry-time-title">{time}</div>
-          <div className="calendar-day-single-entry-second-container">
-            <div className="calendar-day-single-entry-left-container">
-              <div className="calendar-day-single-entry-mood">{entries.mood.name}</div>
-            </div>
+        <Link to={`/entry/${entries.id}`} className="calendar-day-single-entry-link">
+          <div key={entries.id} className="calendar-day-single-entry-container">
+            <div className="day-entry-time-title">{time}</div>
+            <div className="calendar-day-single-entry-second-container">
+              <div className="calendar-day-single-entry-left-container">
+                <div className="calendar-day-single-entry-mood">{entries.mood.name}</div>
+              </div>
 
-            <div className="calendar-day-single-entry-right-container">
-              {entries.entryEmotions ?
-                <CalendarEntryEmotionsView key={entries.entryEmotions.id} emotions={entries.entryEmotions} />
-                :
-                <div className="calendar-day-single-entry-emotion-none-msg">None</div>
-              }
+              <div className="calendar-day-single-entry-right-container">
+                {entries.entryEmotions ?
+                  <CalendarEntryEmotionsView key={entries.entryEmotions.id} emotions={entries.entryEmotions} />
+                  :
+                  <div className="calendar-day-single-entry-emotion-none-msg">None</div>
+                }
+              </div>
             </div>
           </div>
-        </div>
+        </Link>
       )
 
     } else {
