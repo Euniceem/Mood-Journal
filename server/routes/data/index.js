@@ -1,360 +1,386 @@
 const express = require('express');
 const router = express.Router();
-const Entry = require('../../../database/models/Entry');
+const knex = require('../../../database/knex');
 const isAuthenticated = require('../isAuth');
 
 router.get('/data', isAuthenticated, (req, res) => {
   const user_id = req.user.id;
+  const data = {
+    moodData: {
+      avgDay: [],
+      avgWeek: [],
+      allDays: []
+    },
+    emotionData: {
+      avgDay: [],
+      avgWeek: [],
+      allDays: []
+    },
+    activityData: {
+      avgDay: [],
+      avgWeek: [],
+      allDays: []
+    }
+  };
 
-  Entry.where('user_id', user_id)
-    .fetchAll({
-      withRelated: [
-        'mood',
-        'entryActivities.default_activity',
-        'entryActivities.custom_activity',
-        'entryEmotions.default_emotion',
-        'entryEmotions.custom_emotion'
-      ]
+  /***
+   * mood data
+   *
+   */
+
+  // by hour
+  knex
+    .raw(
+      `
+    SELECT date_part('hour', entries.created_at), avg(mood_id)
+    FROM entries
+    WHERE entries.user_id = ${user_id} 
+    GROUP BY date_part('hour', entries.created_at)
+    ORDER BY 1
+  `
+    )
+    .then(result => {
+      result.rows.forEach(row => {
+        data.moodData.avgDay.push(row);
+      });
     })
-    .then(entries => {
-      if (!entries) {
-        res.status(404);
-        return res.end('entry not found');
-      }
-
-      entries = entries.toJSON();
-
-      let groupByDayOfWeek = entries.reduce(
-        (grouping, currentEntry) => {
-          let day = currentEntry.created_at.getDay();
-          let mood = currentEntry.mood_id;
-
-          let updatedActivitiesCount = currentEntry.entryActivities.reduce(
-            (prevActivities, currentActivity) => {
-              let activityName = currentActivity.custom_activity
-                ? currentActivity.custom_activity.name
-                : currentActivity.default_activity.name;
-
-              return Object.assign({}, prevActivities, {
-                [activityName]: prevActivities.hasOwnProperty(activityName)
-                  ? ++prevActivities[activityName]
-                  : 1
-              });
-            },
-            grouping[day].activities
-          );
-
-          let updatedEmotionTotal = currentEntry.entryEmotions.reduce(
-            (prevEmotionSums, currentEmotion) => {
-              let emotionName = currentEmotion.custom_emotion
-                ? currentEmotion.custom_emotion.name
-                : currentEmotion.default_emotion.name;
-
-              return Object.assign({}, prevEmotionSums, {
-                [emotionName]: prevEmotionSums.hasOwnProperty(emotionName)
-                  ? (prevEmotionSums[emotionName] += currentEmotion.percent)
-                  : currentEmotion.percent
-              });
-            },
-            grouping[day].emotions
-          );
-
-          return Object.assign({}, grouping, {
-            [day]: Object.assign({}, grouping[day], {
-              moodSum: grouping[day].moodSum + mood,
-              activities: updatedActivitiesCount,
-              emotions: updatedEmotionTotal,
-              totalEntries: ++grouping[day].totalEntries
-            })
+    .then(() => {
+      // by day of week
+      return knex
+        .raw(
+          `
+        SELECT EXTRACT(DOW from entries.created_at::DATE), avg(mood_id)
+        FROM entries
+        WHERE user_id = ${user_id}
+        GROUP BY EXTRACT(DOW from entries.created_at::DATE)
+        ORDER BY 1
+        `
+        )
+        .then(result => {
+          result.rows.forEach(row => {
+            data.moodData.avgWeek.push(row);
           });
-        },
-        {
-          0: {
-            moodSum: 0,
-            activities: {},
-            emotions: {},
-            totalEntries: 0
-          },
-          1: {
-            moodSum: 0,
-            activities: {},
-            emotions: {},
-            totalEntries: 0
-          },
-          2: {
-            moodSum: 0,
-            activities: {},
-            emotions: {},
-            totalEntries: 0
-          },
-          3: {
-            moodSum: 0,
-            activities: {},
-            emotions: {},
-            totalEntries: 0
-          },
-          4: {
-            moodSum: 0,
-            activities: {},
-            emotions: {},
-            totalEntries: 0
-          },
-          5: {
-            moodSum: 0,
-            activities: {},
-            emotions: {},
-            totalEntries: 0
-          },
-          6: {
-            moodSum: 0,
-            activities: {},
-            emotions: {},
-            totalEntries: 0
-          }
-        }
-      );
-
-      let groupByHour = entries.reduce(
-        (grouping, currentEntry) => {
-          let hour = currentEntry.created_at.getHours();
-          let mood = currentEntry.mood_id;
-
-          let updatedActivitiesCount = currentEntry.entryActivities.reduce(
-            (prevActivities, currentActivity) => {
-              let activityName = currentActivity.custom_activity
-                ? currentActivity.custom_activity.name
-                : currentActivity.default_activity.name;
-
-              return Object.assign({}, prevActivities, {
-                [activityName]: prevActivities.hasOwnProperty(activityName)
-                  ? ++prevActivities[activityName]
-                  : 1
-              });
-            },
-            grouping[hour].activities
-          );
-
-          let updatedEmotionTotal = currentEntry.entryEmotions.reduce(
-            (prevEmotionSums, currentEmotion) => {
-              let emotionName = currentEmotion.custom_emotion
-                ? currentEmotion.custom_emotion.name
-                : currentEmotion.default_emotion.name;
-
-              return Object.assign({}, prevEmotionSums, {
-                [emotionName]: prevEmotionSums.hasOwnProperty(emotionName)
-                  ? (prevEmotionSums[emotionName] += currentEmotion.percent)
-                  : currentEmotion.percent
-              });
-            },
-            grouping[hour].emotions
-          );
-
-          return Object.assign({}, grouping, {
-            [hour]: Object.assign({}, grouping[hour], {
-              moodSum: grouping[hour].moodSum + mood,
-              activities: updatedActivitiesCount,
-              emotions: updatedEmotionTotal,
-              totalEntries: ++grouping[hour].totalEntries
-            })
-          });
-        },
-        {
-          0: {
-            moodSum: 0,
-            activities: {},
-            emotions: {},
-            totalEntries: 0
-          },
-          1: {
-            moodSum: 0,
-            activities: {},
-            emotions: {},
-            totalEntries: 0
-          },
-          2: {
-            moodSum: 0,
-            activities: {},
-            emotions: {},
-            totalEntries: 0
-          },
-          3: {
-            moodSum: 0,
-            activities: {},
-            emotions: {},
-            totalEntries: 0
-          },
-          4: {
-            moodSum: 0,
-            activities: {},
-            emotions: {},
-            totalEntries: 0
-          },
-          5: {
-            moodSum: 0,
-            activities: {},
-            emotions: {},
-            totalEntries: 0
-          },
-          6: {
-            moodSum: 0,
-            activities: {},
-            emotions: {},
-            totalEntries: 0
-          },
-          7: {
-            moodSum: 0,
-            activities: {},
-            emotions: {},
-            totalEntries: 0
-          },
-          8: {
-            moodSum: 0,
-            activities: {},
-            emotions: {},
-            totalEntries: 0
-          },
-          9: {
-            moodSum: 0,
-            activities: {},
-            emotions: {},
-            totalEntries: 0
-          },
-          10: {
-            moodSum: 0,
-            activities: {},
-            emotions: {},
-            totalEntries: 0
-          },
-          11: {
-            moodSum: 0,
-            activities: {},
-            emotions: {},
-            totalEntries: 0
-          },
-          12: {
-            moodSum: 0,
-            activities: {},
-            emotions: {},
-            totalEntries: 0
-          },
-          13: {
-            moodSum: 0,
-            activities: {},
-            emotions: {},
-            totalEntries: 0
-          },
-          14: {
-            moodSum: 0,
-            activities: {},
-            emotions: {},
-            totalEntries: 0
-          },
-          15: {
-            moodSum: 0,
-            activities: {},
-            emotions: {},
-            totalEntries: 0
-          },
-          16: {
-            moodSum: 0,
-            activities: {},
-            emotions: {},
-            totalEntries: 0
-          },
-          17: {
-            moodSum: 0,
-            activities: {},
-            emotions: {},
-            totalEntries: 0
-          },
-          18: {
-            moodSum: 0,
-            activities: {},
-            emotions: {},
-            totalEntries: 0
-          },
-          19: {
-            moodSum: 0,
-            activities: {},
-            emotions: {},
-            totalEntries: 0
-          },
-          20: {
-            moodSum: 0,
-            activities: {},
-            emotions: {},
-            totalEntries: 0
-          },
-          21: {
-            moodSum: 0,
-            activities: {},
-            emotions: {},
-            totalEntries: 0
-          },
-          22: {
-            moodSum: 0,
-            activities: {},
-            emotions: {},
-            totalEntries: 0
-          },
-          23: {
-            moodSum: 0,
-            activities: {},
-            emotions: {},
-            totalEntries: 0
-          }
-        }
-      );
-
-      for (let day in groupByDayOfWeek) {
-        if (groupByDayOfWeek[day].totalEntries === 0) {
-          break;
-        }
-
-        groupByDayOfWeek[day].moodSum =
-          groupByDayOfWeek[day].moodSum / groupByDayOfWeek[day].totalEntries;
-
-        for (let activity in groupByDayOfWeek[day].activities) {
-          groupByDayOfWeek[day].activities[activity] =
-            groupByDayOfWeek[day].activities[activity] /
-            groupByDayOfWeek[day].totalEntries;
-        }
-
-        for (let emotion in groupByDayOfWeek[day].emotions) {
-          groupByDayOfWeek[day].emotions[emotion] =
-            groupByDayOfWeek[day].emotions[emotion] /
-            groupByDayOfWeek[day].totalEntries;
-        }
-      }
-
-      for (let hour in groupByHour) {
-        if (groupByHour[hour].totalEntries === 0) {
-          break;
-        }
-
-        groupByHour[hour].moodSum =
-          groupByHour[hour].moodSum / groupByHour[hour].totalEntries;
-
-        for (let activity in groupByHour[hour].activities) {
-          groupByHour[hour].activities[activity] =
-            groupByHour[hour].activities[activity] /
-            groupByHour[hour].totalEntries;
-        }
-
-        for (let emotion in groupByHour[hour].emotions) {
-          groupByHour[hour].emotions[emotion] =
-            groupByHour[hour].emotions[emotion] /
-            groupByHour[hour].totalEntries;
-        }
-      }
-
-      res.json({ avgWeek: groupByDayOfWeek, avgDay: groupByHour });
+        });
     })
-    .catch(err => {
-      console.log(err);
-      res.status(500);
-      return res.end('error fetching entry');
-    });
+    .then(() => {
+      // by date
+      return knex
+        .raw(
+          `
+        SELECT date_trunc('day', entries.created_at::date), avg(mood_id)
+        FROM entries
+        WHERE entries.user_id = ${user_id} 
+        GROUP BY date_trunc('day', entries.created_at::date)
+        ORDER BY 1
+        `
+        )
+        .then(result => {
+          result.rows.forEach(row => {
+            data.moodData.allDays.push(row);
+          });
+        });
+    })
+    .then(() => {
+      /*****
+       * emotion data
+       */
+
+      //by hour
+      return knex
+        .raw(
+          `
+      SELECT date_part('hour', entries.created_at), default_emotions.name, avg(percent)
+      FROM entry_emotions
+      INNER JOIN entries
+      ON entry_emotions.entry_id = entries.id
+      INNER JOIN default_emotions
+      ON entry_emotions.default_emotion_id = default_emotions.id
+      WHERE entries.user_id = ${user_id} AND default_emotion_id IS NOT NULL
+      GROUP BY date_part('hour', entries.created_at), default_emotions.name
+      ORDER BY 1
+      `
+        )
+        .then(result => {
+          const avgEmotionsByHour = {};
+
+          result.rows.forEach(row => {
+            avgEmotionsByHour[row.date_part]
+              ? (avgEmotionsByHour[row.date_part][row.name] = row.avg)
+              : (avgEmotionsByHour[row.date_part] = { [row.name]: row.avg });
+          });
+
+          return avgEmotionsByHour;
+        });
+    })
+    .then(avgEmotionsByHour => {
+      return knex
+        .raw(
+          `
+      SELECT date_part('hour', entries.created_at), custom_emotions.name, avg(percent)
+      FROM entry_emotions
+      INNER JOIN entries
+      ON entry_emotions.entry_id = entries.id
+      INNER JOIN custom_emotions
+      ON entry_emotions.custom_emotion_id = custom_emotions.id
+      WHERE entries.user_id = ${user_id} AND custom_emotion_id IS NOT NULL
+      GROUP BY date_part('hour', entries.created_at), custom_emotions.name
+      ORDER BY 1
+      `
+        )
+        .then(result => {
+          result.rows.forEach(row => {
+            avgEmotionsByHour[row.date_part]
+              ? (avgEmotionsByHour[row.date_part][row.name] = row.avg)
+              : (avgEmotionsByHour[row.date_part] = { [row.name]: row.avg });
+          });
+
+          for (let hour in avgEmotionsByHour) {
+            avgEmotionsByHour[hour].hour = hour;
+            data.emotionData.avgDay.push(avgEmotionsByHour[hour]);
+          }
+        });
+    })
+    .then(() => {
+      //by day of week
+      return knex
+        .raw(
+          `
+      SELECT EXTRACT(DOW from entries.created_at::DATE), default_emotions.name, avg(percent)
+      FROM entry_emotions
+      INNER JOIN entries
+      ON entry_emotions.entry_id = entries.id
+      INNER JOIN default_emotions
+      ON entry_emotions.default_emotion_id = default_emotions.id
+      WHERE user_id = ${user_id} AND default_emotion_id IS NOT NULL
+      GROUP BY EXTRACT(DOW from entries.created_at::DATE), default_emotions.name
+      ORDER BY 1
+      `
+        )
+        .then(result => {
+          const avgEmotionsByDayOfWeek = {};
+
+          result.rows.forEach(row => {
+            avgEmotionsByDayOfWeek[row.date_part]
+              ? (avgEmotionsByDayOfWeek[row.date_part][row.name] = row.avg)
+              : (avgEmotionsByDayOfWeek[row.date_part] = {
+                  [row.name]: row.avg
+                });
+          });
+
+          return avgEmotionsByDayOfWeek;
+        });
+    })
+    .then(avgEmotionsByDayOfWeek => {
+      return knex
+        .raw(
+          `
+      SELECT EXTRACT(DOW from entries.created_at::DATE), custom_emotions.name, avg(percent)
+      FROM entry_emotions
+      INNER JOIN entries
+      ON entry_emotions.entry_id = entries.id
+      INNER JOIN custom_emotions
+      ON entry_emotions.custom_emotion_id = custom_emotions.id
+      WHERE entries.user_id = ${user_id} AND custom_emotion_id IS NOT NULL
+      GROUP BY EXTRACT(DOW from entries.created_at::DATE), custom_emotions.name
+      ORDER BY 1
+      `
+        )
+        .then(result => {
+          result.rows.forEach(row => {
+            avgEmotionsByDayOfWeek[row.date_part]
+              ? (avgEmotionsByDayOfWeek[row.date_part][row.name] = row.avg)
+              : (avgEmotionsByDayOfWeek[row.date_part] = {
+                  [row.name]: row.avg
+                });
+          });
+
+          for (let day in avgEmotionsByDayOfWeek) {
+            avgEmotionsByDayOfWeek[day].day = day;
+            data.emotionData.avgWeek.push(avgEmotionsByDayOfWeek[day]);
+          }
+        });
+    })
+    .then(() => {
+      // by date
+      return knex
+        .raw(
+          `
+      SELECT date_trunc('day', entries.created_at::DATE), default_emotions.name, avg(percent)
+      FROM entry_emotions
+      INNER JOIN entries
+      ON entry_emotions.entry_id = entries.id
+      INNER JOIN default_emotions
+      ON entry_emotions.default_emotion_id = default_emotions.id
+      WHERE user_id = 1 AND default_emotion_id IS NOT NULL
+      GROUP BY date_trunc('day', entries.created_at::DATE), default_emotions.name
+      ORDER BY 1
+      `
+        )
+        .then(result => {
+          const avgEmotionsByDate = {};
+
+          result.rows.forEach(row => {
+            avgEmotionsByDate[row.date_trunc]
+              ? (avgEmotionsByDate[row.date_trunc][row.name] = row.avg)
+              : (avgEmotionsByDate[row.date_trunc] = { [row.name]: row.avg });
+          });
+
+          return avgEmotionsByDate;
+        });
+    })
+    .then(avgEmotionsByDate => {
+      return knex
+        .raw(
+          `
+      SELECT date_trunc('day', entries.created_at::DATE), custom_emotions.name, avg(percent)
+      FROM entry_emotions
+      INNER JOIN entries
+      ON entry_emotions.entry_id = entries.id
+      INNER JOIN custom_emotions
+      ON entry_emotions.custom_emotion_id = custom_emotions.id
+      WHERE entries.user_id = ${user_id} AND custom_emotion_id IS NOT NULL
+      GROUP BY date_trunc('day', entries.created_at::DATE), custom_emotions.name
+      ORDER BY 1
+      `
+        )
+        .then(result => {
+          result.rows.forEach(row => {
+            avgEmotionsByDate[row.date_trunc]
+              ? (avgEmotionsByDate[row.date_trunc][row.name] = row.avg)
+              : (avgEmotionsByDate[row.date_trunc] = { [row.name]: row.avg });
+          });
+
+          for (let date in avgEmotionsByDate) {
+            avgEmotionsByDate[date].date = date;
+            data.emotionData.allDays.push(avgEmotionsByDate[date]);
+          }
+        });
+    })
+    .then(() => {
+      /****
+       * activity data
+       */
+
+      //by day of week
+      return knex
+        .raw(
+          `
+        SELECT EXTRACT(DOW from entries.created_at::DATE), default_activities.name, count(*)
+        FROM entry_activities
+        INNER JOIN entries
+        ON entry_activities.entry_id = entries.id
+        INNER JOIN default_activities
+        ON entry_activities.default_activity_id = default_activities.id
+        WHERE user_id = 1 AND default_activity_id IS NOT NULL
+        GROUP BY EXTRACT(DOW from entries.created_at::DATE), default_activities.name
+        ORDER BY 1
+        `
+        )
+        .then(result => {
+          const totalActivitiesByDayOfWeek = {};
+
+          result.rows.forEach(row => {
+            totalActivitiesByDayOfWeek[row.date_part]
+              ? (totalActivitiesByDayOfWeek[row.date_part][row.name] =
+                  row.count)
+              : (totalActivitiesByDayOfWeek[row.date_part] = {
+                  [row.name]: row.count
+                });
+          });
+
+          return totalActivitiesByDayOfWeek;
+        });
+    })
+    .then(totalActivitiesByDayOfWeek => {
+      return knex
+        .raw(
+          `SELECT EXTRACT(DOW from entries.created_at::DATE), custom_activities.name, count(*)
+        FROM entry_activities
+        INNER JOIN entries
+        ON entry_activities.entry_id = entries.id
+        INNER JOIN custom_activities
+        ON entry_activities.custom_activity_id = custom_activities.id
+        WHERE entries.user_id = ${user_id} AND custom_activity_id IS NOT NULL
+        GROUP BY EXTRACT(DOW from entries.created_at::DATE), custom_activities.name
+        ORDER BY 1`
+        )
+        .then(result => {
+          result.rows.forEach(row => {
+            totalActivitiesByDayOfWeek[row.date_part]
+              ? (totalActivitiesByDayOfWeek[row.date_part][row.name] =
+                  row.count)
+              : (totalActivitiesByDayOfWeek[row.date_part] = {
+                  [row.name]: row.count
+                });
+          });
+
+          for (let day in totalActivitiesByDayOfWeek) {
+            totalActivitiesByDayOfWeek[day].day = day;
+            data.activityData.avgWeek.push(totalActivitiesByDayOfWeek[day]);
+          }
+        });
+    })
+    .then(() => {
+      // by date
+
+      return knex
+        .raw(
+          `SELECT date_trunc('day', entries.created_at), default_activities.name, count(*)
+      FROM entry_activities
+      INNER JOIN entries
+      ON entry_activities.entry_id = entries.id
+      INNER JOIN default_activities
+      ON entry_activities.default_activity_id = default_activities.id
+      WHERE entries.user_id = ${user_id} AND default_activity_id IS NOT NULL
+      GROUP BY date_trunc('day', entries.created_at), default_activities.name
+      ORDER BY 1`
+        )
+        .then(result => {
+          const totalActivitiesByDate = {};
+
+          result.rows.forEach(row => {
+            totalActivitiesByDate[row.date_trunc]
+              ? (totalActivitiesByDate[row.date_trunc][row.name] = row.count)
+              : (totalActivitiesByDate[row.date_trunc] = {
+                  [row.name]: row.count
+                });
+          });
+
+          return totalActivitiesByDate;
+        });
+    })
+    .then(totalActivitiesByDate => {
+      return knex
+        .raw(
+          `SELECT date_trunc('day', entries.created_at), custom_activities.name, count(*)
+      FROM entry_activities
+      INNER JOIN entries
+      ON entry_activities.entry_id = entries.id
+      INNER JOIN custom_activities
+      ON entry_activities.custom_activity_id = custom_activities.id
+      WHERE entries.user_id = ${user_id} AND custom_activity_id IS NOT NULL
+      GROUP BY date_trunc('day', entries.created_at), custom_activities.name
+      ORDER BY 1`
+        )
+        .then(result => {
+          result.rows.forEach(row => {
+            totalActivitiesByDate[row.date_trunc]
+              ? (totalActivitiesByDate[row.date_trunc][row.name] = row.count)
+              : (totalActivitiesByDate[row.date_trunc] = {
+                  [row.name]: row.count
+                });
+          });
+
+          for (let date in totalActivitiesByDate) {
+            totalActivitiesByDate[date].date = date;
+            data.activityData.allDays.push(totalActivitiesByDate[date]);
+          }
+        });
+    })
+    .then(() => {
+      res.json(data);
+    })
+    .catch(err => res.status(500).json({ error: 'error fetching data' }));
 });
 
 module.exports = router;

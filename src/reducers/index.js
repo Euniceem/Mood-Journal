@@ -7,10 +7,25 @@ import {
 
 const initialState = {
   entries: [],
-  avgDay: {},
-  avgWeek: {},
   email: localStorage.getItem('email'),
-  loggedIn: localStorage.getItem('loggedIn')
+  loggedIn: localStorage.getItem('loggedIn'),
+  data: {
+    moodData: {
+      avgDay: [],
+      avgWeek: [],
+      time: []
+    },
+    emotionData: {
+      avgDay: [],
+      avgWeek: [],
+      time: []
+    },
+    activityData: {
+      avgDay: [],
+      avgWeek: [],
+      time: []
+    }
+  }
 };
 
 const moodJournalReducer = (state = initialState, action) => {
@@ -25,10 +40,7 @@ const moodJournalReducer = (state = initialState, action) => {
     case LOAD_ENTRIES:
       return Object.assign({}, state, { entries: [...action.payload] });
     case FETCHED_DATA:
-      return Object.assign({}, state, {
-        avgDay: action.payload.avgDay,
-        avgWeek: action.payload.avgWeek
-      });
+      return Object.assign({}, state, { data: action.payload });
     default:
       return state;
   }

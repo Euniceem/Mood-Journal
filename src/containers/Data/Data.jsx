@@ -42,24 +42,6 @@ class Data extends Component {
   filterData() {}
 
   render() {
-    let moodData = [];
-    let emotionData = [];
-
-    for (let day in this.props.avgWeek) {
-      moodData.push({
-        mood: this.props.avgWeek[day].moodSum,
-        anxiety: this.props.avgWeek[day].emotions.anxiety,
-        energy: this.props.avgWeek[day].emotions.energy,
-        happiness: this.props.avgWeek[day].emotions.happiness,
-        index: parseInt(day)
-      });
-    }
-
-    for (let day in this.props.avgWeek) {
-      this.props.avgWeek[day].emotions.day = parseInt(day);
-      emotionData.push(this.props.avgWeek[day].emotions);
-    }
-
     return (
       <div className="data-container">
         <Header />
@@ -89,14 +71,14 @@ class Data extends Component {
           }
           width={350}
           height={200}
-          data={moodData}
+          data={this.props.data.moodData.avgDay}
           margin={{ top: 5, right: 5, left: 5, bottom: 5 }}
         >
           <CartesianGrid strokeDasharray="3 3" />
-          <XAxis dataKey="day" />
+          <XAxis dataKey="date_part" />
           <YAxis />
           <Legend />
-          <Line type="monotone" dataKey="mood" stroke="#82ca9d" />
+          <Line type="monotone" dataKey="avg" stroke="#82ca9d" />
           <Tooltip />
         </LineChart>
 
@@ -106,14 +88,14 @@ class Data extends Component {
           }
           width={350}
           height={200}
-          data={emotionData}
+          data={this.props.data.emotionData.avgDay}
           margin={{ top: 5, right: 5, left: 5, bottom: 5 }}
         >
           <CartesianGrid strokeDasharray="3 3" />
-          <XAxis dataKey="day" />
+          <XAxis dataKey="date_part" />
           <YAxis />
           <Legend />
-          <Line type="monotone" dataKey="happiness" stroke="#8884d8" />
+          <Line type="monotone" dataKey="name" stroke="#8884d8" />
           <Line type="monotone" dataKey="energy" stroke="#dcf442" />
           <Line type="monotone" dataKey="stress" stroke="#f45641" />
           <Tooltip />
@@ -148,8 +130,7 @@ class Data extends Component {
 
 const mapStateToProps = state => {
   return {
-    avgDay: state.avgDay,
-    avgWeek: state.avgWeek
+    data: state.data
   };
 };
 
