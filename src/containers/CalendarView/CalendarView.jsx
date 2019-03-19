@@ -37,9 +37,6 @@ class CalendarView extends Component {
     }
   }
 
-
-
-
   render() {
 
     const entryDate = this.props.entries.filter(entries => {
@@ -80,11 +77,7 @@ class CalendarView extends Component {
           <div className="calendar-day-entry-container">
             <div className="calendar-day-entry-date-title">{this.state.date.toDateString()}</div>
 
-            {/* {entryDate === this.state.date.toDateString() ? */}
             <CalendarEntryView entries={this.props.entries} date={this.state.date} />
-            {/* //   :
-          //   null
-          // } */}
 
           </div>
           :
