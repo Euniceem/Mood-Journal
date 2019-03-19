@@ -71,11 +71,12 @@ router.get('/data', isAuthenticated, (req, res) => {
         FROM entries
         WHERE entries.user_id = ${user_id} 
         GROUP BY date_trunc('day', entries.created_at::date)
-        ORDER BY 1
+        ORDER BY date_trunc('day', entries.created_at::date) DESC
         `
         )
         .then(result => {
           result.rows.forEach(row => {
+            row.date = row.date_trunc;
             data.moodData.allDays.push(row);
           });
         });
@@ -211,9 +212,9 @@ router.get('/data', isAuthenticated, (req, res) => {
       ON entry_emotions.entry_id = entries.id
       INNER JOIN default_emotions
       ON entry_emotions.default_emotion_id = default_emotions.id
-      WHERE user_id = 1 AND default_emotion_id IS NOT NULL
+      WHERE user_id = ${user_id} AND default_emotion_id IS NOT NULL
       GROUP BY date_trunc('day', entries.created_at::DATE), default_emotions.name
-      ORDER BY 1
+      ORDER BY date_trunc('day', entries.created_at::DATE) DESC
       `
         )
         .then(result => {
@@ -240,7 +241,7 @@ router.get('/data', isAuthenticated, (req, res) => {
       ON entry_emotions.custom_emotion_id = custom_emotions.id
       WHERE entries.user_id = ${user_id} AND custom_emotion_id IS NOT NULL
       GROUP BY date_trunc('day', entries.created_at::DATE), custom_emotions.name
-      ORDER BY 1
+      ORDER BY date_trunc('day', entries.created_at::DATE) DESC
       `
         )
         .then(result => {
@@ -271,7 +272,7 @@ router.get('/data', isAuthenticated, (req, res) => {
         ON entry_activities.entry_id = entries.id
         INNER JOIN default_activities
         ON entry_activities.default_activity_id = default_activities.id
-        WHERE user_id = 1 AND default_activity_id IS NOT NULL
+        WHERE user_id = ${user_id} AND default_activity_id IS NOT NULL
         GROUP BY EXTRACT(DOW from entries.created_at::DATE), default_activities.name
         ORDER BY 1
         `
@@ -294,7 +295,8 @@ router.get('/data', isAuthenticated, (req, res) => {
     .then(totalActivitiesByDayOfWeek => {
       return knex
         .raw(
-          `SELECT EXTRACT(DOW from entries.created_at::DATE), custom_activities.name, count(*)
+          `
+        SELECT EXTRACT(DOW from entries.created_at::DATE), custom_activities.name, count(*)
         FROM entry_activities
         INNER JOIN entries
         ON entry_activities.entry_id = entries.id
@@ -326,14 +328,15 @@ router.get('/data', isAuthenticated, (req, res) => {
       return knex
         .raw(
           `SELECT date_trunc('day', entries.created_at), default_activities.name, count(*)
-      FROM entry_activities
-      INNER JOIN entries
-      ON entry_activities.entry_id = entries.id
-      INNER JOIN default_activities
-      ON entry_activities.default_activity_id = default_activities.id
-      WHERE entries.user_id = ${user_id} AND default_activity_id IS NOT NULL
-      GROUP BY date_trunc('day', entries.created_at), default_activities.name
-      ORDER BY 1`
+        FROM entry_activities
+        INNER JOIN entries
+        ON entry_activities.entry_id = entries.id
+        INNER JOIN default_activities
+        ON entry_activities.default_activity_id = default_activities.id
+        WHERE entries.user_id = ${user_id} AND default_activity_id IS NOT NULL
+        GROUP BY date_trunc('day', entries.created_at), default_activities.name
+        ORDER BY date_trunc('day', entries.created_at) DESC
+        `
         )
         .then(result => {
           const totalActivitiesByDate = {};
@@ -360,7 +363,7 @@ router.get('/data', isAuthenticated, (req, res) => {
       ON entry_activities.custom_activity_id = custom_activities.id
       WHERE entries.user_id = ${user_id} AND custom_activity_id IS NOT NULL
       GROUP BY date_trunc('day', entries.created_at), custom_activities.name
-      ORDER BY 1`
+      ORDER BY date_trunc('day', entries.created_at) DESC`
         )
         .then(result => {
           result.rows.forEach(row => {

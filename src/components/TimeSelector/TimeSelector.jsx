@@ -5,13 +5,13 @@ const TimeSelector = props => {
   const trend_type = props.trend_type;
   const handleOptionsOnClick = props.handleOptionsOnClick;
 
-  if (trend_type === 'average') {
+  if (trend_type === 'avg') {
     return (
       <div className="time-select-container">
         <button
           className="btn"
           data-input-type="time"
-          value="today"
+          value="1"
           onClick={handleOptionsOnClick}
         >
           Day
@@ -19,7 +19,7 @@ const TimeSelector = props => {
         <button
           className="btn"
           data-input-type="time"
-          value="1w"
+          value="7"
           onClick={handleOptionsOnClick}
         >
           Week
@@ -33,7 +33,7 @@ const TimeSelector = props => {
       <button
         className="btn"
         data-input-type="time"
-        value="today"
+        value="1"
         onClick={handleOptionsOnClick}
       >
         Today
@@ -41,7 +41,7 @@ const TimeSelector = props => {
       <button
         className="btn"
         data-input-type="time"
-        value="1w"
+        value="7"
         onClick={handleOptionsOnClick}
       >
         1W
@@ -49,7 +49,7 @@ const TimeSelector = props => {
       <button
         className="btn"
         data-input-type="time"
-        value="1m"
+        value="31"
         onClick={handleOptionsOnClick}
       >
         1M
@@ -57,7 +57,7 @@ const TimeSelector = props => {
       <button
         className="btn"
         data-input-type="time"
-        value="3m"
+        value="92"
         onClick={handleOptionsOnClick}
       >
         3M
@@ -65,7 +65,7 @@ const TimeSelector = props => {
       <button
         className="btn"
         data-input-type="time"
-        value="6m"
+        value="184"
         onClick={handleOptionsOnClick}
       >
         6M
@@ -73,7 +73,7 @@ const TimeSelector = props => {
       <button
         className="btn"
         data-input-type="time"
-        value="1y"
+        value="365"
         onClick={handleOptionsOnClick}
       >
         1Y

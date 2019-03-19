@@ -1,19 +1,13 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import {
-  LineChart,
-  CartesianGrid,
-  XAxis,
-  YAxis,
-  Legend,
-  Tooltip,
-  Line
-} from 'recharts';
 import './Data.scss';
 import { fetchData } from '../../actions';
 
 import Header from '../../components/Header';
 import TimeSelector from '../../components/TimeSelector';
+import ChartTypeSwitch from '../../components/ChartTypeSwitch';
+import TrendTypeSwitch from '../../components/TrendTypeSwitch';
+import LineChartBuilder from '../../components/LineChartBuilder';
 
 class Data extends Component {
   constructor(props) {
@@ -21,108 +15,105 @@ class Data extends Component {
 
     this.state = {
       chart_type: 'mood',
-      trend_type: 'average',
-      time: 'today'
+      trend_type: 'avg',
+      time: '1',
+      chartData: this.props.data.moodData.avgDay
     };
 
     this.handleOptionsOnClick = this.handleOptionsOnClick.bind(this);
+    this.selectAverageData = this.selectAverageData.bind(this);
+    this.filterDataByTime = this.filterDataByTime.bind(this);
   }
 
   componentDidMount() {
     this.props.fetchData();
+    this.setState({ chartData: this.props.data.moodData.avgDay });
   }
 
   handleOptionsOnClick(e) {
     const inputType = e.target.dataset.inputType;
     const value = e.target.value;
 
-    this.setState({ [inputType]: value });
+    new Promise((resolve, reject) =>
+      resolve(this.setState({ [inputType]: value }))
+    ).then(() => {
+      if (inputType === 'time' && this.state.trend_type === 'all') {
+        this.filterDataByTime();
+      } else {
+        this.selectAverageData();
+      }
+    });
   }
 
-  filterData() {}
+  selectAverageData() {
+    if (this.state.chart_type === 'mood') {
+      switch (this.state.time) {
+        case '1':
+          return this.setState({ chartData: this.props.data.moodData.avgDay });
+        case '7':
+          return this.setState({ chartData: this.props.data.moodData.avgWeek });
+        default:
+          return this.setState({ chartData: this.props.data.moodData.avgDay });
+      }
+    }
+
+    switch (this.state.time) {
+      case '1':
+        return this.setState({ chartData: this.props.data.emotionData.avgDay });
+      case '7':
+        return this.setState({
+          chartData: this.props.data.emotionData.avgWeek
+        });
+      default:
+        return this.setState({ chartData: this.props.data.emotionData.avgDay });
+    }
+  }
+
+  filterDataByTime() {
+    let startDate = new Date();
+
+    startDate.setDate(startDate.getDate() - parseInt(this.state.time));
+
+    if (this.state.chart_type === 'mood') {
+      const selectedMoodEntries = this.props.data.moodData.allDays.filter(
+        avgDay => {
+          return new Date(avgDay.date) > startDate;
+        }
+      );
+
+      return this.setState({
+        chartData: selectedMoodEntries
+      });
+    }
+
+    const selectedEmotionEntries = this.props.data.emotionData.allDays.filter(
+      avgDay => {
+        return new Date(avgDay.date) > startDate;
+      }
+    );
+
+    return this.setState({
+      chartData: selectedEmotionEntries
+    });
+  }
 
   render() {
     return (
       <div className="data-container">
         <Header />
-        <div className="mood-or-emotions-switch">
-          <button
-            className="btn"
-            data-input-type="chart_type"
-            value="mood"
-            onClick={this.handleOptionsOnClick}
-          >
-            Mood
-          </button>
-          <button
-            className="btn"
-            data-input-type="chart_type"
-            value="emotions"
-            onClick={this.handleOptionsOnClick}
-          >
-            Emotions
-          </button>
-        </div>
+        <ChartTypeSwitch handleOptionsOnClick={this.handleOptionsOnClick} />
 
-        <h1 className="title">Data</h1>
-        <LineChart
-          className={
-            this.state.chart_type === 'mood' ? 'chart show' : 'chart hide'
-          }
-          width={350}
-          height={200}
-          data={this.props.data.moodData.avgDay}
-          margin={{ top: 5, right: 5, left: 5, bottom: 5 }}
-        >
-          <CartesianGrid strokeDasharray="3 3" />
-          <XAxis dataKey="date_part" />
-          <YAxis />
-          <Legend />
-          <Line type="monotone" dataKey="avg" stroke="#82ca9d" />
-          <Tooltip />
-        </LineChart>
-
-        <LineChart
-          className={
-            this.state.chart_type === 'emotions' ? 'chart show' : 'chart hide'
-          }
-          width={350}
-          height={200}
-          data={this.props.data.emotionData.avgDay}
-          margin={{ top: 5, right: 5, left: 5, bottom: 5 }}
-        >
-          <CartesianGrid strokeDasharray="3 3" />
-          <XAxis dataKey="date_part" />
-          <YAxis />
-          <Legend />
-          <Line type="monotone" dataKey="name" stroke="#8884d8" />
-          <Line type="monotone" dataKey="energy" stroke="#dcf442" />
-          <Line type="monotone" dataKey="stress" stroke="#f45641" />
-          <Tooltip />
-        </LineChart>
+        <LineChartBuilder
+          chart_type={this.state.chart_type}
+          chartData={this.state.chartData}
+        />
 
         <TimeSelector
           trend_type={this.state.trend_type}
           handleOptionsOnClick={this.handleOptionsOnClick}
         />
 
-        <div className="select-trend-type-container" />
-        <button
-          className="btn"
-          data-input-type="trend_type"
-          value="average"
-          onClick={this.handleOptionsOnClick}
-        >
-          Average
-        </button>
-        <button
-          className="btn"
-          data-input-type="trend_type"
-          value="past"
-          onClick={this.handleOptionsOnClick}
-        >
-          Past
-        </button>
+        <TrendTypeSwitch handleOptionsOnClick={this.handleOptionsOnClick} />
       </div>
     );
   }
