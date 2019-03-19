@@ -29,7 +29,6 @@ class CalendarView extends Component {
 
   //only shows entries before or on current date/time
   onChangeDay(e) {
-    // console.log(e) // returns selected date
     if (e >= new Date()) {
       this.setState({ showDayEntry: false })
     } else {
@@ -55,10 +54,7 @@ class CalendarView extends Component {
         return null;
       }
     })
-    // console.log('CalendarView', this.props)
-    // console.log('entryDay', entryDay)
-    // console.log('entryDate', entryDate)
-    // console.log("DATEEEEE", this.state.date.toDateString())
+
     return (
       <div className="calender-container">
         <Header />
