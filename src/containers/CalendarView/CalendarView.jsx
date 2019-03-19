@@ -44,16 +44,35 @@ class CalendarView extends Component {
 
     })
 
-    const entryDay = this.props.entries.map(entries => {
-      let date = new Date(entries.created_at).toDateString()
-      let stateDate = this.state.date.toDateString()
+    const entryDayMood = () => {
 
-      if (date === stateDate) {
-        return entries;
-      } else {
-        return null;
-      }
-    })
+      const entryDay = this.props.entries.map(entries => {
+        let date = new Date(entries.created_at).toDateString()
+        let stateDate = this.state.date.toDateString()
+
+        if (date === stateDate) {
+          if (entries.mood === "Awful") {
+            return "awful"
+          }
+          if (entries.mood === "Bad") {
+            return "bad"
+          }
+          if (entries.mood === "Average") {
+            return "average"
+          }
+          if (entries.mood === "Good") {
+            return "good"
+          }
+          if (entries.mood === "Amazing") {
+            return "amazing"
+          }
+        } else {
+          return null;
+        }
+        return entries.mood
+      })
+    }
+
 
     return (
       <div className="calender-container">
@@ -67,10 +86,12 @@ class CalendarView extends Component {
           minDetail="decade"
           view="month"
           onClickDay={this.onChangeDay}
-          tileClassName="test test 1"
+          tileClassName={`testing ${entryDayMood()}`}
         />
         {this.state.showDayEntry === true ?
+
           <div className="calendar-day-entry-container">
+
             <div className="calendar-day-entry-date-title">{this.state.date.toDateString()}</div>
 
             <CalendarEntryView entries={this.props.entries} date={this.state.date} />
