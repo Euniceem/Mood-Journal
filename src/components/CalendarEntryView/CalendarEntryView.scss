@@ -1,0 +1,27 @@
+
+.calendar-day-single-entry-container{
+  border: 1px solid black;
+
+  .day-entry-time-title{
+    margin-left: 2em;
+  }
+
+  .calendar-day-single-entry-second-container{
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+
+    .calendar-day-single-entry-left-container{
+      width: 50%;
+      margin-left: 2em;
+      margin-top: 1em;
+    }
+
+    .calendar-day-single-entry-right-container{
+      display: flex;
+      justify-content: flex-start;
+      flex-direction: column;
+      width: 60%;
+    }
+  }
+}

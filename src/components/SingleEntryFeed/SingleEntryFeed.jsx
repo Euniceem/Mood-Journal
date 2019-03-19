@@ -62,8 +62,8 @@ const SingleEntryFeed = props => {
             {props.entryData.entryEmotions ? (
               emotionList
             ) : (
-              <div className="emotion-zero-msg">None</div>
-            )}
+                <div className="emotion-zero-msg">None</div>
+              )}
           </div>
         </div>
 
@@ -72,8 +72,8 @@ const SingleEntryFeed = props => {
           {props.entryData.entryActivities ? (
             activityList
           ) : (
-            <div className="activity-zero-msg">None</div>
-          )}
+              <div className="activity-zero-msg">None</div>
+            )}
         </div>
 
         <div className="notes">Notes: {props.entryData.notes}</div>

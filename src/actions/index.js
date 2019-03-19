@@ -6,8 +6,8 @@ export const LOAD_ENTRIES = 'LOAD ENTIRES';
 export const FETCHED_DATA = 'FETCHED_DATA';
 
 /** Action Creators*/
-export const register = user => {
-  return dispatch => {
+export const register = (user) => {
+  return (dispatch) => {
     return fetch('/api/register', {
       method: 'POST',
       headers: {
