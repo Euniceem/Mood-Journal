@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 import './SingleEntryFeed.scss';
 
 const SingleEntryFeed = props => {
@@ -47,38 +48,40 @@ const SingleEntryFeed = props => {
   };
 
   return (
-    <div className={`entry-container ${moodColor()}`}>
-      <div className="time-date-container">
-        <span className="date">{date.toDateString()}</span>
-        <span className="time">{time.toLocaleTimeString()}</span>
-      </div>
-      <div className="content-container">
-        <div className="emotions-main-container">
-          <div className={`mood ${moodColor()}`}>
-            {props.entryData.mood.name}
+    <Link to={`/entry/${props.entryData.id}`} className="entry-container-link">
+      <div className={`entry-container ${moodColor()}`}>
+        <div className="time-date-container">
+          <span className="date">{date.toDateString()}</span>
+          <span className="time">{time.toLocaleTimeString()}</span>
+        </div>
+        <div className="content-container">
+          <div className="emotions-main-container">
+            <div className={`mood ${moodColor()}`}>
+              {props.entryData.mood.name}
+            </div>
+            <div className="emotions-second-container">
+              <div className="emotion-title">Emotions:</div>
+              {props.entryData.entryEmotions ? (
+                emotionList
+              ) : (
+                  <div className="emotion-zero-msg">None</div>
+                )}
+            </div>
           </div>
-          <div className="emotions-second-container">
-            <div className="emotion-title">Emotions:</div>
-            {props.entryData.entryEmotions ? (
-              emotionList
+
+          <div className="actions-container">
+            <div className="activity-title">Activities:</div>
+            {props.entryData.entryActivities ? (
+              activityList
             ) : (
-                <div className="emotion-zero-msg">None</div>
+                <div className="activity-zero-msg">None</div>
               )}
           </div>
-        </div>
 
-        <div className="actions-container">
-          <div className="activity-title">Activities:</div>
-          {props.entryData.entryActivities ? (
-            activityList
-          ) : (
-              <div className="activity-zero-msg">None</div>
-            )}
+          <div className="notes">Notes: {props.entryData.notes}</div>
         </div>
-
-        <div className="notes">Notes: {props.entryData.notes}</div>
       </div>
-    </div>
+    </Link>
   );
 };
 
