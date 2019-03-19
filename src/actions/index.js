@@ -135,7 +135,6 @@ export const loadEntry = (id) => {
 };
 
 export const editEmail = (editedEmail) => {
-  console.log('editedEmail', editedEmail)
   return (dispatch) => {
     return fetch(`/api/profile/email`, {
       method: 'PUT',
@@ -151,7 +150,6 @@ export const editEmail = (editedEmail) => {
         return response.json()
       })
       .then((email) => {
-        console.log('action email', email)
         return dispatch({
           type: EDIT_EMAIL,
           payload: email
@@ -160,15 +158,17 @@ export const editEmail = (editedEmail) => {
   }
 }
 
-export const editPassword = (editedPassword) => {
-  console.log('editedPassword', editedPassword)
+export const editPassword = (oldPassword, editedPassword) => {
   return (dispatch) => {
     return fetch(`/api/profile/password`, {
       method: 'PUT',
       headers: {
         'Content-Type': 'application/json'
       },
-      body: JSON.stringify(editedPassword)
+      body: JSON.stringify({
+        oldPassword: oldPassword.password,
+        newPassword: editedPassword.password
+      }),
     })
       .then((response) => {
         if (!response.ok) {
@@ -177,7 +177,6 @@ export const editPassword = (editedPassword) => {
         return response.json()
       })
       .then((password) => {
-        console.log('action email', password)
         return dispatch({
           type: EDIT_PASSWORD,
           payload: password
