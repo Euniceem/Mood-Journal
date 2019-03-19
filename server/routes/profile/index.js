@@ -6,19 +6,6 @@ const isAuthenticated = require('../isAuth');
 
 const saltRounds = 12;
 
-// router.get('profile/user', isAuthenticated, (req, res) => {
-//   const id = req.user.id;
-
-//   User.where('id', id)
-//     .fetch({ columns: ['email'] })
-//     .then(function (user) {
-//       res.json(user)
-//     })
-//     .catch(function (err) {
-//       res.json(err)
-//     })
-// })
-
 router.put('/profile/email', isAuthenticated, (req, res) => {
   const id = req.user.id;
   const email = req.user.email;
