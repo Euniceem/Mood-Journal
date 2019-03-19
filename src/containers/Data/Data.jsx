@@ -18,7 +18,7 @@ class Data extends Component {
       trend_type: 'avg',
       time: '1',
       line_chart_data: this.props.data.moodData.avgDay,
-      pie_chart_data: this.props.data.activityData.avgDay
+      activity_data: this.props.data.activityData.avgDay
     };
 
     this.handleOptionsOnClick = this.handleOptionsOnClick.bind(this);
@@ -85,6 +85,26 @@ class Data extends Component {
 
     startDate.setDate(startDate.getDate() - parseInt(this.state.time));
 
+    const selectedActivitySums = {};
+
+    this.props.data.activityData.allDays
+      .filter(day => {
+        return new Date(day.date) > startDate;
+      })
+      .forEach(day => {
+        for (let activity in day) {
+          if (activity === 'date') {
+            return;
+          }
+
+          selectedActivitySums[activity]
+            ? (selectedActivitySums[activity] += parseInt(day[activity]))
+            : (selectedActivitySums[activity] = parseInt(day[activity]));
+        }
+      });
+
+    this.setState({ activity_data: selectedActivitySums });
+
     if (this.state.chart_type === 'mood') {
       const selectedMoodEntries = this.props.data.moodData.allDays.filter(
         avgDay => {
@@ -124,7 +144,10 @@ class Data extends Component {
           handleOptionsOnClick={this.handleOptionsOnClick}
         />
 
-        <div className="activities-list" />
+        <div className="activities-list">
+          /** if average if 1 return average day if 7 return average week else
+          return slice of allDays */
+        </div>
 
         <TrendTypeSwitch handleOptionsOnClick={this.handleOptionsOnClick} />
       </div>
