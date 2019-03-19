@@ -12,7 +12,7 @@ const CalendarEntryView = (props) => {
 
     if (date === stateDate) {
       return (
-        <Link to={`/entry/${entries.id}`} className="calendar-day-single-entry-link">
+        <Link to={`/entry/${entries.id}`} key={entries.id} className="calendar-day-single-entry-link">
           <div key={entries.id} className="calendar-day-single-entry-container">
             <div className="day-entry-time-title">{time}</div>
             <div className="calendar-day-single-entry-second-container">
