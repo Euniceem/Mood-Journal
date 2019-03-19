@@ -7,9 +7,6 @@ import ActivityList from '../../components/ActivityList/ActivityList';
 import EmotionList from '../../components/EmotionList/EmotionList';
 
 class SingleEntryView extends Component {
-  constructor(props) {
-    super(props)
-  }
 
   componentDidMount() {
     this.props.loadEntry(this.props.match.params.id)
