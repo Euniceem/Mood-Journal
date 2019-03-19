@@ -11,7 +11,7 @@ import {
 
 const LineChartBuilder = props => {
   const isMood = props.chart_type === 'mood' ? true : false;
-  const chartData = props.chartData;
+  const chart_data = props.chart_data;
 
   if (isMood) {
     return (
@@ -19,7 +19,7 @@ const LineChartBuilder = props => {
         className="mood chart"
         width={350}
         height={200}
-        data={chartData}
+        data={chart_data}
         margin={{ top: 5, right: 5, left: 5, bottom: 5 }}
       >
         <CartesianGrid strokeDasharray="3 3" />
@@ -37,7 +37,7 @@ const LineChartBuilder = props => {
       className="emotion chart"
       width={350}
       height={200}
-      data={chartData}
+      data={chart_data}
       margin={{ top: 5, right: 5, left: 5, bottom: 5 }}
     >
       <CartesianGrid strokeDasharray="3 3" />

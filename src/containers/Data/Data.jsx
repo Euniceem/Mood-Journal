@@ -17,7 +17,8 @@ class Data extends Component {
       chart_type: 'mood',
       trend_type: 'avg',
       time: '1',
-      chartData: this.props.data.moodData.avgDay
+      line_chart_data: this.props.data.moodData.avgDay,
+      pie_chart_data: this.props.data.activityData.avgDay
     };
 
     this.handleOptionsOnClick = this.handleOptionsOnClick.bind(this);
@@ -27,7 +28,7 @@ class Data extends Component {
 
   componentDidMount() {
     this.props.fetchData();
-    this.setState({ chartData: this.props.data.moodData.avgDay });
+    this.setState({ line_chart_data: this.props.data.moodData.avgDay });
   }
 
   handleOptionsOnClick(e) {
@@ -49,23 +50,33 @@ class Data extends Component {
     if (this.state.chart_type === 'mood') {
       switch (this.state.time) {
         case '1':
-          return this.setState({ chartData: this.props.data.moodData.avgDay });
+          return this.setState({
+            line_chart_data: this.props.data.moodData.avgDay
+          });
         case '7':
-          return this.setState({ chartData: this.props.data.moodData.avgWeek });
+          return this.setState({
+            line_chart_data: this.props.data.moodData.avgWeek
+          });
         default:
-          return this.setState({ chartData: this.props.data.moodData.avgDay });
+          return this.setState({
+            line_chart_data: this.props.data.moodData.avgDay
+          });
       }
     }
 
     switch (this.state.time) {
       case '1':
-        return this.setState({ chartData: this.props.data.emotionData.avgDay });
+        return this.setState({
+          line_chart_data: this.props.data.emotionData.avgDay
+        });
       case '7':
         return this.setState({
-          chartData: this.props.data.emotionData.avgWeek
+          line_chart_data: this.props.data.emotionData.avgWeek
         });
       default:
-        return this.setState({ chartData: this.props.data.emotionData.avgDay });
+        return this.setState({
+          line_chart_data: this.props.data.emotionData.avgDay
+        });
     }
   }
 
@@ -82,7 +93,7 @@ class Data extends Component {
       );
 
       return this.setState({
-        chartData: selectedMoodEntries
+        line_chart_data: selectedMoodEntries
       });
     }
 
@@ -93,7 +104,7 @@ class Data extends Component {
     );
 
     return this.setState({
-      chartData: selectedEmotionEntries
+      line_chart_data: selectedEmotionEntries
     });
   }
 
@@ -105,13 +116,15 @@ class Data extends Component {
 
         <LineChartBuilder
           chart_type={this.state.chart_type}
-          chartData={this.state.chartData}
+          chart_data={this.state.line_chart_data}
         />
 
         <TimeSelector
           trend_type={this.state.trend_type}
           handleOptionsOnClick={this.handleOptionsOnClick}
         />
+
+        <div className="activities-list" />
 
         <TrendTypeSwitch handleOptionsOnClick={this.handleOptionsOnClick} />
       </div>

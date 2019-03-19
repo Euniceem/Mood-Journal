@@ -15,17 +15,17 @@ const initialState = {
     moodData: {
       avgDay: [],
       avgWeek: [],
-      time: []
+      allDays: []
     },
     emotionData: {
       avgDay: [],
       avgWeek: [],
-      time: []
+      allDays: []
     },
     activityData: {
-      avgDay: [],
+      avgDay: {},
       avgWeek: [],
-      time: []
+      allDays: []
     }
   }
 };
