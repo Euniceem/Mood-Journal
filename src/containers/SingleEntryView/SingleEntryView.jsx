@@ -15,13 +15,8 @@ class SingleEntryView extends Component {
     this.props.loadEntry(this.props.match.params.id)
   }
 
-
-
   render() {
-
     let entry = this.props.entry;
-    console.log(entry)
-
     let date = new Date(entry.created_at).toDateString();
     let time = new Date(entry.created_at).toLocaleTimeString();
 
@@ -58,7 +53,6 @@ class SingleEntryView extends Component {
 }
 
 const mapStateToProps = (state) => {
-  console.log("STATE  ", state)
   return {
     entry: state.entry,
   }

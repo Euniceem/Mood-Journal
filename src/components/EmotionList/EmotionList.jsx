@@ -2,7 +2,6 @@ import React from 'react';
 
 const EmotionList = (props) => {
   const emotionList = props.emotions.map((emotions, index) => {
-    console.log("emotionlist", emotions)
 
     return (
       <div className="single-entry-view-emotion" key={index}>
