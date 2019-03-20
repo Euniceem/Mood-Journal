@@ -6,7 +6,7 @@ import { faArrowLeft } from '@fortawesome/free-solid-svg-icons';
 import './MoodEntry.scss';
 
 import Header from '../../components/Header';
-import ListEmotion from '../../components/ListEmotion';
+import ListEmotion from '../ListEmotion';
 import SliderList from '../../components/SliderList';
 import EditSliders from '../EditSliders';
 import NotesActions from '../NotesActions';
