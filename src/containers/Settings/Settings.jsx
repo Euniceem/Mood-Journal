@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import './Settings.scss';
 import Header from '../../components/Header';
 import { connect } from 'react-redux';
-import { editEmail, editPassword } from '../../actions';
+import { editEmail, editPassword, editHomepage } from '../../actions';
 
 class Settings extends Component {
   constructor(props) {
@@ -13,13 +13,16 @@ class Settings extends Component {
       password: "",
       newPassword: "",
       isEmailValid: false,
-      isPasswordValid: false
+      isPasswordValid: false,
+      setHomepage: this.props.setHomepage,
     };
 
     this.checkEmailIsValid = this.checkEmailIsValid.bind(this);
     this.checkPasswordIsValid = this.checkPasswordIsValid.bind(this);
     this.handleInputChange = this.handleInputChange.bind(this);
     this.handleProfileSubmitChange = this.handleProfileSubmitChange.bind(this);
+    this.handleHomePageSubmitChange = this.handleHomePageSubmitChange.bind(this);
+    this.handleDoneSubmit = this.handleDoneSubmit.bind(this);
   }
 
   checkEmailIsValid() {
@@ -82,9 +85,34 @@ class Settings extends Component {
       });
   };
 
+  handleHomePageSubmitChange(e) {
+    e.preventDefault();
+    switch (e.target.className) {
+      case 'data-btn':
+        this.setState({ setHomepage: "data" });
+        this.props.onEditHomepage("data")
+        break;
+      case 'feed-btn':
+        this.setState({ setHomepage: "feed" });
+        this.props.onEditHomepage("feed")
+        break;
+      case 'calendar-btn':
+        this.setState({ setHomepage: "calendar" });
+        this.props.onEditHomepage("calendar")
+        break;
+      default:
+        break;
+    }
+  }
+
+  handleDoneSubmit(e) {
+    e.preventDefault();
+    this.props.history.push(`/`);
+  }
+
   render() {
-    // console.log(this.props)
-    //Tenary
+    console.log(this.props)
+
 
     return (
       <div className="settings-container">
@@ -122,14 +150,14 @@ class Settings extends Component {
         <div className="edit-homepage">
           <h2 className="homepage-title">Change Homepage view</h2>
           <div className="homepage-btn-container">
-            <button className="data-btn">Data</button>
-            <button className="feed-btn">Feed</button>
-            <button className="calendar-btn">Calendar</button>
+            <button className="data-btn" onClick={this.handleHomePageSubmitChange}>Data</button>
+            <button className="feed-btn" onClick={this.handleHomePageSubmitChange}>Feed</button>
+            <button className="calendar-btn" onClick={this.handleHomePageSubmitChange}>Calendar</button>
           </div>
         </div>
 
         <div className="done-btn-container">
-          <button className="done-btn">Done</button>
+          <button className="done-btn" onClick={this.handleDoneSubmit}>Done</button>
         </div>
 
       </div>
@@ -139,7 +167,8 @@ class Settings extends Component {
 
 const mapStateToProps = (state) => {
   return {
-    editEmail: state.email
+    editEmail: state.email,
+    setHomePage: state.setHomePage
   };
 }
 
@@ -152,6 +181,11 @@ const mapDispatchToProps = (dispatch) => {
     },
     onEditPassword: (oldPassword, editedPassword) => {
       const actionObject = editPassword(oldPassword, editedPassword)
+
+      return dispatch(actionObject);
+    },
+    onEditHomepage: (page) => {
+      const actionObject = editHomepage(page)
 
       return dispatch(actionObject);
     }
