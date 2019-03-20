@@ -29,7 +29,6 @@ class Data extends Component {
 
   componentDidMount() {
     this.props.fetchData();
-    this.setState({ line_chart_data: this.props.data.moodData.avgDay });
   }
 
   handleOptionsOnClick(e) {

@@ -3,6 +3,43 @@ const router = express.Router();
 const knex = require('../../../database/knex');
 const isAuthenticated = require('../isAuth');
 
+const mapDaytoString = {
+  0: 'Sun',
+  1: 'Mon',
+  2: 'Tue',
+  3: 'Wed',
+  4: 'Thu',
+  5: 'Fri',
+  6: 'Sat'
+};
+
+const mapHourToString = {
+  0: '12am',
+  1: '1am',
+  2: '2am',
+  3: '3am',
+  4: '4am',
+  5: '5am',
+  6: '6am',
+  7: '7am',
+  8: '8am',
+  9: '9am',
+  10: '10am',
+  11: '11am',
+  12: '12pm',
+  13: '1pm',
+  14: '2pm',
+  15: '3pm',
+  16: '4pm',
+  17: '5pm',
+  18: '6pm',
+  19: '7pm',
+  20: '8pm',
+  21: '9pm',
+  22: '10pm',
+  23: '11pm'
+};
+
 router.get('/data', isAuthenticated, (req, res) => {
   const user_id = req.user.id;
   const data = {
@@ -41,6 +78,7 @@ router.get('/data', isAuthenticated, (req, res) => {
     )
     .then(result => {
       result.rows.forEach(row => {
+        row.time_label = mapHourToString[row.date_part];
         data.moodData.avgDay.push(row);
       });
     })
@@ -58,6 +96,7 @@ router.get('/data', isAuthenticated, (req, res) => {
         )
         .then(result => {
           result.rows.forEach(row => {
+            row.time_label = mapDaytoString[row.date_part];
             data.moodData.avgWeek.push(row);
           });
         });
@@ -76,7 +115,10 @@ router.get('/data', isAuthenticated, (req, res) => {
         )
         .then(result => {
           result.rows.forEach(row => {
+            const isoDate = new Date(row.date_trunc);
+
             row.date = row.date_trunc;
+            row.time_label = `${isoDate.getMonth() + 1}/${isoDate.getDate()}`;
             data.moodData.allDays.push(row);
           });
         });
@@ -137,6 +179,7 @@ router.get('/data', isAuthenticated, (req, res) => {
 
           for (let hour in avgEmotionsByHour) {
             avgEmotionsByHour[hour].hour = hour;
+            avgEmotionsByHour[hour].time_label = mapHourToString[hour];
             data.emotionData.avgDay.push(avgEmotionsByHour[hour]);
           }
         });
@@ -197,6 +240,7 @@ router.get('/data', isAuthenticated, (req, res) => {
 
           for (let day in avgEmotionsByDayOfWeek) {
             avgEmotionsByDayOfWeek[day].day = day;
+            avgEmotionsByDayOfWeek[day].time_label = mapDaytoString[day];
             data.emotionData.avgWeek.push(avgEmotionsByDayOfWeek[day]);
           }
         });
@@ -252,7 +296,11 @@ router.get('/data', isAuthenticated, (req, res) => {
           });
 
           for (let date in avgEmotionsByDate) {
+            const isoDate = new Date(date);
+
             avgEmotionsByDate[date].date = date;
+            avgEmotionsByDate[date].time_label = `${isoDate.getMonth() +
+              1}/${isoDate.getDate()}`;
             data.emotionData.allDays.push(avgEmotionsByDate[date]);
           }
         });

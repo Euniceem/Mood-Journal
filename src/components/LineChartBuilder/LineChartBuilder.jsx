@@ -23,7 +23,7 @@ const LineChartBuilder = props => {
         margin={{ top: 5, right: 5, left: 5, bottom: 5 }}
       >
         <CartesianGrid strokeDasharray="3 3" />
-        <XAxis dataKey="date" />
+        <XAxis dataKey="time_label" />
         <YAxis />
         <Legend />
         <Line type="monotone" dataKey="avg" stroke="#82ca9d" />
@@ -41,7 +41,7 @@ const LineChartBuilder = props => {
       margin={{ top: 5, right: 5, left: 5, bottom: 5 }}
     >
       <CartesianGrid strokeDasharray="3 3" />
-      <XAxis dataKey="date" />
+      <XAxis dataKey="time_label" />
       <YAxis />
       <Legend />
       <Line type="monotone" dataKey="happiness" stroke="#8884d8" />
