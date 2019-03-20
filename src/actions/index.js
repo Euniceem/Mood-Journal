@@ -6,6 +6,7 @@ export const LOAD_ENTRIES = 'LOAD ENTIRES';
 export const LOAD_ENTRY = 'LOAD_ENTRY';
 export const EDIT_EMAIL = 'EDIT_EMAIL';
 export const EDIT_PASSWORD = 'EDIT_PASSWORD';
+export const EDIT_HOMEPAGE = 'EDIT_HOMEPAGE';
 
 /** Action Creators*/
 export const register = (email) => {
@@ -185,3 +186,10 @@ export const editPassword = (oldPassword, editedPassword) => {
   }
 }
 
+export const editHomepage = (page) => {
+  localStorage.setItem('setHomePage', page)
+  return {
+    type: EDIT_HOMEPAGE,
+    body: page
+  }
+}
