@@ -38,7 +38,7 @@ class Data extends Component {
     new Promise((resolve, reject) =>
       resolve(this.setState({ [inputType]: value }))
     ).then(() => {
-      if (inputType === 'time' && this.state.trend_type === 'all') {
+      if (this.state.trend_type === 'all') {
         this.filterDataByTime();
       } else {
         this.selectAverageData();
@@ -155,7 +155,7 @@ class Data extends Component {
         <ActivityDataDisplay
           trend_type={this.state.trend_type}
           time={this.state.time}
-          activity_data_object={this.state.activity_data}
+          activity_data={this.state.activity_data}
         />
       </div>
     );

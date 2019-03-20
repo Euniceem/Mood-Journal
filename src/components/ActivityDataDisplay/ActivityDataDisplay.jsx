@@ -1,15 +1,15 @@
 import React from 'react';
 
 const ActivityDataDisplay = props => {
-  const { trend_type, time, activity_data_object } = props;
+  const { trend_type, time, activity_data } = props;
   const arrayData = [];
 
   if (trend_type === 'avg' && time === '7') {
-    if (!Array.isArray(activity_data_object)) {
+    if (!Array.isArray(activity_data)) {
       return <></>;
     }
 
-    const mapDaytoWeekDay = {
+    const mapDaytoString = {
       0: 'Sunday',
       1: 'Monday',
       2: 'Tuesday',
@@ -19,8 +19,8 @@ const ActivityDataDisplay = props => {
       6: 'Saturday'
     };
 
-    const activityList = activity_data_object.map(dayData => {
-      const dayName = mapDaytoWeekDay[dayData.day];
+    const activityList = activity_data.map(dayData => {
+      const dayName = mapDaytoString[dayData.day];
       const dataHolder = [];
 
       for (let activity in dayData) {
@@ -37,7 +37,7 @@ const ActivityDataDisplay = props => {
       }
 
       return (
-        <div className={dayName}>
+        <div className={`day ${dayName}`}>
           <h2>{dayName}</h2>
           {dataHolder}
         </div>
@@ -47,8 +47,8 @@ const ActivityDataDisplay = props => {
     return <div className="activity-data">{activityList}</div>;
   }
 
-  for (let activity in activity_data_object) {
-    arrayData.push({ name: activity, count: activity_data_object[activity] });
+  for (let activity in activity_data) {
+    arrayData.push({ name: activity, count: activity_data[activity] });
   }
 
   const activityList = arrayData.map(activity => {
