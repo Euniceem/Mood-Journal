@@ -1,0 +1,29 @@
+@import '../../../sass/config';
+
+li {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  flex-basis: 20%;
+  height: fit-content;
+
+  img {
+    display: block;
+    background-image: url('https://www.blackfootfamilydentistry.com/wp-content/uploads/2016/10/orionthemes-placeholder-image.png');
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: 400%;
+    border-radius: 50%;
+    overflow: hidden;
+    margin-top: $margin-standard;
+    margin-bottom: $margin-standard / 2;
+    height: 3rem;
+    width: 3rem;
+  }
+
+  .text {
+    text-align: center;
+    width: 80%;
+  }
+}

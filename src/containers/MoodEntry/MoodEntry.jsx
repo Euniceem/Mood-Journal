@@ -6,6 +6,7 @@ import { faArrowLeft } from '@fortawesome/free-solid-svg-icons';
 import './MoodEntry.scss';
 
 import Header from '../../components/Header';
+import ListEmotion from '../../components/ListEmotion';
 import SliderList from '../../components/SliderList';
 import EditSliders from '../EditSliders';
 import NotesActions from '../NotesActions';
@@ -21,24 +22,13 @@ class MoodEntry extends Component {
 
     this.state = {
       isEditSlidersOpen : false,
-      isNotesOpen : false,
-      // initial slider values
-      happiness : 3,
-      stress : 3,
-      anxiety : 3,
-      fatigue : 3
-    };
-
-    this.sliderHappiness = React.createRef();
-    this.sliderStress = React.createRef();
-    this.sliderAnxiety = React.createRef();
-    this.sliderFatigue = React.createRef();
+      isNotesOpen : false
+    }
 
     this.handleSubmit = this.handleSubmit.bind(this);
-    this.updateInput = this.updateInput.bind(this);
   }
 
-  updateInput(e) {
+  updateInput = e => {
     const value = e.target.value;
     const field = e.target.dataset.field;
 
@@ -121,30 +111,11 @@ class MoodEntry extends Component {
           <div className="component-mood-entry">
             <div className="select-emotion">
               <ul className="list-emotion">
-                <li>
-                  <img src="" alt=""/>
-                  <div className="text">Amazing</div>
-                </li>
-                
-                <li>
-                  <img src="" alt=""/>
-                  <div className="text">Good</div>
-                </li>
-                
-                <li>
-                  <img src="" alt=""/>
-                  <div className="text">OK</div>
-                </li>
-                
-                <li>
-                  <img src="" alt=""/>
-                  <div className="text">Bad</div>
-                </li>
-                
-                <li>
-                  <img src="" alt=""/>
-                  <div className="text">Awful</div>
-                </li>
+                <ListEmotion mood="Amazing" />
+                <ListEmotion mood="Good" />
+                <ListEmotion mood="OK" />
+                <ListEmotion mood="Bad" />
+                <ListEmotion mood="Awful" />
               </ul>
             </div>
       
