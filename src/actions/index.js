@@ -3,6 +3,7 @@ export const REGISTER_USER = 'REGISTER_USER';
 export const LOGIN_USER = 'LOGIN_USER';
 export const LOGOUT_USER = 'LOGOUT_USER';
 export const LOAD_ENTRIES = 'LOAD ENTIRES';
+export const LOAD_EMOTIONS = 'LOAD_EMOTIONS';
 
 /** Action Creators*/
 export const register = (user) => {
@@ -109,3 +110,22 @@ export const loadEntries = () => {
       });
   };
 };
+
+export const loadEmotions = () => {
+  return dispatch => {
+    return fetch(`/api/emotions`)
+      .then(response => {
+        if (!response.ok) {
+          throw Error(response.statusText);
+        }
+        return response.json();
+      })
+      .then(emotions => {
+        console.log(emotions);
+        return dispatch({
+          type: LOAD_EMOTIONS,
+          payload: emotions
+        });
+      });
+  }
+}

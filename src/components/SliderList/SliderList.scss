@@ -1,0 +1,92 @@
+@import '../../../sass/config';
+
+.sliders {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  
+  .slider-wrap {
+    margin-top: $margin-standard * 2;
+    width: 80%;
+
+    .affect {
+      display: flex;
+      align-items: center;
+      margin-left: 0.5rem;
+
+      .field {
+        flex-basis: 50%;
+      }
+
+      .percentage {
+        flex-basis: 50%;
+        font-weight: 700;
+        font-size: 1.4rem;
+        text-align: right;
+        color: $font-color-1;
+        margin-right: $margin-standard / 5;
+      }
+    }
+
+    .slider {
+      margin-top: $margin-standard / 2;
+      width: 100%;
+
+      & {
+        -webkit-appearance: none;
+        width: 100%;
+        height: 15px;
+        border-radius: 5px;   
+        background: #d3d3d3;
+        outline: none;
+        opacity: 0.7;
+        -webkit-transition: .2s;
+        transition: opacity .2s;
+      }
+      
+      &::-webkit-slider-thumb {
+        -webkit-appearance: none;
+        appearance: none;
+        width: 25px;
+        height: 25px;
+        border-radius: 50%; 
+        background: $background-color-1;
+        cursor: pointer;
+      }
+      
+      &::-moz-range-thumb {
+        width: 25px;
+        height: 25px;
+        border-radius: 50%;
+        background: $header-color-1;
+        cursor: pointer;
+      }
+    }
+
+    &:last-child { margin-bottom: $margin-standard * 2; }
+  }
+
+  .edit-sliders {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: $margin-standard / 2;
+    margin-bottom: $margin-standard;
+    width: 100%;
+
+    .button-wrap {
+      display: flex;
+      justify-content: flex-end;
+      align-items: center;
+      width: 80%;
+
+      button {
+        font-family: $primary-font, $font-type;
+        font-size: 0.9rem;
+        background-color: $background-color-white;
+        padding: $pad-standard / 2;
+        border: none;
+      }
+    }
+  }
+}

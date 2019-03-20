@@ -1,11 +1,12 @@
 import React, { Component } from 'react';
-import { Link } from 'react-router-dom';
+import { connect } from 'react-redux';
+import { loadEmotions } from '../../actions';
 import { library } from '@fortawesome/fontawesome-svg-core';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faArrowLeft } from '@fortawesome/free-solid-svg-icons';
 import './MoodEntry.scss';
 
 import Header from '../../components/Header';
+import SliderList from '../../components/SliderList';
 import EditSliders from '../EditSliders';
 import NotesActions from '../NotesActions';
 
@@ -56,6 +57,10 @@ class MoodEntry extends Component {
     this.setState({ isNotesOpen : !this.state.isNotesOpen });
   }
 
+  mapEmotionsToSliders = () => {
+    console.log(this.props.emotions);
+  }
+
   resetStateOnClick = () => {
     console.log('RESETTING STATE');
 
@@ -69,15 +74,20 @@ class MoodEntry extends Component {
     console.log(`Made a submission!`);
   }
 
+  // doesn't load in time for componentDidMount. i need a safe alternative.
   componentDidMount() {
     // render a list of all existing sliders so we can access them in the state.
     this.setState({
       isEditSlidersOpen : false,
       isNotesOpen : false
     });
+
+    this.props.onLoad();
   }
 
   render() {
+    console.log(this.props);
+
     return (
       <>
         {/* <div className="header">
@@ -138,46 +148,7 @@ class MoodEntry extends Component {
               </ul>
             </div>
       
-            <div className="sliders">
-              {/* Number of sliders will be loaded onto props and dynamically rendered eventually */}
-              <div className="slider-wrap">
-                <div className="affect">
-                  <span className="field">Happiness:</span> <span className="percentage">{ this.state.happiness }%</span>
-                </div>
-    
-                <input onChange={ this.updateInput } data-field="happiness" ref={ this.happiness } type="range" min="0" max="100" value={ this.state.happiness } className="slider" />
-              </div>
-      
-              <div className="slider-wrap">
-                <div className="affect">
-                <span className="field">Stress:</span> <span className="percentage">{ this.state.stress }%</span>
-                </div>
-    
-                <input onChange={ this.updateInput } data-field="stress" ref={ this.stress } type="range" min="0" max="100" value={ this.state.stress } className="slider" />
-              </div>
-      
-              <div className="slider-wrap">
-                <div className="affect">
-                <span className="field">Anxiety:</span> <span className="percentage">{ this.state.anxiety }%</span>
-                </div>
-    
-                <input onChange={ this.updateInput } data-field="anxiety" ref={ this.anxiety } type="range" min="0" max="100" value={ this.state.anxiety } className="slider" />
-              </div>
-      
-              <div className="slider-wrap">
-                <div className="affect">
-                <span className="field">Fatigue:</span> <span className="percentage">{ this.state.fatigue }%</span>
-                </div>
-    
-                <input onChange={ this.updateInput } data-field="fatigue" ref={ this.fatigue } type="range" min="0" max="100" value={ this.state.fatigue } className="slider" />
-              </div>
-
-              <div className="edit-sliders">
-                <div className="button-wrap">
-                  <button onClick={ this.openEditSliders }>Edit Sliders</button>
-                </div>
-              </div>
-            </div>
+            <SliderList emotions={ this.props.emotions } />
       
             <div className="buttons">
               <div className="buttons-wrap">
@@ -196,5 +167,24 @@ class MoodEntry extends Component {
     );
   }
 }
+
+const mapStateToProps = state => {
+  return {
+    emotions: state.emotions
+  };
+}
+
+const mapDispatchToProps = dispatch => {
+  return {
+    onLoad: () => {
+      return dispatch(loadEmotions());
+    }
+  };
+}
+
+MoodEntry = connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(MoodEntry);
 
 export default MoodEntry;

@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import { faTimes } from '@fortawesome/free-solid-svg-icons';
 import './NotesActions.scss';
 
 import Tag from '../../components/Tag';
