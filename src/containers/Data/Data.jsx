@@ -8,6 +8,7 @@ import TimeSelector from '../../components/TimeSelector';
 import ChartTypeSwitch from '../../components/ChartTypeSwitch';
 import TrendTypeSwitch from '../../components/TrendTypeSwitch';
 import LineChartBuilder from '../../components/LineChartBuilder';
+import ActivityDataDisplay from '../../components/ActivityDataDisplay';
 
 class Data extends Component {
   constructor(props) {
@@ -51,15 +52,18 @@ class Data extends Component {
       switch (this.state.time) {
         case '1':
           return this.setState({
-            line_chart_data: this.props.data.moodData.avgDay
+            line_chart_data: this.props.data.moodData.avgDay,
+            activity_data: this.props.data.activityData.avgDay
           });
         case '7':
           return this.setState({
-            line_chart_data: this.props.data.moodData.avgWeek
+            line_chart_data: this.props.data.moodData.avgWeek,
+            activity_data: this.props.data.activityData.avgWeek
           });
         default:
           return this.setState({
-            line_chart_data: this.props.data.moodData.avgDay
+            line_chart_data: this.props.data.moodData.avgDay,
+            activity_data: this.props.data.activityData.avgDay
           });
       }
     }
@@ -67,15 +71,18 @@ class Data extends Component {
     switch (this.state.time) {
       case '1':
         return this.setState({
-          line_chart_data: this.props.data.emotionData.avgDay
+          line_chart_data: this.props.data.emotionData.avgDay,
+          activity_data: this.props.data.activityData.avgDay
         });
       case '7':
         return this.setState({
-          line_chart_data: this.props.data.emotionData.avgWeek
+          line_chart_data: this.props.data.emotionData.avgWeek,
+          activity_data: this.props.data.activityData.avgWeek
         });
       default:
         return this.setState({
-          line_chart_data: this.props.data.emotionData.avgDay
+          line_chart_data: this.props.data.emotionData.avgDay,
+          activity_data: this.props.data.activityData.avgDay
         });
     }
   }
@@ -144,12 +151,13 @@ class Data extends Component {
           handleOptionsOnClick={this.handleOptionsOnClick}
         />
 
-        <div className="activities-list">
-          /** if average if 1 return average day if 7 return average week else
-          return slice of allDays */
-        </div>
-
         <TrendTypeSwitch handleOptionsOnClick={this.handleOptionsOnClick} />
+
+        <ActivityDataDisplay
+          trend_type={this.state.trend_type}
+          time={this.state.time}
+          activity_data_object={this.state.activity_data}
+        />
       </div>
     );
   }
