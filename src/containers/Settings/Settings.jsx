@@ -14,7 +14,9 @@ class Settings extends Component {
       newPassword: "",
       isEmailValid: false,
       isPasswordValid: false,
-      setHomepage: this.props.setHomepage,
+      setHomepage: this.props.setHomePage,
+      emailErr: false,
+      passwordErr: false,
     };
 
     this.checkEmailIsValid = this.checkEmailIsValid.bind(this);
@@ -23,6 +25,15 @@ class Settings extends Component {
     this.handleProfileSubmitChange = this.handleProfileSubmitChange.bind(this);
     this.handleHomePageSubmitChange = this.handleHomePageSubmitChange.bind(this);
     this.handleDoneSubmit = this.handleDoneSubmit.bind(this);
+  }
+
+  componentDidMount() {
+    if (this.props.setHomePage === null) {
+
+      this.props.onEditHomepage(localStorage.getItem('setHomePage'))
+    } else {
+      this.props.onEditHomepage("feed")
+    }
   }
 
   checkEmailIsValid() {
@@ -35,7 +46,7 @@ class Settings extends Component {
   }
 
   checkPasswordIsValid() {
-    if (this.state.password === this.state.newPassword && this.state.newPassword.length > 7) {
+    if (this.state.password === this.state.newPassword) {
       return this.setState({ isPasswordValid: false })
     } else {
       return this.setState({ isPasswordValid: true })
@@ -72,6 +83,9 @@ class Settings extends Component {
       })
       .catch((err) => {
         console.log(err)
+        this.setState({
+          emailErr: true,
+        })
       });
     this.props.onEditPassword(oldPassword, newPassword)
       .then(() => {
@@ -82,11 +96,14 @@ class Settings extends Component {
       })
       .catch((err) => {
         console.log(err)
+        this.setState({
+          passwordErr: true,
+        })
       });
   };
 
   handleHomePageSubmitChange(e) {
-    e.preventDefault();
+
     switch (e.target.className) {
       case 'data-btn':
         this.setState({ setHomepage: "data" });
@@ -105,15 +122,13 @@ class Settings extends Component {
     }
   }
 
+
   handleDoneSubmit(e) {
     e.preventDefault();
     this.props.history.push(`/`);
   }
 
   render() {
-    console.log(this.props)
-
-
     return (
       <div className="settings-container">
         <Header />
@@ -129,16 +144,22 @@ class Settings extends Component {
               <input name="email" type="text" className="email-input" placeholder={this.state.email}
                 onKeyUp={this.checkEmailIsValid} value={this.state.email} onChange={this.handleInputChange} />
             </div>
+
             <div className="old-password-container">
               <label className="password-label">Current Password: </label>
               <input name="password" type="password" className="password-input"
                 value={this.state.password} onChange={this.handleInputChange} />
             </div>
+
             <div className="new-password-container">
               <label className="new-password-label">New Password</label>
               <input name="newPassword" type="password" className="new-password-input"
-                value={this.state.newPassword} onChange={this.handleInputChange} />
-              {this.state.isEmailValid ?
+                value={this.state.newPassword} onChange={this.handleInputChange} onKeyUp={this.checkPasswordIsValid} />
+              {this.state.emailErr || this.state.passwordErr ?
+                <div className="err-msg">Error, please try again</div>
+                : null}
+
+              {this.state.isEmailValid && this.state.isPasswordValid ?
                 <button className="edit-user-disabled-btn" disabled>EDIT</button>
                 :
                 <button className="edit-user-btn" onClick={this.handleProfileSubmitChange}>EDIT</button>
@@ -159,7 +180,6 @@ class Settings extends Component {
         <div className="done-btn-container">
           <button className="done-btn" onClick={this.handleDoneSubmit}>Done</button>
         </div>
-
       </div>
     )
   }

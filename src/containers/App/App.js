@@ -41,9 +41,9 @@ class App extends Component {
       setHomePage: this.props.setHomePage
     }
   }
+
   render() {
     let isAuthenticated = this.props.email ? this.props.isLoggedIn : null
-
     return (
       <div className="App">
         <Router>
@@ -54,7 +54,7 @@ class App extends Component {
               {this.props.setHomePage === "data" ?
                 <PrivateRoute isAuth={isAuthenticated} exact={true} path='/' component={Data} />
                 : null}
-              {this.props.setHomePage === "feed" ?
+              {this.props.setHomePage === "feed" || !this.props.setHomePage ?
                 <PrivateRoute isAuth={isAuthenticated} exact={true} path='/' component={Feed} />
                 : null}
               {this.props.setHomePage === "calendar" ?
@@ -67,7 +67,11 @@ class App extends Component {
               <PrivateRoute isAuth={isAuthenticated} exact={true} path='/entry' component={MoodEntry} />
               <PrivateRoute isAuth={isAuthenticated} exact={true} path='/entry/:id' component={SingleEntryView} />
             </Switch>
-            <Navigation />
+            {this.props.isLoggedIn === "true" || this.props.isLoggedIn === true
+              ?
+              <Navigation setHomePage={this.props.setHomePage} />
+              : null
+            }
           </>
         </Router>
       </div>
