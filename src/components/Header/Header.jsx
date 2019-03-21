@@ -13,7 +13,6 @@ class Header extends Component {
       showMoodEntry: false
     }
 
-
     this.handleMenu = this.handleMenu.bind(this);
     this.handleLogout = this.handleLogout.bind(this);
   }
@@ -55,7 +54,7 @@ class Header extends Component {
               ? (
                 <div className="menu"
                 >
-                  <Link to="/feed" className="link">Home</Link>
+                  <Link to="/" className="link">Home</Link>
                   <Link to="/settings" className="link">Settings</Link>
 
                   {!this.props.email && this.props.isLoggedIn === false
@@ -74,7 +73,7 @@ class Header extends Component {
 
         <h1 className="main-title">Mood Journal</h1>
 
-        <Link to="/entry" className="link" id="add-btn" onClick={ this.props.resetStateOnClick }>+</Link>
+        <Link to="/entry" className="link" id="add-btn" onClick={this.props.resetStateOnClick}>+</Link>
       </div>
     )
   }
