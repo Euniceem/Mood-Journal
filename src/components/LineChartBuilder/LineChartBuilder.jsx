@@ -28,7 +28,7 @@ const LineChartBuilder = props => {
         <Legend />
         <Area
           type="monotone"
-          dataKey="avg"
+          dataKey="mood"
           stroke="#aad962"
           strokeWidth="2"
           fill="#aad962"

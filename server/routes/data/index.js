@@ -69,7 +69,7 @@ router.get('/data', isAuthenticated, (req, res) => {
   knex
     .raw(
       `
-    SELECT date_part('hour', entries.created_at), avg(mood_id)
+    SELECT date_part('hour', entries.created_at), ROUND(AVG(mood_id)::numeric, 1)
     FROM entries
     WHERE entries.user_id = ${user_id} 
     GROUP BY date_part('hour', entries.created_at)
@@ -79,6 +79,7 @@ router.get('/data', isAuthenticated, (req, res) => {
     .then(result => {
       result.rows.forEach(row => {
         row.time_label = mapHourToString[row.date_part];
+        row.mood = row.round;
         data.moodData.avgDay.push(row);
       });
     })
@@ -87,7 +88,7 @@ router.get('/data', isAuthenticated, (req, res) => {
       return knex
         .raw(
           `
-        SELECT EXTRACT(DOW from entries.created_at::DATE), avg(mood_id)
+        SELECT EXTRACT(DOW from entries.created_at::DATE), ROUND(AVG(mood_id)::numeric, 1)
         FROM entries
         WHERE user_id = ${user_id}
         GROUP BY EXTRACT(DOW from entries.created_at::DATE)
@@ -97,6 +98,7 @@ router.get('/data', isAuthenticated, (req, res) => {
         .then(result => {
           result.rows.forEach(row => {
             row.time_label = mapDaytoString[row.date_part];
+            row.mood = row.round;
             data.moodData.avgWeek.push(row);
           });
         });
@@ -106,7 +108,7 @@ router.get('/data', isAuthenticated, (req, res) => {
       return knex
         .raw(
           `
-        SELECT date_trunc('day', entries.created_at::date), avg(mood_id)
+        SELECT date_trunc('day', entries.created_at::date), ROUND(AVG(mood_id)::numeric, 1)
         FROM entries
         WHERE entries.user_id = ${user_id} 
         GROUP BY date_trunc('day', entries.created_at::date)
@@ -119,6 +121,7 @@ router.get('/data', isAuthenticated, (req, res) => {
 
             row.date = row.date_trunc;
             row.time_label = `${isoDate.getMonth() + 1}/${isoDate.getDate()}`;
+            row.mood = row.round;
             data.moodData.allDays.push(row);
           });
         });
@@ -132,7 +135,7 @@ router.get('/data', isAuthenticated, (req, res) => {
       return knex
         .raw(
           `
-      SELECT date_part('hour', entries.created_at), default_emotions.name, avg(percent)
+      SELECT date_part('hour', entries.created_at), default_emotions.name, ROUND(AVG(percent)::numeric, 1)
       FROM entry_emotions
       INNER JOIN entries
       ON entry_emotions.entry_id = entries.id
@@ -148,8 +151,8 @@ router.get('/data', isAuthenticated, (req, res) => {
 
           result.rows.forEach(row => {
             avgEmotionsByHour[row.date_part]
-              ? (avgEmotionsByHour[row.date_part][row.name] = row.avg)
-              : (avgEmotionsByHour[row.date_part] = { [row.name]: row.avg });
+              ? (avgEmotionsByHour[row.date_part][row.name] = row.round)
+              : (avgEmotionsByHour[row.date_part] = { [row.name]: row.round });
           });
 
           return avgEmotionsByHour;
@@ -159,7 +162,7 @@ router.get('/data', isAuthenticated, (req, res) => {
       return knex
         .raw(
           `
-      SELECT date_part('hour', entries.created_at), custom_emotions.name, avg(percent)
+      SELECT date_part('hour', entries.created_at), custom_emotions.name, ROUND(AVG(percent)::numeric, 1)
       FROM entry_emotions
       INNER JOIN entries
       ON entry_emotions.entry_id = entries.id
@@ -173,8 +176,8 @@ router.get('/data', isAuthenticated, (req, res) => {
         .then(result => {
           result.rows.forEach(row => {
             avgEmotionsByHour[row.date_part]
-              ? (avgEmotionsByHour[row.date_part][row.name] = row.avg)
-              : (avgEmotionsByHour[row.date_part] = { [row.name]: row.avg });
+              ? (avgEmotionsByHour[row.date_part][row.name] = row.round)
+              : (avgEmotionsByHour[row.date_part] = { [row.name]: row.round });
           });
 
           for (let hour in avgEmotionsByHour) {
@@ -189,7 +192,7 @@ router.get('/data', isAuthenticated, (req, res) => {
       return knex
         .raw(
           `
-      SELECT EXTRACT(DOW from entries.created_at::DATE), default_emotions.name, avg(percent)
+      SELECT EXTRACT(DOW from entries.created_at::DATE), default_emotions.name, ROUND(AVG(percent)::numeric, 1)
       FROM entry_emotions
       INNER JOIN entries
       ON entry_emotions.entry_id = entries.id
@@ -205,9 +208,9 @@ router.get('/data', isAuthenticated, (req, res) => {
 
           result.rows.forEach(row => {
             avgEmotionsByDayOfWeek[row.date_part]
-              ? (avgEmotionsByDayOfWeek[row.date_part][row.name] = row.avg)
+              ? (avgEmotionsByDayOfWeek[row.date_part][row.name] = row.round)
               : (avgEmotionsByDayOfWeek[row.date_part] = {
-                  [row.name]: row.avg
+                  [row.name]: row.round
                 });
           });
 
@@ -218,7 +221,7 @@ router.get('/data', isAuthenticated, (req, res) => {
       return knex
         .raw(
           `
-      SELECT EXTRACT(DOW from entries.created_at::DATE), custom_emotions.name, avg(percent)
+      SELECT EXTRACT(DOW from entries.created_at::DATE), custom_emotions.name, ROUND(AVG(percent)::numeric, 1)
       FROM entry_emotions
       INNER JOIN entries
       ON entry_emotions.entry_id = entries.id
@@ -232,9 +235,9 @@ router.get('/data', isAuthenticated, (req, res) => {
         .then(result => {
           result.rows.forEach(row => {
             avgEmotionsByDayOfWeek[row.date_part]
-              ? (avgEmotionsByDayOfWeek[row.date_part][row.name] = row.avg)
+              ? (avgEmotionsByDayOfWeek[row.date_part][row.name] = row.round)
               : (avgEmotionsByDayOfWeek[row.date_part] = {
-                  [row.name]: row.avg
+                  [row.name]: row.round
                 });
           });
 
@@ -250,7 +253,7 @@ router.get('/data', isAuthenticated, (req, res) => {
       return knex
         .raw(
           `
-      SELECT date_trunc('day', entries.created_at::DATE), default_emotions.name, avg(percent)
+      SELECT date_trunc('day', entries.created_at::DATE), default_emotions.name, ROUND(AVG(percent)::numeric, 1)
       FROM entry_emotions
       INNER JOIN entries
       ON entry_emotions.entry_id = entries.id
@@ -266,8 +269,8 @@ router.get('/data', isAuthenticated, (req, res) => {
 
           result.rows.forEach(row => {
             avgEmotionsByDate[row.date_trunc]
-              ? (avgEmotionsByDate[row.date_trunc][row.name] = row.avg)
-              : (avgEmotionsByDate[row.date_trunc] = { [row.name]: row.avg });
+              ? (avgEmotionsByDate[row.date_trunc][row.name] = row.round)
+              : (avgEmotionsByDate[row.date_trunc] = { [row.name]: row.round });
           });
 
           return avgEmotionsByDate;
@@ -277,7 +280,7 @@ router.get('/data', isAuthenticated, (req, res) => {
       return knex
         .raw(
           `
-      SELECT date_trunc('day', entries.created_at::DATE), custom_emotions.name, avg(percent)
+      SELECT date_trunc('day', entries.created_at::DATE), custom_emotions.name, ROUND(AVG(percent)::numeric, 1)
       FROM entry_emotions
       INNER JOIN entries
       ON entry_emotions.entry_id = entries.id
@@ -291,8 +294,8 @@ router.get('/data', isAuthenticated, (req, res) => {
         .then(result => {
           result.rows.forEach(row => {
             avgEmotionsByDate[row.date_trunc]
-              ? (avgEmotionsByDate[row.date_trunc][row.name] = row.avg)
-              : (avgEmotionsByDate[row.date_trunc] = { [row.name]: row.avg });
+              ? (avgEmotionsByDate[row.date_trunc][row.name] = row.round)
+              : (avgEmotionsByDate[row.date_trunc] = { [row.name]: row.round });
           });
 
           for (let date in avgEmotionsByDate) {
@@ -471,7 +474,10 @@ router.get('/data', isAuthenticated, (req, res) => {
     .then(() => {
       res.json(data);
     })
-    .catch(err => res.status(500).json({ error: 'error fetching data' }));
+    .catch(err => {
+      console.log(err);
+      res.status(500).json({ error: 'error fetching data' });
+    });
 });
 
 module.exports = router;
