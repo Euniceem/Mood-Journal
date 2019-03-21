@@ -1,12 +1,8 @@
 .data-container {
+  * {
+    box-sizing: border-box;
+  }
   min-height: 100%;
   padding-bottom: 50px;
-
-  .title {
-    text-align: center;
-  }
-
-  .hide {
-    display: none;
-  }
+  text-align: center;
 }

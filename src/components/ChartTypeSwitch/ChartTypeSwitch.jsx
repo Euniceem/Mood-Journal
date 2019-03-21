@@ -1,4 +1,5 @@
 import React from 'react';
+import './ChartTypeSwitch.scss';
 
 const ChartTypeSwitch = props => {
   const handleOptionsOnClick = props.handleOptionsOnClick;
@@ -6,7 +7,7 @@ const ChartTypeSwitch = props => {
   return (
     <div className="mood-or-emotions-switch">
       <button
-        className="btn"
+        className="btn mood"
         data-input-type="chart_type"
         value="mood"
         onClick={handleOptionsOnClick}
@@ -14,7 +15,7 @@ const ChartTypeSwitch = props => {
         Mood
       </button>
       <button
-        className="btn"
+        className="btn emotion"
         data-input-type="chart_type"
         value="emotions"
         onClick={handleOptionsOnClick}

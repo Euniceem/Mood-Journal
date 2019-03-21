@@ -1,0 +1,22 @@
+.data-container {
+  .mood-or-emotions-switch {
+    display: flex;
+    justify-content: space-around;
+    margin: 1.5px;
+    border: 1px solid green;
+    border-radius: 2px;
+    max-width: 150px;
+
+    .btn {
+      text-align: center;
+      font-size: 14px;
+      padding: 3px;
+      background: transparent;
+      border: none;
+    }
+
+    .emotion {
+      border-left: 1px solid green;
+    }
+  }
+}

@@ -1,8 +1,23 @@
 import React from 'react';
+import { PieChart, Pie, Legend, Tooltip, Cell } from 'recharts';
 
 const ActivityDataDisplay = props => {
   const { trend_type, time, activity_data } = props;
   const arrayData = [];
+  const colors = [
+    '#1a1334',
+    '#26294a',
+    '#01545a',
+    '#017351',
+    '#03c383',
+    '#aad962',
+    '#fbbf45',
+    '#ef6a32',
+    '#ed0345',
+    '#a12a5e',
+    '#710162',
+    '#110141'
+  ];
 
   if (trend_type === 'avg' && time === '7') {
     if (!Array.isArray(activity_data)) {
@@ -48,8 +63,36 @@ const ActivityDataDisplay = props => {
   }
 
   for (let activity in activity_data) {
-    arrayData.push({ name: activity, count: activity_data[activity] });
+    arrayData.push({
+      name: activity,
+      count:
+        trend_type === 'avg'
+          ? parseFloat(activity_data[activity].toFixed(1))
+          : Math.round(activity_data[activity])
+    });
   }
+
+  console.log(arrayData);
+
+  return (
+    <PieChart width={350} height={300}>
+      <Legend />
+      <Pie
+        data={arrayData}
+        dataKey="count"
+        nameKey="name"
+        cx="50%"
+        cy="50%"
+        outerRadius={80}
+        label
+      >
+        {arrayData.map((entry, index) => {
+          return <Cell key={`cell-${index}`} fill={colors[index]} />;
+        })}
+      </Pie>
+      <Tooltip />
+    </PieChart>
+  );
 
   const activityList = arrayData.map(activity => {
     return (

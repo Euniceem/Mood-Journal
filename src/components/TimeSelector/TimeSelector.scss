@@ -1,0 +1,17 @@
+.data-container {
+  .time-select-container {
+    display: flex;
+    flex-flow: row nowrap;
+    justify-content: space-around;
+    width: 100%;
+    border-top: 1px solid green;
+    border-bottom: 1px solid green;
+
+    .btn {
+      background: transparent;
+      padding: 3px;
+      margin: 1.5px;
+      font-size: 14px;
+    }
+  }
+}
