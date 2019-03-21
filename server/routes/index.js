@@ -3,11 +3,13 @@ const profile = require('./profile');
 const entries = require('./entries');
 const emotions = require('./emotions');
 const activities = require('./activities');
+const user_settings = require('./user_settings');
 
 module.exports = {
   auth,
   profile,
   entries,
   emotions,
-  activities
+  activities,
+  user_settings,
 };
