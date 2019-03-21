@@ -38,7 +38,7 @@ class NotesActions extends Component {
         <div className="notes-wrap">
           <div className="notes">
             <div className="title">Notes</div>
-            <textarea placeholder="Tell us more about yourself." name="" id="" cols="30" rows="10"></textarea>
+            <textarea onChange={ this.props.handleNotes } value={ this.props.notes } placeholder="Tell us more about yourself." name="" id="" cols="30" rows="10"></textarea>
           </div>
         </div>
 
@@ -49,7 +49,7 @@ class NotesActions extends Component {
             </div>
   
             <div className="submit-all">
-              <button onClick={ this.handleSubmit }>Submit Entry</button>
+              <button onClick={ this.props.handleSubmit } disabled={ this.props.selectedMood === 'Pick a mood!' } className={ this.props.selectedMood === 'Pick a mood!' ? "disabled" : "" }>Submit Entry</button>
             </div>
           </div>
         </div>

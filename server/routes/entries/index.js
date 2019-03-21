@@ -84,6 +84,7 @@ router.put('/entries/:id', isAuthenticated, (req, res) => {
 });
 
 router.post('/entries', isAuthenticated, (req, res) => {
+  console.log('HIT');
   const user_id = req.user.id;
   const {
     mood_id,

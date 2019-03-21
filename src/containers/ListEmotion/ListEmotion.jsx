@@ -10,7 +10,7 @@ class ListEmotion extends Component {
   // }
 
   render() {
-    const { selectedMood, mood } = this.props;
+    const { selectedMood, mood, mood_id } = this.props;
     let className = 'text';
 
     if (selectedMood === mood) {
@@ -18,10 +18,10 @@ class ListEmotion extends Component {
     }
 
     return (
-      <li onClick={ this.props.handleSelectMood } data-name={ mood }>
+      <li onClick={ this.props.handleSelectMood } data-mood_id={ mood_id } data-name={ mood }>
         {/* image is applied through css */}
-        <img data-name={ mood } src="" alt="" />
-        <div data-name={ mood } className={ className }>{ mood }</div>
+        <img data-mood_id={ mood_id } data-name={ mood } src="" alt="" />
+        <div data-mood_id={ mood_id } data-name={ mood } className={ className }>{ mood }</div>
       </li>
     );
   }

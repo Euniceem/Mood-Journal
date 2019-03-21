@@ -3,10 +3,10 @@ import './Data.scss';
 import Header from '../../components/Header';
 
 class Data extends Component {
-  constructor(props) {
-    super(props)
-
-  }
+  // constructor(props) {
+  //   super(props)
+  // }
+  
   render() {
     return (
       <div className="data-container">

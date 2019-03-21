@@ -127,7 +127,7 @@
     display: flex;
     justify-content: center;
     margin-top: $margin-standard * 2;
-    margin-bottom: $margin-standard;
+    margin-bottom: $margin-standard * 2;
     width: 100%;
 
     .buttons {
@@ -170,10 +170,15 @@
           border: none;
           width: 100%;
 
+          
           &:hover, &:active {
             background-color: $background-hover-1;
             color: white;
           }
+        }
+
+        .disabled {
+          background-color: #aaa;
         }
       }
     }

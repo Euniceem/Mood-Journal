@@ -15,8 +15,6 @@ class EditSliders extends Component {
 
   updateSliders = () => {
     // call an action to update the database with the new sliders. update the state in MoodEntry.jsx and cause the page to re-render with the updated sliders.
-
-    console.log(`User wants to update sliders!`);
   }
 
   render() {

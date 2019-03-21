@@ -4,6 +4,7 @@ export const LOGIN_USER = 'LOGIN_USER';
 export const LOGOUT_USER = 'LOGOUT_USER';
 export const LOAD_ENTRIES = 'LOAD ENTIRES';
 export const LOAD_EMOTIONS = 'LOAD_EMOTIONS';
+export const SUBMIT_ENTRY = 'SUBMIT_ENTRY';
 
 /** Action Creators*/
 export const register = (user) => {
@@ -121,11 +122,31 @@ export const loadEmotions = () => {
         return response.json();
       })
       .then(emotions => {
-        console.log(emotions);
         return dispatch({
           type: LOAD_EMOTIONS,
           payload: emotions
         });
       });
+  }
+}
+
+export const submitEntry = (data) => {
+  return dispatch => {
+    fetch(`api/entries`, {
+      method : 'POST',
+      body : JSON.stringify(data),
+      headers : {
+        'Content-Type': 'application/json'
+      }
+    }).then(response => {
+      if (!response.ok) {
+        throw Error(response.statusText);
+      }
+
+      return dispatch({
+        type : SUBMIT_ENTRY,
+        payload : 'success: true'
+      });
+    });
   }
 }

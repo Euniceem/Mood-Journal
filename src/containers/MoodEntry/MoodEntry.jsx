@@ -11,6 +11,8 @@ import SliderList from '../../components/SliderList';
 import EditSliders from '../EditSliders';
 import NotesActions from '../NotesActions';
 
+import { submitEntry } from '../../actions';
+
 library.add(faArrowLeft);
 
 class MoodEntry extends Component {
@@ -21,7 +23,8 @@ class MoodEntry extends Component {
       selectedMood : 'Pick a mood!',
       isEditSlidersOpen : false,
       isNotesOpen : false,
-      sliders : {}
+      sliders : {},
+      notes : ''
     }
   }
 
@@ -46,9 +49,13 @@ class MoodEntry extends Component {
 
   handleSelectMood = e => {
     const name = e.target.dataset.name;
+    const mood_id = e.target.dataset.mood_id;
+
+    console.log(name, mood_id);
 
     this.setState({
-      selectedMood : name
+      selectedMood : name,
+      moodId : mood_id
     });
   }
 
@@ -64,8 +71,49 @@ class MoodEntry extends Component {
     this.setState({ sliders : newSliders });
   }
 
-  handleSubmit = e => {
+  handleNotes = e => {
+    const value = e.target.value;
 
+    console.log(value);
+
+    this.setState({
+      notes : value
+    });
+  }
+
+  handleSubmit = e => {
+    const { emotions } = this.props;
+    let customEmotions = [];
+    let defaultEmotions = [];
+    
+    emotions.forEach(emotion => {
+      if (emotion.is_custom) {
+        customEmotions.push({
+          name : emotion.name,
+          custom_emotion_id : emotion.id,
+          percent : this.state.sliders[emotion.name] || "0"
+         });
+      }
+
+      if (!emotion.is_custom) {
+        defaultEmotions.push({
+          name : emotion.name,
+          custom_emotion_id : emotion.id,
+          percent : this.state.sliders[emotion.name] || "0"
+         });
+      }
+    });
+    
+    const submitData = {
+      mood_id : this.state.moodId,
+      custom_emotions : customEmotions,
+      default_emotions : defaultEmotions,
+      notes : this.state.notes
+     };
+
+    console.log(submitData);
+
+    this.props.onSubmit(submitData);
   }
 
   // doesn't load in time for componentDidMount. i need a safe alternative.
@@ -80,7 +128,6 @@ class MoodEntry extends Component {
   }
   
   render() {
-    console.log(this.props.emotions);
     return (
       <>
         <Header resetStateOnClick={ this.resetStateOnClick } />
@@ -88,16 +135,16 @@ class MoodEntry extends Component {
         { this.state.isEditSlidersOpen ?
           <EditSliders openEditSliders={ this.openEditSliders } isEditSlidersOpen={ this.state.isEditSlidersOpen } />
           : this.state.isNotesOpen ? 
-          <NotesActions openNotesAndActions={ this.openNotesAndActions } isNotesOpen={ this.state.isNotesOpen } handleSubmit={ this.handleSubmit } />
+          <NotesActions selectedMood={ this.state.selectedMood } openNotesAndActions={ this.openNotesAndActions } isNotesOpen={ this.state.isNotesOpen } handleNotes={ this.handleNotes } notes={ this.state.notes } handleSubmit={ this.handleSubmit } />
           :
           <div className="component-mood-entry">
             <div className="select-emotion">
               <ul className="list-emotion">
-                <ListEmotion handleSelectMood={ this.handleSelectMood } selectedMood={ this.state.selectedMood } mood="Amazing" mood-id="1" />
-                <ListEmotion handleSelectMood={ this.handleSelectMood } selectedMood={ this.state.selectedMood } mood="Good" mood-id="2" />
-                <ListEmotion handleSelectMood={ this.handleSelectMood } selectedMood={ this.state.selectedMood } mood="OK" mood-id="3" />
-                <ListEmotion handleSelectMood={ this.handleSelectMood } selectedMood={ this.state.selectedMood } mood="Bad" mood-id="4" />
-                <ListEmotion handleSelectMood={ this.handleSelectMood } selectedMood={ this.state.selectedMood } mood="Awful" mood-id="5" />
+                <ListEmotion handleSelectMood={ this.handleSelectMood } selectedMood={ this.state.selectedMood } mood="Amazing" mood_id="1" />
+                <ListEmotion handleSelectMood={ this.handleSelectMood } selectedMood={ this.state.selectedMood } mood="Good" mood_id="2" />
+                <ListEmotion handleSelectMood={ this.handleSelectMood } selectedMood={ this.state.selectedMood } mood="OK" mood_id="3" />
+                <ListEmotion handleSelectMood={ this.handleSelectMood } selectedMood={ this.state.selectedMood } mood="Bad" mood_id="4" />
+                <ListEmotion handleSelectMood={ this.handleSelectMood } selectedMood={ this.state.selectedMood } mood="Awful" mood_id="5" />
               </ul>
             </div>
       
@@ -110,7 +157,7 @@ class MoodEntry extends Component {
                 </div>
       
                 <div className="submit-wrap">
-                  <button onClick={ this.handleSubmit }>Submit Entry</button>
+                  <button onClick={ this.handleSubmit } disabled={ this.state.selectedMood === 'Pick a mood!' } className={ this.state.selectedMood === 'Pick a mood!' ? "disabled" : "" }>Submit Entry</button>
                 </div>
               </div>
             </div>
@@ -131,6 +178,9 @@ const mapDispatchToProps = dispatch => {
   return {
     onLoad: () => {
       return dispatch(loadEmotions());
+    },
+    onSubmit: (data) => {
+      return dispatch(submitEntry(data));
     }
   };
 }
