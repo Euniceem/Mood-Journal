@@ -21,7 +21,7 @@ const moodJournalReducer = (state = initialState, action) => {
     case LOAD_ENTRY:
       return Object.assign({}, state, { entry: action.payload });
     case EDIT_HOMEPAGE:
-      return Object.assign({}, state, { setHomePage: action.body });
+      return Object.assign({}, state, { setHomePage: action.payload.result.homepage });
     default:
       return state;
   }

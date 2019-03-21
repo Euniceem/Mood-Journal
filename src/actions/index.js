@@ -82,6 +82,7 @@ export const logout = () => {
       .then(email => {
         localStorage.removeItem('email');
         localStorage.removeItem('loggedIn');
+        localStorage.removeItem('setHomePage')
         return dispatch({
           type: LOGOUT_USER,
           payload: email
@@ -187,9 +188,27 @@ export const editPassword = (oldPassword, editedPassword) => {
 }
 
 export const editHomepage = (page) => {
-  localStorage.setItem('setHomePage', page)
-  return {
-    type: EDIT_HOMEPAGE,
-    body: page
+  return (dispatch) => {
+    return fetch(`/api/settings`, {
+      method: 'PUT',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({ homepage: page })
+    })
+      .then((response) => {
+        console.log(response)
+        if (!response.ok) {
+          throw Error(response.statusText)
+        }
+        return response.json()
+      })
+      .then((page) => {
+        localStorage.setItem('setHomePage', page.result.homepage)
+        return dispatch({
+          type: EDIT_HOMEPAGE,
+          payload: page
+        })
+      })
   }
 }
