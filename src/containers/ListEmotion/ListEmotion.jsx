@@ -2,22 +2,27 @@ import React, { Component } from 'react';
 import './ListEmotion.scss';
 
 class ListEmotion extends Component {
-  constructor(props) {
-    super(props);
+  // toggleSelected = () => {
+  //   const { mood } = this.state;
+  //   const { selected } = this.state;
 
-    this.state = {
-      mood : this.props.mood,
-      selected : false
-    }
-  }
+  //   this.props.handleSelectMood(selected, mood);
+  // }
 
   render() {
+    const { selectedMood, mood } = this.props;
+    let className = 'text';
+
+    if (selectedMood === mood) {
+      className = 'text selected';
+    }
+
     return (
-      <li>
+      <li onClick={ this.props.handleSelectMood } data-name={ mood }>
         {/* image is applied through css */}
-        <img src="" alt="" />
-        <div className="text">{ this.props.mood }</div>
-    </li>
+        <img data-name={ mood } src="" alt="" />
+        <div data-name={ mood } className={ className }>{ mood }</div>
+      </li>
     );
   }
 }

@@ -6,6 +6,7 @@ li {
   justify-content: center;
   align-items: center;
   flex-basis: 20%;
+  transition: all 100ms ease-out;
   height: fit-content;
 
   img {
@@ -26,4 +27,14 @@ li {
     text-align: center;
     width: 80%;
   }
+
+  .selected {
+    font-weight: bold;
+  }
+
+  // &:hover, &:active {
+  //   background-color: $background-hover-1;
+  //   color: white;
+  //   font-weight: bold;
+  // }
 }
