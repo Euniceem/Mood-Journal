@@ -6,7 +6,6 @@ import { fetchData } from '../../actions';
 import Header from '../../components/Header';
 import TimeSelector from '../../components/TimeSelector';
 import ChartTypeSwitch from '../../components/ChartTypeSwitch';
-import TrendTypeSwitch from '../../components/TrendTypeSwitch';
 import LineChartBuilder from '../../components/LineChartBuilder';
 import ActivityDataDisplay from '../../components/ActivityDataDisplay';
 
@@ -16,14 +15,13 @@ class Data extends Component {
 
     this.state = {
       chart_type: 'mood',
-      trend_type: 'avg',
       time: '1',
-      line_chart_data: this.props.data.moodData.avgDay,
+      mood_chart_data: this.props.data.moodData.avgDay,
+      emotion_chart_data: this.props.data.emotionData.avgDay,
       activity_data: this.props.data.activityData.avgDay
     };
 
     this.handleOptionsOnClick = this.handleOptionsOnClick.bind(this);
-    this.selectAverageData = this.selectAverageData.bind(this);
     this.filterDataByTime = this.filterDataByTime.bind(this);
   }
 
@@ -35,63 +33,38 @@ class Data extends Component {
     const inputType = e.target.dataset.inputType;
     const value = e.target.value;
 
-    new Promise((resolve, reject) =>
-      resolve(this.setState({ [inputType]: value }))
-    ).then(() => {
-      if (this.state.trend_type === 'all') {
-        this.filterDataByTime();
-      } else {
-        this.selectAverageData();
-      }
-    });
-  }
+    this.setState({ [inputType]: value });
 
-  selectAverageData() {
-    if (this.state.chart_type === 'mood') {
-      switch (this.state.time) {
-        case '1':
-          return this.setState({
-            line_chart_data: this.props.data.moodData.avgDay,
-            activity_data: this.props.data.activityData.avgDay
-          });
-        case '7':
-          return this.setState({
-            line_chart_data: this.props.data.moodData.avgWeek,
-            activity_data: this.props.data.activityData.avgWeek
-          });
-        default:
-          return this.setState({
-            line_chart_data: this.props.data.moodData.avgDay,
-            activity_data: this.props.data.activityData.avgDay
-          });
-      }
-    }
-
-    switch (this.state.time) {
-      case '1':
-        return this.setState({
-          line_chart_data: this.props.data.emotionData.avgDay,
-          activity_data: this.props.data.activityData.avgDay
-        });
-      case '7':
-        return this.setState({
-          line_chart_data: this.props.data.emotionData.avgWeek,
-          activity_data: this.props.data.activityData.avgWeek
-        });
-      default:
-        return this.setState({
-          line_chart_data: this.props.data.emotionData.avgDay,
-          activity_data: this.props.data.activityData.avgDay
-        });
+    if (inputType === 'time') {
+      this.filterDataByTime(value);
     }
   }
 
-  filterDataByTime() {
-    let startDate = new Date();
-
-    startDate.setDate(startDate.getDate() - parseInt(this.state.time));
+  filterDataByTime(time) {
+    if (time.includes('avg')) {
+      return this.setState({
+        mood_chart_data: this.props.data.moodData[time],
+        emotion_chart_data: this.props.data.emotionData[time],
+        activity_data: this.props.data.activityData[time]
+      });
+    }
 
     const selectedActivitySums = {};
+    let startDate = new Date();
+
+    startDate.setDate(startDate.getDate() - parseInt(time));
+
+    const selectedMoodEntries = this.props.data.moodData.allDays.filter(
+      avgDay => {
+        return new Date(avgDay.date) > startDate;
+      }
+    );
+
+    const selectedEmotionEntries = this.props.data.emotionData.allDays.filter(
+      avgDay => {
+        return new Date(avgDay.date) > startDate;
+      }
+    );
 
     this.props.data.activityData.allDays
       .filter(day => {
@@ -109,28 +82,10 @@ class Data extends Component {
         }
       });
 
-    this.setState({ activity_data: selectedActivitySums });
-
-    if (this.state.chart_type === 'mood') {
-      const selectedMoodEntries = this.props.data.moodData.allDays.filter(
-        avgDay => {
-          return new Date(avgDay.date) > startDate;
-        }
-      );
-
-      return this.setState({
-        line_chart_data: selectedMoodEntries
-      });
-    }
-
-    const selectedEmotionEntries = this.props.data.emotionData.allDays.filter(
-      avgDay => {
-        return new Date(avgDay.date) > startDate;
-      }
-    );
-
     return this.setState({
-      line_chart_data: selectedEmotionEntries
+      mood_chart_data: selectedMoodEntries,
+      emotion_chart_data: selectedEmotionEntries,
+      activity_data: selectedActivitySums
     });
   }
 
@@ -142,15 +97,14 @@ class Data extends Component {
 
         <LineChartBuilder
           chart_type={this.state.chart_type}
-          chart_data={this.state.line_chart_data}
+          mood_chart_data={this.state.mood_chart_data}
+          emotion_chart_data={this.state.emotion_chart_data}
         />
 
         <TimeSelector
           trend_type={this.state.trend_type}
           handleOptionsOnClick={this.handleOptionsOnClick}
         />
-
-        <TrendTypeSwitch handleOptionsOnClick={this.handleOptionsOnClick} />
 
         <ActivityDataDisplay
           trend_type={this.state.trend_type}

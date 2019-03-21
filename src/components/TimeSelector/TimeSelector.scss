@@ -1,14 +1,48 @@
+@import '../../../sass/config';
+
 .data-container {
-  .time-select-container {
+  .average-trends {
     display: flex;
     flex-flow: row nowrap;
-    justify-content: space-around;
-    width: 100%;
+    align-items: center;
+    // justify-content: space-around;
     border-top: 1px solid green;
     border-bottom: 1px solid green;
 
+    .title {
+      width: 20%;
+      margin: 0;
+      padding: 5px;
+      font-size: 16px;
+      background-color: $background-color-3;
+      color: white;
+    }
+
     .btn {
-      background: transparent;
+      padding: 3px;
+      margin: 1.5px;
+      font-size: 14px;
+    }
+  }
+
+  .past-trends {
+    display: flex;
+    flex-flow: row nowrap;
+    align-items: center;
+    // justify-content: space-around;
+    border-top: 1px solid green;
+    border-bottom: 1px solid green;
+
+    .title {
+      width: 20%;
+      margin: 0;
+      padding: 5px;
+      font-size: 16px;
+      background-color: $background-color-3;
+      color: white;
+    }
+
+    .btn {
       padding: 3px;
       margin: 1.5px;
       font-size: 14px;

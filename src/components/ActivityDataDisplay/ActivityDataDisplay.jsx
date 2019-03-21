@@ -67,7 +67,7 @@ const ActivityDataDisplay = props => {
       name: activity,
       count:
         trend_type === 'avg'
-          ? parseFloat(activity_data[activity].toFixed(1))
+          ? parseFloat(activity_data[activity])
           : Math.round(activity_data[activity])
     });
   }

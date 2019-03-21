@@ -457,8 +457,9 @@ router.get('/data', isAuthenticated, (req, res) => {
       let totalNumOfWeeks = totalNumOfDays / 7;
 
       for (let activity in data.activityData.avgDay) {
-        data.activityData.avgDay[activity] =
-          data.activityData.avgDay[activity] / totalNumOfDays;
+        data.activityData.avgDay[activity] = (
+          data.activityData.avgDay[activity] / totalNumOfDays
+        ).toFixed(1);
       }
 
       data.activityData.avgWeek.forEach(dayOfWeek => {
@@ -467,7 +468,9 @@ router.get('/data', isAuthenticated, (req, res) => {
             return;
           }
 
-          dayOfWeek[activity] = dayOfWeek[activity] / totalNumOfWeeks;
+          dayOfWeek[activity] = (dayOfWeek[activity] / totalNumOfWeeks).toFixed(
+            1
+          );
         }
       });
     })

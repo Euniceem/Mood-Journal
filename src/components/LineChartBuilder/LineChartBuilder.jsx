@@ -12,7 +12,7 @@ import {
 
 const LineChartBuilder = props => {
   const isMood = props.chart_type === 'mood' ? true : false;
-  const chart_data = props.chart_data;
+  const { mood_chart_data, emotion_chart_data } = props;
 
   if (isMood) {
     return (
@@ -20,7 +20,7 @@ const LineChartBuilder = props => {
         className="mood chart"
         width={350}
         height={275}
-        data={chart_data}
+        data={mood_chart_data}
         margin={{ top: 5, right: 5, left: 5, bottom: 5 }}
       >
         <XAxis dataKey="time_label" />
@@ -43,7 +43,7 @@ const LineChartBuilder = props => {
       className="emotion chart"
       width={350}
       height={250}
-      data={chart_data}
+      data={emotion_chart_data}
       margin={{ top: 5, right: 5, left: 5, bottom: 5 }}
     >
       <XAxis dataKey="time_label" />
