@@ -1,7 +1,8 @@
 import React from 'react';
 import {
+  AreaChart,
+  Area,
   LineChart,
-  CartesianGrid,
   XAxis,
   YAxis,
   Legend,
@@ -15,26 +16,25 @@ const LineChartBuilder = props => {
 
   if (isMood) {
     return (
-      <LineChart
+      <AreaChart
         className="mood chart"
         width={350}
         height={275}
         data={chart_data}
         margin={{ top: 5, right: 5, left: 5, bottom: 5 }}
       >
-        {/* <CartesianGrid strokeDasharray="3 3" /> */}
         <XAxis dataKey="time_label" />
         <YAxis />
         <Legend />
-        <Line
+        <Area
           type="monotone"
           dataKey="avg"
-          stroke="#82ca9d"
+          stroke="#aad962"
           strokeWidth="2"
-          dot={false}
+          fill="#aad962"
         />
         <Tooltip />
-      </LineChart>
+      </AreaChart>
     );
   }
 
@@ -46,29 +46,28 @@ const LineChartBuilder = props => {
       data={chart_data}
       margin={{ top: 5, right: 5, left: 5, bottom: 5 }}
     >
-      {/* <CartesianGrid strokeDasharray="3 3" /> */}
       <XAxis dataKey="time_label" />
       <YAxis />
       <Legend />
       <Line
         type="monotone"
         dataKey="happiness"
-        stroke="#8884d8"
-        strokeWidth="1"
+        stroke="#aad962"
+        strokeWidth="1.5"
         dot={false}
       />
       <Line
         type="monotone"
         dataKey="energy"
-        stroke="#dcf442"
-        strokeWidth="1"
+        stroke="#fbbf45"
+        strokeWidth="1.5"
         dot={false}
       />
       <Line
         type="monotone"
         dataKey="stress"
-        stroke="#f45641"
-        strokeWidth="1"
+        stroke="#ef6a32"
+        strokeWidth="1.5"
         dot={false}
       />
       <Tooltip />
