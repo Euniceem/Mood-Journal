@@ -54,7 +54,7 @@ router.get('/data', isAuthenticated, (req, res) => {
       allDays: []
     },
     activityData: {
-      avgDay: {},
+      avgDay: [],
       avgWeek: [],
       allDays: []
     }
@@ -312,7 +312,71 @@ router.get('/data', isAuthenticated, (req, res) => {
       /****
        * activity data
        */
+      //by hour
+      return knex
+        .raw(
+          `
+          SELECT date_part('hour', entries.created_at), default_activities.name, count(*)
+          FROM entry_activities
+          INNER JOIN entries
+          ON entry_activities.entry_id = entries.id
+          INNER JOIN default_activities
+          ON entry_activities.default_activity_id = default_activities.id
+          WHERE user_id = ${user_id} AND default_activity_id IS NOT NULL
+          GROUP BY date_part('hour', entries.created_at), default_activities.name
+          ORDER BY 1
+        `
+        )
+        .then(result => {
+          const totalActivitiesByHour = {};
 
+          result.rows.forEach(row => {
+            totalActivitiesByHour[row.date_part]
+              ? (totalActivitiesByHour[row.date_part][row.name] = parseInt(
+                  row.count
+                ))
+              : (totalActivitiesByHour[row.date_part] = {
+                  [row.name]: row.count
+                });
+          });
+
+          return totalActivitiesByHour;
+        });
+    })
+    .then(totalActivitiesByHour => {
+      return knex
+        .raw(
+          `
+        SELECT date_part('hour', entries.created_at), custom_activities.name, count(*)
+        FROM entry_activities
+        INNER JOIN entries
+        ON entry_activities.entry_id = entries.id
+        INNER JOIN custom_activities
+        ON entry_activities.custom_activity_id = custom_activities.id
+        WHERE entries.user_id = ${user_id} AND custom_activity_id IS NOT NULL
+        GROUP BY date_part('hour', entries.created_at), custom_activities.name
+        ORDER BY 1
+      `
+        )
+        .then(result => {
+          result.rows.forEach(row => {
+            totalActivitiesByHour[row.date_part]
+              ? (totalActivitiesByHour[row.date_part][row.name] = parseInt(
+                  row.count
+                ))
+              : (totalActivitiesByHour[row.date_part] = {
+                  [row.name]: row.count
+                });
+          });
+
+          for (let hour in totalActivitiesByHour) {
+            totalActivitiesByHour[hour].hour = hour;
+            totalActivitiesByHour[hour].time_label = mapHourToString[hour];
+            data.activityData.avgDay.push(totalActivitiesByHour[hour]);
+          }
+        });
+    })
+    .then(() => {
       //by day of week
       return knex
         .raw(
@@ -329,14 +393,9 @@ router.get('/data', isAuthenticated, (req, res) => {
         `
         )
         .then(result => {
-          const totalActivities = {};
           const totalActivitiesByDayOfWeek = {};
 
           result.rows.forEach(row => {
-            totalActivities[row.name]
-              ? (totalActivities[row.name] += parseInt(row.count))
-              : (totalActivities[row.name] = parseInt(row.count));
-
             totalActivitiesByDayOfWeek[row.date_part]
               ? (totalActivitiesByDayOfWeek[row.date_part][row.name] = parseInt(
                   row.count
@@ -346,13 +405,10 @@ router.get('/data', isAuthenticated, (req, res) => {
                 });
           });
 
-          return [totalActivities, totalActivitiesByDayOfWeek];
+          return totalActivitiesByDayOfWeek;
         });
     })
-    .then(activityData => {
-      const totalActivities = activityData[0];
-      const totalActivitiesByDayOfWeek = activityData[1];
-
+    .then(totalActivitiesByDayOfWeek => {
       return knex
         .raw(
           `
@@ -368,10 +424,6 @@ router.get('/data', isAuthenticated, (req, res) => {
         )
         .then(result => {
           result.rows.forEach(row => {
-            totalActivities[row.name]
-              ? (totalActivities[row.name] += parseInt(row.count))
-              : (totalActivities[row.name] = parseInt(row.count));
-
             totalActivitiesByDayOfWeek[row.date_part]
               ? (totalActivitiesByDayOfWeek[row.date_part][row.name] = parseInt(
                   row.count
@@ -380,8 +432,6 @@ router.get('/data', isAuthenticated, (req, res) => {
                   [row.name]: parseInt(row.count)
                 });
           });
-
-          data.activityData.avgDay = totalActivities;
 
           for (let day in totalActivitiesByDayOfWeek) {
             totalActivitiesByDayOfWeek[day].day = day;
@@ -457,15 +507,21 @@ router.get('/data', isAuthenticated, (req, res) => {
       //calculate activity averages for day, and day of the week
       let totalNumOfWeeks = totalNumOfDays / 7;
 
-      for (let activity in data.activityData.avgDay) {
-        data.activityData.avgDay[activity] = (
-          data.activityData.avgDay[activity] / totalNumOfDays
-        ).toFixed(1);
-      }
+      data.activityData.avgDay.forEach(hourOfDay => {
+        for (let activity in hourOfDay) {
+          if (activity === 'hour' || activity === 'time_label') {
+            return;
+          }
+
+          hourOfDay[activity] = (hourOfDay[activity] / totalNumOfDays).toFixed(
+            3
+          );
+        }
+      });
 
       data.activityData.avgWeek.forEach(dayOfWeek => {
         for (let activity in dayOfWeek) {
-          if (activity === 'day') {
+          if (activity === 'day' || activity === 'time_label') {
             return;
           }
 
