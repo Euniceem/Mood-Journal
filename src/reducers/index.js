@@ -5,7 +5,7 @@ const initialState = {
   entry: [],
   email: localStorage.getItem('email'),
   loggedIn: localStorage.getItem('loggedIn'),
-  setHomePage: localStorage.getItem('setHomePage')
+  setHomePage: localStorage.getItem('setHomePage'),
   data: {
     moodData: {
       avgDay: [],

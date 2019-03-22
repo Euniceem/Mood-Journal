@@ -106,11 +106,7 @@ passport.use(
   )
 );
 
-<<<<<<< HEAD
-app.use('/api', auth, profile, entries, emotions, activities, user_settings);
-=======
-app.use('/api', auth, profile, entries, emotions, activities, data);
->>>>>>> dev
+app.use('/api', auth, profile, entries, emotions, activities, user_settings, data);
 
 app.listen(PORT, () => {
   console.log(`Server is running in PORT: ${PORT}`);
