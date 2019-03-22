@@ -42,7 +42,7 @@ class Login extends Component {
 
     this.props.login(user)
       .then(() => {
-        this.props.history.push('/feed');
+        this.props.history.push('/');
       })
     this.setState({
       emailInput: '',

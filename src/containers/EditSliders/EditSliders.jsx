@@ -1,22 +1,25 @@
 import React, { Component } from 'react';
-// import { connect } from 'react-redux';
 import './EditSliders.scss';
 
-import Tag from '../../components/Tag';
+import AddPreset from '../AddPreset';
+import EntryList from '../../components/EntryList';
 
 class EditSliders extends Component {
   constructor(props) {
     super(props);
 
     this.state = {
-
+      emotions : this.props.emotions,
+      showForm : false
     };
+  }
+
+  openForm = () => {
+    return this.setState({ showForm : true });
   }
 
   updateSliders = () => {
     // call an action to update the database with the new sliders. update the state in MoodEntry.jsx and cause the page to re-render with the updated sliders.
-
-    console.log(`User wants to update sliders!`);
   }
 
   render() {
@@ -28,32 +31,29 @@ class EditSliders extends Component {
           <div className="current-wrap">
             <div className="title">Your Presets</div>
 
-            {/* going to have to load these presets in dynamically */}
             <div className="current-presets">
-              <Tag className="preset" tagName="Happiness" removeHandler={ this.removePreset } />
-              <Tag className="preset" tagName="Stress" removeHandler={ this.removePreset } />
-              <Tag className="preset" tagName="Anxiety" removeHandler={ this.removePreset } />
-              <Tag className="preset" tagName="Fatigue" removeHandler={ this.removePreset } />
+              <EntryList clickHandler={ this.props.removeSliderHandler } presets={ this.props.selected } className="preset" />
             </div>
           </div>
 
           <div className="add-presets-wrap">
             <div className="title">Add a Preset</div>
 
-            {/* this will require communication with the back-end as well */}
             <div className="add-presets">
-              <Tag className="preset" tagName="Frustration" removeHandler={ this.removePreset } />
-              <Tag className="preset" tagName="Irritation" removeHandler={ this.removePreset } />
-              <Tag className="preset" tagName="Boredom" removeHandler={ this.removePreset } />
-              <Tag className="preset" tagName="Tension" removeHandler={ this.removePreset } />
+              <EntryList clickHandler={ this.props.addSliderHandler } presets={ this.props.unselected } className="preset" />
             </div>
           </div>
         </div>
 
-        {/* the custom feature is pretty much like POSTing a new kanban card to the database */}
-        <div className="custom-wrap">
-          <span className="text">Custom Slider</span>
-          <span className="button">+</span>
+        <div onClick={ this.openForm } className="custom-wrap">
+          { this.state.showForm ? 
+            <AddPreset onReloadData={ this.props.sortEmotions } routeOnUpdate={ `/api/emotions` } />
+          :
+            <>
+              <span className="text">Custom Slider</span>
+              <span className="button">+</span>
+            </>
+          }
         </div>
 
         <div className="buttons-wrap">
@@ -63,7 +63,7 @@ class EditSliders extends Component {
             </div>
   
             <div className="done">
-              <button onClick={ this.updateSliders }>Done</button>
+              <button onClick={ this.props.openEditSliders }>Done</button>
             </div>
           </div>
         </div>
@@ -71,20 +71,5 @@ class EditSliders extends Component {
     );
   }
 }
-
-// const mapStateToProps = state => {
-//   return {};
-// }
-// 
-// const mapDispatchToProps = dispatch => {
-//   return {
-//     handleUpdateSliders : () => { }
-//   }
-// }
-// 
-// EditSliders = connect(
-//   mapStateToProps,
-//   mapDispatchToProps
-// )(EditSliders);
 
 export default EditSliders;

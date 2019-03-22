@@ -7,6 +7,9 @@ align-items: center;
 width: 100%;
 background-color: $background-color-3;
 color: white;
+font-family: $font-family;
+overflow: hidden;
+position: fixed;
 
   .menu-icon{
     margin-left: $margin-standard / 2;
@@ -19,18 +22,99 @@ color: white;
     }
   }
 
-  .menu{
-    position: absolute;
-    color:$background-color-3;
-    background-color: white;
-    min-width: 70px;
-    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
-    z-index: 1;
+  .bm-menu-wrap{
+    top: 0;
+    
+  }
+  
+  .bm-item-list{
+    background-color: whitesmoke;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 80%;
+
+      .main-title-container{
+        background-color: $main-color;
+        border-bottom: 1px solid $main-color; 
+        height: 80px;
+
+        .main-title{
+          padding: 10px;
+          text-align: center;
+          font-family: $title-font;
+          color: $font-color;
+          font-weight: bold;
+        }
+
+        .emotion-icon-container{
+          display: flex;
+          justify-content: center;
+
+          .emotion{
+          padding-left: 10px;
+          padding-right: 10px;
+          font-size: 20px;
+          }
+
+          #fa-amazing{
+            color:$amazing;
+          }
+
+          #fa-good{
+            color:$good;
+          }
+
+          #fa-ok{
+            color: $ok;
+          }
+
+          #fa-bad{
+            color: $bad;
+          }
+
+          #fa-awful{
+            color: $awful;
+          }
+        }
+    }
+
+    .username, .email{
+      color: $font-color;
+     text-align: center;
+      font-size: 14px;
+      margin-top: 10px;
+      margin-bottom: 10px;
+    }
+
+     .home-container, .settings-container, .login-container, .logout-container{
+      display: flex !important;
+      flex-direction: row;
+      
+     
+      .home-link {
+        margin-left: 3.5px;
+      } 
+      
+      .logout-link{
+       margin-left: 4px;
+      }
+    }
+
+    .link{
+      color: $font-color;
+      margin-left: 30px;
+      font-size: 16px;
+    }
+
+    .settings-icon, .home-icon, .login-icon, .logout-icon{
+      font-size: 16px;
+    }
   }
 
   .main-title {
-    font-family: $primary-font, $font-type;
-    font-size: 1.6rem;
+    font-family: $title-font;
+    font-size: 1.8rem;
     letter-spacing: 0.02rem;
   }
 
