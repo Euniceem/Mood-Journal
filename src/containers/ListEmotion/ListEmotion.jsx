@@ -22,7 +22,7 @@ class ListEmotion extends Component {
     return (
       <li onClick={ this.props.handleSelectMood } data-mood_id={ mood_id } data-name={ mood }>
         {/* image is applied through css */}
-        {/* <img data-mood_id={ mood_id } data-name={ mood } src="" alt="" /> */}
+        <img data-mood_id={ mood_id } data-name={ mood } src="" alt="" />
         <FAMood handleSelectMood={ this.props.handleSelectMood } data-mood_id={ mood_id } data-name={ mood } name={ mood } mood_id={ mood_id } />
         <div data-mood_id={ mood_id } data-name={ mood } className={ className }>{ mood }</div>
       </li>
