@@ -17,6 +17,8 @@ const SingleEntryFeed = props => {
     );
   });
 
+  console.log(emotionList)
+
   const activityList = props.entryData.entryActivities.map(
     (activities, index) => {
       return (
