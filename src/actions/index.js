@@ -14,6 +14,7 @@ export const SUBMIT_ENTRY = 'SUBMIT_ENTRY';
 export const FETCHED_DATA = 'FETCHED_DATA';
 
 /** Action Creators*/
+
 export const register = (email) => {
   return dispatch => {
     return fetch('/api/register', {
