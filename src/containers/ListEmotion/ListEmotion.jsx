@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import './ListEmotion.scss';
 
+import FAMood from '../../components/FAMood';
+
 class ListEmotion extends Component {
   // toggleSelected = () => {
   //   const { mood } = this.state;
@@ -20,7 +22,8 @@ class ListEmotion extends Component {
     return (
       <li onClick={ this.props.handleSelectMood } data-mood_id={ mood_id } data-name={ mood }>
         {/* image is applied through css */}
-        <img data-mood_id={ mood_id } data-name={ mood } src="" alt="" />
+        {/* <img data-mood_id={ mood_id } data-name={ mood } src="" alt="" /> */}
+        <FAMood mood={ mood }/>
         <div data-mood_id={ mood_id } data-name={ mood } className={ className }>{ mood }</div>
       </li>
     );

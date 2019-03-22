@@ -1,0 +1,12 @@
+@import '../../../sass/config';
+
+#fa-amazing, #fa-good, #fa-ok, #fa-bad, #fa-awful {
+  font-size: 2.8rem;
+  padding-bottom: $margin-standard / 2;
+}
+
+#fa-amazing { color: $amazing; }
+#fa-good { color: $good; }
+#fa-ok { color: $ok; }
+#fa-bad { color: $bad }
+#fa-awful { color: $awful }
