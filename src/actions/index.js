@@ -115,7 +115,6 @@ export const loadEntries = () => {
   };
 };
 
-
 export const loadEntry = (id) => {
   return dispatch => {
     return fetch(`/api/entries/${id}`, {})
@@ -158,29 +157,29 @@ export const loadEmotions = () => {
 export const loadActivities = () => {
   return dispatch => {
     fetch(`/api/activities`)
-    .then(response => {
-      if (!response.ok) {
-        throw Error(response.statusText);
-      }
+      .then(response => {
+        if (!response.ok) {
+          throw Error(response.statusText);
+        }
 
-      return response.json();
-    })
-    .then(body => {
-      return dispatch({
-        type : LOAD_ACTIVITIES,
-        payload : body
+        return response.json();
+      })
+      .then(body => {
+        return dispatch({
+          type: LOAD_ACTIVITIES,
+          payload: body
+        });
       });
-    });
   }
 }
 
 export const addPreset = (presetObj, route) => {
   return dispatch => {
     return fetch(route, {
-      method : 'POST',
-      body : JSON.stringify(presetObj),
-      headers : {
-        'Content-Type' : 'application/json'
+      method: 'POST',
+      body: JSON.stringify(presetObj),
+      headers: {
+        'Content-Type': 'application/json'
       }
     })
       .then(response => {
@@ -192,8 +191,8 @@ export const addPreset = (presetObj, route) => {
       })
       .then(body => {
         return dispatch({
-          type : ADD_PRESET,
-          payload : body
+          type: ADD_PRESET,
+          payload: body
         });
       });
   }
@@ -202,9 +201,9 @@ export const addPreset = (presetObj, route) => {
 export const submitEntry = (data) => {
   return dispatch => {
     return fetch(`api/entries`, {
-      method : 'POST',
-      body : JSON.stringify(data),
-      headers : {
+      method: 'POST',
+      body: JSON.stringify(data),
+      headers: {
         'Content-Type': 'application/json'
       }
     }).then(response => {
@@ -213,8 +212,8 @@ export const submitEntry = (data) => {
       }
 
       return dispatch({
-        type : SUBMIT_ENTRY,
-        payload : 'success: true'
+        type: SUBMIT_ENTRY,
+        payload: 'success: true'
       });
     });
   }
