@@ -47,21 +47,23 @@ class Header extends Component {
   }
 
   closeMenu() {
-    this.setState({ menuOpen: false })
+    this.setState({ menuOpen: false, showMenu: false })
   }
 
   toggleMenu() {
     this.setState({
       menuOpen: !this.state.menuOpen,
       showMenu: !this.state.showMenu
-    })
-  }
-
-  toggleMoodEntry = () => {
-    this.setState({
-      showMoodEntry: !this.state.showMoodEntry
+    }, () => {
+      document.addEventListener('click', this.closeMenu);
     });
   }
+
+  // toggleMoodEntry = () => {
+  //   this.setState({
+  //     showMoodEntry: !this.state.showMoodEntry
+  //   });
+  // }
 
   handleLogout(e) {
     e.preventDefault();
@@ -74,9 +76,11 @@ class Header extends Component {
   }
 
   render() {
+    console.log('showMenu', this.state.showMenu)
+    console.log('menuOpen', this.props.menuOpen)
 
     return (
-      <div className="header-container">
+      <div className="header-container" >
         <div className="nav-menu-container">
           <div className="menu-icon" onClick={() => this.toggleMenu()}>
             <div className="line"></div>

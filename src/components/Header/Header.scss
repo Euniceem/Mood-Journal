@@ -103,6 +103,11 @@ position: fixed;
     .link{
       color: $font-color;
       margin-left: 30px;
+      font-size: 16px;
+    }
+
+    .settings-icon, .home-icon, .login-icon, .logout-icon{
+      font-size: 16px;
     }
   }
 
