@@ -2,7 +2,7 @@ import React from 'react';
 import './TimeSelector.scss';
 
 const TimeSelector = props => {
-  const handleOptionsOnClick = props.handleOptionsOnClick;
+  const { time, handleOptionsOnClick } = props;
 
   return (
     <div className="time-select-container">
@@ -10,7 +10,7 @@ const TimeSelector = props => {
         <div className="title">Average: </div>
         <div className="buttons">
           <button
-            className="btn"
+            className={time === 'avgDay' ? 'btn selected' : 'btn'}
             data-input-type="time"
             value="avgDay"
             onClick={handleOptionsOnClick}
@@ -18,7 +18,7 @@ const TimeSelector = props => {
             Day
           </button>
           <button
-            className="btn"
+            className={time === 'avgWeek' ? 'btn selected' : 'btn'}
             data-input-type="time"
             value="avgWeek"
             onClick={handleOptionsOnClick}
@@ -31,7 +31,7 @@ const TimeSelector = props => {
         <div className="past-trends">
           <div className="title">History: </div>
           <button
-            className="btn"
+            className={time === '1' ? 'btn selected' : 'btn'}
             data-input-type="time"
             value="1"
             onClick={handleOptionsOnClick}
@@ -39,7 +39,7 @@ const TimeSelector = props => {
             Today
           </button>
           <button
-            className="btn"
+            className={time === '7' ? 'btn selected' : 'btn'}
             data-input-type="time"
             value="7"
             onClick={handleOptionsOnClick}
@@ -47,7 +47,7 @@ const TimeSelector = props => {
             1W
           </button>
           <button
-            className="btn"
+            className={time === '31' ? 'btn selected' : 'btn'}
             data-input-type="time"
             value="31"
             onClick={handleOptionsOnClick}
@@ -55,7 +55,7 @@ const TimeSelector = props => {
             1M
           </button>
           <button
-            className="btn"
+            className={time === '92' ? 'btn selected' : 'btn'}
             data-input-type="time"
             value="92"
             onClick={handleOptionsOnClick}
@@ -63,7 +63,7 @@ const TimeSelector = props => {
             3M
           </button>
           <button
-            className="btn"
+            className={time === '184' ? 'btn selected' : 'btn'}
             data-input-type="time"
             value="184"
             onClick={handleOptionsOnClick}
@@ -71,7 +71,7 @@ const TimeSelector = props => {
             6M
           </button>
           <button
-            className="btn"
+            className={time === 'all' ? 'btn selected' : 'btn'}
             data-input-type="time"
             value="all"
             onClick={handleOptionsOnClick}

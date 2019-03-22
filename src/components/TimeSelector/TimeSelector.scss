@@ -8,21 +8,6 @@
     // justify-content: space-around;
     border-top: 1px solid green;
     border-bottom: 1px solid green;
-
-    .title {
-      width: 20%;
-      margin: 0;
-      padding: 5px;
-      font-size: 16px;
-      background-color: $background-color-3;
-      color: white;
-    }
-
-    .btn {
-      padding: 3px;
-      margin: 1.5px;
-      font-size: 14px;
-    }
   }
 
   .past-trends {
@@ -32,20 +17,26 @@
     // justify-content: space-around;
     border-top: 1px solid green;
     border-bottom: 1px solid green;
+  }
 
-    .title {
-      width: 20%;
-      margin: 0;
-      padding: 5px;
-      font-size: 16px;
-      background-color: $background-color-3;
-      color: white;
-    }
+  .title {
+    width: 20%;
+    margin: 0;
+    padding: 5px;
+    font-size: 16px;
+    background-color: $background-color-3;
+    color: white;
+  }
 
-    .btn {
-      padding: 3px;
-      margin: 1.5px;
-      font-size: 14px;
-    }
+  .btn {
+    padding: 3px;
+    margin: 1.5px;
+    font-size: 14px;
+  }
+
+  .selected {
+    background-color: orange;
+    color: white;
+    font-size: 16px;
   }
 }

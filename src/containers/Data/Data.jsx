@@ -93,7 +93,10 @@ class Data extends Component {
     return (
       <div className="data-container">
         <Header />
-        <ChartTypeSwitch handleOptionsOnClick={this.handleOptionsOnClick} />
+        <ChartTypeSwitch
+          chart_type={this.state.chart_type}
+          handleOptionsOnClick={this.handleOptionsOnClick}
+        />
 
         <LineChartBuilder
           chart_type={this.state.chart_type}
@@ -102,6 +105,7 @@ class Data extends Component {
         />
 
         <TimeSelector
+          time={this.state.time}
           trend_type={this.state.trend_type}
           handleOptionsOnClick={this.handleOptionsOnClick}
         />
