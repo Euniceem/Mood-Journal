@@ -80,7 +80,7 @@ router.get('/entries/:id', isAuthenticated, (req, res) => {
       res.status(500);
       return res.end('error fetching entry');
     });
-})
+});
 
 router.put('/entries/:id', isAuthenticated, (req, res) => {
   const user_id = req.user.id;

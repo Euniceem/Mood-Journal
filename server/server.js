@@ -6,7 +6,15 @@ const passport = require('passport');
 const bycrypt = require('bcryptjs');
 const LocalStrategy = require('passport-local');
 const User = require('../database/models/User');
-const { auth, profile, entries, emotions, activities, user_settings } = require('./routes');
+const {
+  auth,
+  profile,
+  entries,
+  emotions,
+  activities,
+  user_settings,
+  data
+} = require('./routes');
 
 const PORT = process.env.EXPRESS_HOST_PORT;
 const SESSION_SECRET = process.env.SESSION_SECRET;
@@ -98,7 +106,11 @@ passport.use(
   )
 );
 
+<<<<<<< HEAD
 app.use('/api', auth, profile, entries, emotions, activities, user_settings);
+=======
+app.use('/api', auth, profile, entries, emotions, activities, data);
+>>>>>>> dev
 
 app.listen(PORT, () => {
   console.log(`Server is running in PORT: ${PORT}`);

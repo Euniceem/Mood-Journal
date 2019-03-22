@@ -88,7 +88,7 @@ const mapStateToProps = state => {
 }
 
 App = connect(
-  mapStateToProps
+  mapStateToProps,
 )(App);
 
 export default App;

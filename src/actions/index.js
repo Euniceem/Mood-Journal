@@ -3,14 +3,19 @@ export const REGISTER_USER = 'REGISTER_USER';
 export const LOGIN_USER = 'LOGIN_USER';
 export const LOGOUT_USER = 'LOGOUT_USER';
 export const LOAD_ENTRIES = 'LOAD ENTIRES';
+export const LOAD_EMOTIONS = 'LOAD_EMOTIONS';
+export const LOAD_ACTIVITIES = 'LOAD_ACTIVITIES';
 export const LOAD_ENTRY = 'LOAD_ENTRY';
 export const EDIT_EMAIL = 'EDIT_EMAIL';
 export const EDIT_PASSWORD = 'EDIT_PASSWORD';
 export const EDIT_HOMEPAGE = 'EDIT_HOMEPAGE';
+export const ADD_PRESET = 'ADD_PRESET';
+export const SUBMIT_ENTRY = 'SUBMIT_ENTRY';
+export const FETCHED_DATA = 'FETCHED_DATA';
 
 /** Action Creators*/
 export const register = (email) => {
-  return (dispatch) => {
+  return dispatch => {
     return fetch('/api/register', {
       method: 'POST',
       headers: {
@@ -115,7 +120,7 @@ export const loadEntries = () => {
   };
 };
 
-export const loadEntry = (id) => {
+export const loadEntry = id => {
   return dispatch => {
     return fetch(`/api/entries/${id}`, {})
       .then(response => {
@@ -128,6 +133,45 @@ export const loadEntry = (id) => {
         return dispatch({
           type: LOAD_ENTRY,
           payload: entry
+        });
+      })
+      .catch(err => {
+        console.log(err);
+      });
+  };
+};
+
+export const loadEmotions = () => {
+  return dispatch => {
+    return fetch(`/api/emotions`)
+      .then(response => {
+        if (!response.ok) {
+          throw Error(response.statusText);
+        }
+        return response.json();
+      })
+      .then(emotions => {
+        return dispatch({
+          type: LOAD_EMOTIONS,
+          payload: emotions
+        });
+      });
+  };
+};
+
+export const fetchData = () => {
+  return dispatch => {
+    return fetch('/api/data')
+      .then(response => {
+        if (!response.ok) {
+          throw Error(response.statusText);
+        }
+        return response.json();
+      })
+      .then(data => {
+        return dispatch({
+          type: FETCHED_DATA,
+          payload: data
         });
       })
       .catch(err => {
@@ -157,8 +201,8 @@ export const editEmail = (editedEmail) => {
           payload: email
         })
       })
-  }
-}
+  };
+};
 
 export const editPassword = (oldPassword, editedPassword) => {
   return (dispatch) => {
@@ -184,8 +228,8 @@ export const editPassword = (oldPassword, editedPassword) => {
           payload: password
         })
       })
-  }
-}
+  };
+};
 
 export const editHomepage = (page) => {
   return (dispatch) => {
@@ -210,5 +254,70 @@ export const editHomepage = (page) => {
           payload: page
         })
       })
-  }
-}
+  };
+};
+
+export const loadActivities = () => {
+  return dispatch => {
+    fetch(`/api/activities`)
+      .then(response => {
+        if (!response.ok) {
+          throw Error(response.statusText);
+        }
+        return response.json();
+      })
+      .then(body => {
+        return dispatch({
+          type: LOAD_ACTIVITIES,
+          payload: body
+        });
+      });
+  };
+};
+
+export const addPreset = (presetObj, route) => {
+  return dispatch => {
+    return fetch(route, {
+      method: 'POST',
+      body: JSON.stringify(presetObj),
+      headers: {
+        'Content-Type': 'application/json'
+      }
+    })
+      .then(response => {
+        if (!response.ok) {
+          throw Error(response.statusText);
+        }
+
+        return response;
+      })
+      .then(body => {
+        return dispatch({
+          type: ADD_PRESET,
+          payload: body
+        });
+      });
+  };
+};
+
+export const submitEntry = (data) => {
+  return dispatch => {
+    return fetch(`api/entries`, {
+      method: 'POST',
+      body: JSON.stringify(data),
+      headers: {
+        'Content-Type': 'application/json'
+      }
+    }).then(response => {
+      if (!response.ok) {
+        throw Error(response.statusText);
+      }
+
+      return dispatch({
+        type: SUBMIT_ENTRY,
+        payload: 'success: true'
+      });
+    });
+  };
+};
+
