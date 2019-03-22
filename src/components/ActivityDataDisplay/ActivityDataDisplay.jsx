@@ -12,7 +12,7 @@ import {
 } from 'recharts';
 
 const ActivityDataDisplay = props => {
-  const { trend_type, time, activity_data } = props;
+  const { time, activity_data } = props;
   const arrayData = [];
   const colors = [
     '#1a1334',
@@ -29,11 +29,15 @@ const ActivityDataDisplay = props => {
     '#110141'
   ];
 
-  if (time === 'avgWeek' && Array.isArray(activity_data)) {
+  if (time === 'avgWeek' || time === 'avgDay') {
     const activityNames = [];
     activity_data.forEach(dayData => {
       for (let activity in dayData) {
-        if (activity === 'day' || activityNames.includes(activity)) {
+        if (
+          activity === 'day' ||
+          activity === 'hour' ||
+          activityNames.includes(activity)
+        ) {
           break;
         }
 
@@ -61,10 +65,7 @@ const ActivityDataDisplay = props => {
   for (let activity in activity_data) {
     arrayData.push({
       name: activity,
-      count:
-        trend_type === 'avg'
-          ? parseFloat(activity_data[activity])
-          : Math.round(activity_data[activity])
+      count: Math.round(activity_data[activity])
     });
   }
 
