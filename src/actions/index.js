@@ -9,6 +9,25 @@ export const EDIT_PASSWORD = 'EDIT_PASSWORD';
 export const EDIT_HOMEPAGE = 'EDIT_HOMEPAGE';
 
 /** Action Creators*/
+
+export const generateEntries = entry => {
+  console.log(entry, 2);
+  return () => {
+    return fetch('/api/entries', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(entry)
+    })
+      .then(res => {
+        if (!res.ok) {
+          throw new Error(res.statusText);
+        }
+      })
+      .catch(err => console.log(err));
+  };
+};
+
+
 export const register = (email) => {
   return (dispatch) => {
     return fetch('/api/register', {
