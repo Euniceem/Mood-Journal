@@ -47,7 +47,7 @@ class EditSliders extends Component {
 
         <div onClick={ this.openForm } className="custom-wrap">
           { this.state.showForm ? 
-            <AddPreset sortEmotions={ this.props.sortEmotions } routeOnUpdate={ `/api/emotions` } />
+            <AddPreset onReloadData={ this.props.sortEmotions } routeOnUpdate={ `/api/emotions` } />
           :
             <>
               <span className="text">Custom Slider</span>

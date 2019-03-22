@@ -36,11 +36,35 @@ class MoodEntry extends Component {
     this.setState({ isEditSlidersOpen : !this.state.isEditSlidersOpen });
   }
 
+  reloadActivities = () => {
+    this.props.onLoad()
+      .then(() => {
+        const { activities } = this.props;
+        let tempArray = [];
+
+        activities.forEach(activity => {
+          let foundMatch = false;
+
+          this.state.selectedActivities.forEach(selectedActivity => {
+            if (selectedActivity.name === activity.name) {
+              foundMatch = true;
+            }
+          });
+
+          if (!foundMatch) {
+            tempArray.push(activity);
+          }
+        });
+
+        this.setState({
+          unselectedActivities : tempArray
+        });
+      });
+  }
+
   openNotesAndActions = () => {
-    this.setState({
-      isNotesOpen : !this.state.isNotesOpen,
-      unselectedActivities : this.props.activities
-    });
+    this.reloadActivities();
+    this.setState({ isNotesOpen : !this.state.isNotesOpen });
   }
 
   mapEmotionsToSliders = () => {
@@ -183,7 +207,6 @@ class MoodEntry extends Component {
   }
 
   handleSubmit = e => {
-    const { emotions } = this.props;
     const { selectedActivities, selectedSliders } = this.state;
     let customEmotions = [];
     let defaultEmotions = [];
@@ -253,8 +276,6 @@ class MoodEntry extends Component {
 
   // doesn't load in time for componentDidMount. i need a safe alternative.
   componentDidMount() {
-    const { emotions } = this.props;
-    
     // render a list of all existing sliders so we can access them in the state.
     this.setState({
       isEditSlidersOpen : false,
@@ -284,7 +305,7 @@ class MoodEntry extends Component {
         { this.state.isEditSlidersOpen ?
           <EditSliders selected={ this.state.selectedSliders } unselected={ this.state.unselectedSliders } addSliderHandler={ this.addSlider } removeSliderHandler={ this.removeSlider } sortEmotions={ this.sortEmotions } openEditSliders={ this.openEditSliders } isEditSlidersOpen={ this.state.isEditSlidersOpen } />
           : this.state.isNotesOpen ? 
-          <NotesActions selectedMood={ this.state.selectedMood } selected={ this.state.selectedActivities } unselected={ this.state.unselectedActivities } openNotesAndActions={ this.openNotesAndActions } isNotesOpen={ this.state.isNotesOpen } addActivityHandler={ this.addActivity } removeActivityHandler = { this.removeActivity } handleNotes={ this.handleNotes } selectedActivites={ this.state.selectedActivities } notes={ this.state.notes } handleSubmit={ this.handleSubmit } />
+          <NotesActions selectedMood={ this.state.selectedMood } selected={ this.state.selectedActivities } unselected={ this.state.unselectedActivities } reloadActivities={ this.reloadActivities } openNotesAndActions={ this.openNotesAndActions } isNotesOpen={ this.state.isNotesOpen } addActivityHandler={ this.addActivity } removeActivityHandler = { this.removeActivity } handleNotes={ this.handleNotes } selectedActivites={ this.state.selectedActivities } notes={ this.state.notes } handleSubmit={ this.handleSubmit } />
           :
           <div className="component-mood-entry">
             <div className="select-emotion">

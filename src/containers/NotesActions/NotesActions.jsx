@@ -1,9 +1,22 @@
 import React, { Component } from 'react';
 import './NotesActions.scss';
 
+import AddPreset from '../AddPreset';
 import EntryList from '../../components/EntryList';
 
 class NotesActions extends Component {
+  constructor(props) {
+    super(props);
+
+    this.state = {
+      showForm : false
+    }
+  }
+
+  openForm = () => {
+    return this.setState({ showForm : true });
+  }
+
   render() {
     return (
       <div className="notes-actions">
@@ -27,9 +40,15 @@ class NotesActions extends Component {
           </div>
         </div>
 
-        <div className="custom-wrap">
-          <span className="text">Add an Activity</span>
-          <span className="button">+</span>
+        <div onClick={ this.openForm } className="custom-wrap">
+          { this.state.showForm ?
+              <AddPreset onReloadData={ this.props.reloadActivities } sortEmotions={ this.props.sortEmotions } routeOnUpdate={ `/api/activities` } />
+            :
+            <>
+              <span className="text">Add an Activity</span>
+              <span className="button">+</span>
+            </>
+          }
         </div>
 
         <div className="notes-wrap">

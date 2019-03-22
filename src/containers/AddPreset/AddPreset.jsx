@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import './AddPreset.scss';
 
-import { addPreset, loadEmotions, loadActivities } from '../../actions';
+import { addPreset } from '../../actions';
 
 class AddPreset extends Component {
   constructor(props) {
@@ -27,7 +27,7 @@ class AddPreset extends Component {
       this.props.routeOnUpdate
     )
       .then(() => {
-        this.props.sortEmotions();
+        this.props.onReloadData();
       });
   }
 
