@@ -5,6 +5,7 @@ export const LOGOUT_USER = 'LOGOUT_USER';
 export const LOAD_ENTRIES = 'LOAD ENTIRES';
 export const LOAD_EMOTIONS = 'LOAD_EMOTIONS';
 export const LOAD_ACTIVITIES = 'LOAD_ACTIVITIES';
+export const ADD_PRESET = 'ADD_PRESET';
 export const SUBMIT_ENTRY = 'SUBMIT_ENTRY';
 
 /** Action Creators*/
@@ -150,9 +151,34 @@ export const loadActivities = () => {
   }
 }
 
+export const addPreset = (presetObj, route) => {
+  return dispatch => {
+    return fetch(route, {
+      method : 'POST',
+      body : JSON.stringify(presetObj),
+      headers : {
+        'Content-Type' : 'application/json'
+      }
+    })
+      .then(response => {
+        if (!response.ok) {
+          throw Error(response.statusText);
+        }
+
+        return response;
+      })
+      .then(body => {
+        return dispatch({
+          type : ADD_PRESET,
+          payload : body
+        });
+      });
+  }
+}
+
 export const submitEntry = (data) => {
   return dispatch => {
-    fetch(`api/entries`, {
+    return fetch(`api/entries`, {
       method : 'POST',
       body : JSON.stringify(data),
       headers : {

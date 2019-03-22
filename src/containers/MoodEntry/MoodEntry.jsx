@@ -184,7 +184,7 @@ class MoodEntry extends Component {
 
   handleSubmit = e => {
     const { emotions } = this.props;
-    const { selectedActivities } = this.state;
+    const { selectedActivities, selectedSliders } = this.state;
     let customEmotions = [];
     let defaultEmotions = [];
     let customActivities = [];
@@ -200,7 +200,7 @@ class MoodEntry extends Component {
       }
     });
     
-    emotions.forEach(emotion => {
+    selectedSliders.forEach(emotion => {
       if (emotion.is_custom) {
         customEmotions.push({
           name : emotion.name,
@@ -230,6 +230,27 @@ class MoodEntry extends Component {
     this.props.onSubmit(submitData);
   }
 
+  sortEmotions = () => {
+    return this.props.onLoad()
+      .then(() => {
+        const { emotions } = this.props;
+
+        this.setState({
+          unselectedSliders : [],
+          selectedSliders : []
+        });
+
+        emotions.forEach(emotion => {
+          if (emotion.is_custom) {
+            this.setState({ unselectedSliders : [...this.state.unselectedSliders, emotion] });
+          }
+          if (!emotion.is_custom) {
+            this.setState({ selectedSliders : [...this.state.selectedSliders, emotion] });
+          }
+        });
+      });
+  }
+
   // doesn't load in time for componentDidMount. i need a safe alternative.
   componentDidMount() {
     const { emotions } = this.props;
@@ -239,7 +260,6 @@ class MoodEntry extends Component {
       isEditSlidersOpen : false,
       isNotesOpen : false
     });
-
 
     this.props.onLoad()
       .then(() => {
@@ -262,7 +282,7 @@ class MoodEntry extends Component {
         <Header resetStateOnClick={ this.resetStateOnClick } />
 
         { this.state.isEditSlidersOpen ?
-          <EditSliders selected={ this.state.selectedSliders } unselected={ this.state.unselectedSliders } addSliderHandler={ this.addSlider } removeSliderHandler={ this.removeSlider } openEditSliders={ this.openEditSliders } isEditSlidersOpen={ this.state.isEditSlidersOpen } />
+          <EditSliders selected={ this.state.selectedSliders } unselected={ this.state.unselectedSliders } addSliderHandler={ this.addSlider } removeSliderHandler={ this.removeSlider } sortEmotions={ this.sortEmotions } openEditSliders={ this.openEditSliders } isEditSlidersOpen={ this.state.isEditSlidersOpen } />
           : this.state.isNotesOpen ? 
           <NotesActions selectedMood={ this.state.selectedMood } selected={ this.state.selectedActivities } unselected={ this.state.unselectedActivities } openNotesAndActions={ this.openNotesAndActions } isNotesOpen={ this.state.isNotesOpen } addActivityHandler={ this.addActivity } removeActivityHandler = { this.removeActivity } handleNotes={ this.handleNotes } selectedActivites={ this.state.selectedActivities } notes={ this.state.notes } handleSubmit={ this.handleSubmit } />
           :
@@ -306,11 +326,11 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = dispatch => {
   return {
-    onLoad: () => {
+    onLoad : () => {
       dispatch(loadActivities());
       return dispatch(loadEmotions());
     },
-    onSubmit: (data) => {
+    onSubmit : (data) => {
       return dispatch(submitEntry(data));
     }
   };

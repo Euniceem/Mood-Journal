@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
-// import { connect } from 'react-redux';
 import './EditSliders.scss';
 
+import AddPreset from '../AddPreset';
 import EntryList from '../../components/EntryList';
 
 class EditSliders extends Component {
@@ -9,8 +9,13 @@ class EditSliders extends Component {
     super(props);
 
     this.state = {
-      emotions : this.props.emotions
+      emotions : this.props.emotions,
+      showForm : false
     };
+  }
+
+  openForm = () => {
+    return this.setState({ showForm : true });
   }
 
   updateSliders = () => {
@@ -40,9 +45,15 @@ class EditSliders extends Component {
           </div>
         </div>
 
-        <div className="custom-wrap">
-          <span className="text">Custom Slider</span>
-          <span className="button">+</span>
+        <div onClick={ this.openForm } className="custom-wrap">
+          { this.state.showForm ? 
+            <AddPreset sortEmotions={ this.props.sortEmotions } routeOnUpdate={ `/api/emotions` } />
+          :
+            <>
+              <span className="text">Custom Slider</span>
+              <span className="button">+</span>
+            </>
+          }
         </div>
 
         <div className="buttons-wrap">
@@ -60,20 +71,5 @@ class EditSliders extends Component {
     );
   }
 }
-
-// const mapStateToProps = state => {
-//   return {};
-// }
-// 
-// const mapDispatchToProps = dispatch => {
-//   return {
-//     handleUpdateSliders : () => { }
-//   }
-// }
-// 
-// EditSliders = connect(
-//   mapStateToProps,
-//   mapDispatchToProps
-// )(EditSliders);
 
 export default EditSliders;
