@@ -1,38 +1,48 @@
 import React, { Component } from 'react';
 import './NotesActions.scss';
 
-import Tag from '../../components/Tag';
+import EntryList from '../../components/EntryList';
 
 class NotesActions extends Component {
-  constructor(props) {
-    super(props);
-
-    this.state = {
-
-    };
-  }
-
-  removeAction = (e) => {
-    console.log(`User wants to remove this action from their entry!`);
-  }
-
   render() {
     return (
       <div className="notes-actions">
-        <div className="title-wrap"><span className="title">Select a few activities...</span></div>
+        <div className="activities">
+          <div className="title">Select a few activities...</div>
 
-        <div className="actions-wrap">
-          <div className="actions">
-            <Tag className="action" tagName="Working" removeHandler={ this.removeAction } />
-            <Tag className="action" tagName="Breakfast" removeHandler={ this.removeAction } />
-            <Tag className="action" tagName="Relaxing" removeHandler={ this.removeAction } />
-            <Tag className="action" tagName="Sports" removeHandler={ this.removeAction } />
-            <Tag className="action" tagName="Gym" removeHandler={ this.removeAction } />
-            <Tag className="action" tagName="Going Out" removeHandler={ this.removeAction } />
-            <Tag className="action" tagName="Sleeping" removeHandler={ this.removeAction } />
-            <Tag className="action" tagName="Family" removeHandler={ this.removeAction } />
-            <Tag className="action" tagName="Friends" removeHandler={ this.removeAction } />
+          <div className="current-wrap">
+            <div className="title">Your Activities</div>
+
+            {/* going to have to load these presets in dynamically */}
+            <div className="current-activities">
+              {/* <Tag className="activity" tagName="Working" removeHandler={ this.removeActivity } />
+              <Tag className="activity" tagName="Breakfast" removeHandler={ this.removeActivity } />
+              <Tag className="activity" tagName="Relaxing" removeHandler={ this.removeActivity } />
+              <Tag className="activity" tagName="Sports" removeHandler={ this.removeActivity } /> */}
+
+              <EntryList presets={ this.props.selected } clickHandler={ this.props.removeActivityHandler } className="activity" />
+            </div>
           </div>
+
+          <div className="add-activities-wrap">
+            <div className="title">Activity Presets</div>
+
+            {/* this will require communication with the back-end as well */}
+            <div className="add-activities">
+              {/* <Tag className="activity" tagName="Gym" removeHandler={ this.removeActivity } />
+              <Tag className="activity" tagName="Going Out" removeHandler={ this.removeActivity } />
+              <Tag className="activity" tagName="Sleeping" removeHandler={ this.removeActivity } />
+              <Tag className="activity" tagName="Family" removeHandler={ this.removeActivity } /> */}
+
+              <EntryList presets={ this.props.unselected } clickHandler={ this.props.addActivityHandler } className="activity" />
+            </div>
+          </div>
+        </div>
+
+        {/* the custom feature is pretty much like POSTing a new kanban card to the database */}
+        <div className="custom-wrap">
+          <span className="text">Add an Activity</span>
+          <span className="button">+</span>
         </div>
 
         <div className="notes-wrap">

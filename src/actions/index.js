@@ -4,6 +4,7 @@ export const LOGIN_USER = 'LOGIN_USER';
 export const LOGOUT_USER = 'LOGOUT_USER';
 export const LOAD_ENTRIES = 'LOAD ENTIRES';
 export const LOAD_EMOTIONS = 'LOAD_EMOTIONS';
+export const LOAD_ACTIVITIES = 'LOAD_ACTIVITIES';
 export const SUBMIT_ENTRY = 'SUBMIT_ENTRY';
 
 /** Action Creators*/
@@ -127,6 +128,25 @@ export const loadEmotions = () => {
           payload: emotions
         });
       });
+  }
+}
+
+export const loadActivities = () => {
+  return dispatch => {
+    fetch(`/api/activities`)
+    .then(response => {
+      if (!response.ok) {
+        throw Error(response.statusText);
+      }
+
+      return response.json();
+    })
+    .then(body => {
+      return dispatch({
+        type : LOAD_ACTIVITIES,
+        payload : body
+      });
+    });
   }
 }
 
