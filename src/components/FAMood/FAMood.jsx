@@ -22,9 +22,9 @@ library.add(faSadTearRegular);    // Awful
 const FAMood = props => {
   let moodIcon = 'Choose a mood!';
   let moodId = 'Choose a mood!';
-  let { mood } = props;
+  let { name } = props;
 
-  switch (mood) {
+  switch (name) {
     case 'Amazing':
       moodIcon = ['far', 'smile-beam'];
       moodId = 'icon-amazing';

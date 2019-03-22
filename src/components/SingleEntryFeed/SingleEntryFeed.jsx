@@ -3,8 +3,18 @@ import { Link } from 'react-router-dom';
 import './SingleEntryFeed.scss';
 
 const SingleEntryFeed = props => {
-  let date = new Date(props.entryData.created_at);
-  let time = new Date(props.entryData.created_at);
+  let date = new Date(props.entryData.created_at)
+    .toLocaleDateString('en-US', {
+      weekday : 'long',
+      month : 'short',
+      day : 'numeric',
+      year : 'numeric'
+    });
+  let time = new Date(props.entryData.created_at)
+    .toLocaleTimeString('en-US', {
+      hour : 'numeric',
+      minute : 'numeric'
+    });
 
   const emotionList = props.entryData.entryEmotions.map((emotions, index) => {
 
@@ -57,8 +67,8 @@ const SingleEntryFeed = props => {
     <Link to={`/entry/${props.entryData.id}`} className="entry-container-link">
       <div className={`entry-container ${moodColor()}`}>
         <div className="time-date-container">
-          <span className="date">{date.toDateString()}</span>
-          <span className="time">{time.toLocaleTimeString()}</span>
+          <span className="date">{date}</span>
+          <span className="time">{time}</span>
         </div>
         <div className="content-container">
           <div className="emotions-main-container">
