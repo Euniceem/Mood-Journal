@@ -47,7 +47,7 @@ class Header extends Component {
   }
 
   closeMenu() {
-    this.setState({ menuOpen: false })
+    this.setState({ menuOpen: false, showMenu: false })
   }
 
   toggleMenu() {
@@ -74,6 +74,7 @@ class Header extends Component {
   }
 
   render() {
+    console.log(this.state.showMenu)
 
     return (
       <div className="header-container">

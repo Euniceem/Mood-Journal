@@ -9,7 +9,7 @@ import ChartTypeSwitch from '../../components/ChartTypeSwitch';
 import LineChartBuilder from '../../components/LineChartBuilder';
 import ActivityDataDisplay from '../../components/ActivityDataDisplay';
 
-class Data extends Component {  
+class Data extends Component {
   constructor(props) {
     super(props);
 
@@ -91,31 +91,34 @@ class Data extends Component {
 
   render() {
     return (
-      <div className="data-container">
+      <>
         <Header />
-        <ChartTypeSwitch
-          chart_type={this.state.chart_type}
-          handleOptionsOnClick={this.handleOptionsOnClick}
-        />
 
-        <LineChartBuilder
-          chart_type={this.state.chart_type}
-          mood_chart_data={this.state.mood_chart_data}
-          emotion_chart_data={this.state.emotion_chart_data}
-        />
+        <div className="data-container">
+          <ChartTypeSwitch
+            chart_type={this.state.chart_type}
+            handleOptionsOnClick={this.handleOptionsOnClick}
+          />
 
-        <TimeSelector
-          time={this.state.time}
-          trend_type={this.state.trend_type}
-          handleOptionsOnClick={this.handleOptionsOnClick}
-        />
+          <LineChartBuilder
+            chart_type={this.state.chart_type}
+            mood_chart_data={this.state.mood_chart_data}
+            emotion_chart_data={this.state.emotion_chart_data}
+          />
 
-        <ActivityDataDisplay
-          trend_type={this.state.trend_type}
-          time={this.state.time}
-          activity_data={this.state.activity_data}
-        />
-      </div>
+          <TimeSelector
+            time={this.state.time}
+            trend_type={this.state.trend_type}
+            handleOptionsOnClick={this.handleOptionsOnClick}
+          />
+
+          <ActivityDataDisplay
+            trend_type={this.state.trend_type}
+            time={this.state.time}
+            activity_data={this.state.activity_data}
+          />
+        </div>
+      </>
     );
   }
 }
