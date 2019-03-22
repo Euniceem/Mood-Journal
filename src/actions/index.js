@@ -146,7 +146,6 @@ export const loadEmotions = () => {
   return dispatch => {
     return fetch(`/api/emotions`)
       .then(response => {
-        console.log(response);
         if (!response.ok) {
           throw Error(response.statusText);
         }
