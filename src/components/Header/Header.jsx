@@ -74,9 +74,6 @@ class Header extends Component {
   }
 
   render() {
-    console.log('menuOpen', this.state.menuOpen)
-    console.log('showmenu', this.state.showMenu)
-    console.log(this.props)
 
     return (
       <div className="header-container">
