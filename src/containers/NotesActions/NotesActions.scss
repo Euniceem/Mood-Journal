@@ -3,6 +3,7 @@
 .notes-actions {
   font-family: $primary-font, $font-type;
   color: $font-color-black;
+  padding-top: $margin-standard * 3;
   width: 100%;
   height: fit-content;
 
@@ -82,7 +83,6 @@
     display: flex;
     flex-direction: column;
     align-items: center;
-    margin-top: $margin-standard / 2;
     margin-bottom: $margin-standard;
     // height: 100%;
 

@@ -1,3 +1,5 @@
+@import '../../../sass/config';
+
 $border-color: #E7E7E7;
 $background-color: rgb(14, 142, 121);
 $weekend-color: #B96E41;
@@ -6,6 +8,7 @@ $primary-color: #3E3C3B;
 .calender-container{
   width: 100%;
   min-height: 100%;
+  padding-top: $margin-standard * 2.5;
   padding-bottom:50px;
 
 .title{

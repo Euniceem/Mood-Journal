@@ -75,8 +75,9 @@ class CalendarView extends Component {
 
 
     return (
+      <>
+      <Header />
       <div className="calender-container">
-        <Header />
         <h1 className="title">Calendar</h1>
         <Calendar
           onChange={this.onChangeDate}
@@ -101,7 +102,8 @@ class CalendarView extends Component {
           null
         }
       </div>
-    )
+      </>
+    );
   }
 }
 
