@@ -8,10 +8,11 @@ export const LOAD_ACTIVITIES = 'LOAD_ACTIVITIES';
 export const LOAD_ENTRY = 'LOAD_ENTRY';
 export const ADD_PRESET = 'ADD_PRESET';
 export const SUBMIT_ENTRY = 'SUBMIT_ENTRY';
+export const FETCHED_DATA = 'FETCHED_DATA';
 
 /** Action Creators*/
-export const register = (user) => {
-  return (dispatch) => {
+export const register = user => {
+  return dispatch => {
     return fetch('/api/register', {
       method: 'POST',
       headers: {
@@ -115,7 +116,7 @@ export const loadEntries = () => {
   };
 };
 
-export const loadEntry = (id) => {
+export const loadEntry = id => {
   return dispatch => {
     return fetch(`/api/entries/${id}`, {})
       .then(response => {
@@ -154,6 +155,29 @@ export const loadEmotions = () => {
   }
 }
 
+export const fetchData = () => {
+  return dispatch => {
+    return fetch('/api/data')
+      .then(response => {
+        if (!response.ok) {
+          throw Error(response.statusText);
+        }
+        return response.json();
+      })
+       .then(data => {
+        return dispatch({
+          type: FETCHED_DATA,
+          payload: data
+        });
+      })
+      .catch(err => {
+        console.log(err);
+      });
+  };
+};
+  }
+}
+
 export const loadActivities = () => {
   return dispatch => {
     fetch(`/api/activities`)
@@ -161,7 +185,6 @@ export const loadActivities = () => {
         if (!response.ok) {
           throw Error(response.statusText);
         }
-
         return response.json();
       })
       .then(body => {
@@ -218,3 +241,4 @@ export const submitEntry = (data) => {
     });
   }
 }
+     
