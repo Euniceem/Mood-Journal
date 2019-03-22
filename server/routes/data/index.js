@@ -385,6 +385,7 @@ router.get('/data', isAuthenticated, (req, res) => {
 
           for (let day in totalActivitiesByDayOfWeek) {
             totalActivitiesByDayOfWeek[day].day = day;
+            totalActivitiesByDayOfWeek[day].time_label = mapDaytoString[day];
             data.activityData.avgWeek.push(totalActivitiesByDayOfWeek[day]);
           }
         });

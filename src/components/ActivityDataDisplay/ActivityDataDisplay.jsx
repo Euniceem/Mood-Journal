@@ -1,5 +1,15 @@
 import React from 'react';
-import { PieChart, Pie, Legend, Tooltip, Cell } from 'recharts';
+import {
+  PieChart,
+  Pie,
+  BarChart,
+  Bar,
+  XAxis,
+  YAxis,
+  Legend,
+  Tooltip,
+  Cell
+} from 'recharts';
 
 const ActivityDataDisplay = props => {
   const { trend_type, time, activity_data } = props;
@@ -19,47 +29,33 @@ const ActivityDataDisplay = props => {
     '#110141'
   ];
 
-  if (trend_type === 'avg' && time === '7') {
-    if (!Array.isArray(activity_data)) {
-      return <></>;
-    }
-
-    const mapDaytoString = {
-      0: 'Sunday',
-      1: 'Monday',
-      2: 'Tuesday',
-      3: 'Wednesday',
-      4: 'Thursday',
-      5: 'Friday',
-      6: 'Saturday'
-    };
-
-    const activityList = activity_data.map(dayData => {
-      const dayName = mapDaytoString[dayData.day];
-      const dataHolder = [];
-
+  if (time === 'avgWeek' && Array.isArray(activity_data)) {
+    const activityNames = [];
+    activity_data.forEach(dayData => {
       for (let activity in dayData) {
-        if (activity === 'day') {
+        if (activity === 'day' || activityNames.includes(activity)) {
           break;
         }
 
-        dataHolder.push(
-          <div className="activity">
-            <span className="name">{activity}: </span>
-            {parseFloat(dayData[activity]).toFixed(1)}
-          </div>
-        );
+        activityNames.push(activity);
       }
+    });
 
+    const barList = activityNames.map((name, index) => {
       return (
-        <div className={`day ${dayName}`}>
-          <h2>{dayName}</h2>
-          {dataHolder}
-        </div>
+        <Bar key={index} dataKey={name} stackId="a" fill={colors[index]} />
       );
     });
 
-    return <div className="activity-data">{activityList}</div>;
+    return (
+      <BarChart data={activity_data} width={350} height={300}>
+        <XAxis dataKey="time_label" />
+        <YAxis />
+        <Tooltip />
+        <Legend />
+        {barList}
+      </BarChart>
+    );
   }
 
   for (let activity in activity_data) {
@@ -71,8 +67,6 @@ const ActivityDataDisplay = props => {
           : Math.round(activity_data[activity])
     });
   }
-
-  console.log(arrayData);
 
   return (
     <PieChart width={350} height={300}>
@@ -93,19 +87,6 @@ const ActivityDataDisplay = props => {
       <Tooltip />
     </PieChart>
   );
-
-  const activityList = arrayData.map(activity => {
-    return (
-      <div className="activity">
-        <span className="name">{activity.name}: </span>
-        {trend_type === 'avg'
-          ? parseFloat(activity.count).toFixed(1)
-          : Math.round(activity.count)}
-      </div>
-    );
-  });
-
-  return <div className="activity-data">{activityList}</div>;
 };
 
 export default ActivityDataDisplay;
