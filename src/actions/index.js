@@ -13,7 +13,7 @@ export const ADD_PRESET = 'ADD_PRESET';
 export const SUBMIT_ENTRY = 'SUBMIT_ENTRY';
 export const FETCHED_DATA = 'FETCHED_DATA';
 
-const proxy = 'http://54.245.41.187:8000';
+const proxy = 'https://api.moodcatcher.com';
 
 /** Action Creators*/
 
