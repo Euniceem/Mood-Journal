@@ -76,7 +76,7 @@ class Header extends Component {
           </div>
 
           {this.state.menuOpen ?
-            <Menu
+            <Menu className="dropMenu"
               isOpen={this.state.menuOpen}
               onStateChange={(state) => this.handleStateChange(state)}
             >
