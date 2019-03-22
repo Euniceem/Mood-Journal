@@ -7,12 +7,11 @@ const SingleEntryFeed = props => {
   let time = new Date(props.entryData.created_at);
 
   const emotionList = props.entryData.entryEmotions.map((emotions, index) => {
+    const name = emotions.custom_emotion ? emotions.custom_emotion.name : emotions.default_emotion ? emotions.default_emotion.name : null;
+    
     return (
       <div className="emotion" key={index}>
-        {emotions.custom_emotion
-          ? emotions.custom_emotion.name
-          : emotions.default_emotion.name}
-        : {emotions.percent}
+        { name } : { emotions.percent }
       </div>
     );
   });
