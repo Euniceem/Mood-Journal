@@ -6,6 +6,21 @@ const isAuthenticated = require('../isAuth');
 
 const saltRounds = 12;
 
+router.put('/profile/email', isAuthenticated, (req, res) => {
+  const id = req.user.id;
+  const email = req.user.email;
+
+  User.where('id', id)
+    .save({ email: email }, { patch: true })
+    .then(function () {
+      res.json({ success: true })
+    })
+    .catch(function (err) {
+      res.status(500);
+      return res.json({ error: err });
+    });
+});
+
 router.put('/profile/password', isAuthenticated, (req, res) => {
   const id = req.user.id;
   const { oldPassword, newPassword } = req.body;
@@ -21,7 +36,6 @@ router.put('/profile/password', isAuthenticated, (req, res) => {
           if (!res) {
             return false;
           }
-
           return true;
         })
         .catch(err => false);

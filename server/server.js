@@ -12,6 +12,7 @@ const {
   entries,
   emotions,
   activities,
+  user_settings,
   data
 } = require('./routes');
 
@@ -105,7 +106,7 @@ passport.use(
   )
 );
 
-app.use('/api', auth, profile, entries, emotions, activities, data);
+app.use('/api', auth, profile, entries, emotions, activities, user_settings, data);
 
 app.listen(PORT, () => {
   console.log(`Server is running in PORT: ${PORT}`);

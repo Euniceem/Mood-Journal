@@ -6,19 +6,22 @@ export const LOAD_ENTRIES = 'LOAD ENTIRES';
 export const LOAD_EMOTIONS = 'LOAD_EMOTIONS';
 export const LOAD_ACTIVITIES = 'LOAD_ACTIVITIES';
 export const LOAD_ENTRY = 'LOAD_ENTRY';
+export const EDIT_EMAIL = 'EDIT_EMAIL';
+export const EDIT_PASSWORD = 'EDIT_PASSWORD';
+export const EDIT_HOMEPAGE = 'EDIT_HOMEPAGE';
 export const ADD_PRESET = 'ADD_PRESET';
 export const SUBMIT_ENTRY = 'SUBMIT_ENTRY';
 export const FETCHED_DATA = 'FETCHED_DATA';
 
 /** Action Creators*/
-export const register = user => {
+export const register = (email) => {
   return dispatch => {
     return fetch('/api/register', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json'
       },
-      body: JSON.stringify(user)
+      body: JSON.stringify(email)
     })
       .then(response => {
         if (!response.ok) {
@@ -26,10 +29,10 @@ export const register = user => {
         }
         return response.json();
       })
-      .then(user => {
+      .then(email => {
         return dispatch({
           type: REGISTER_USER,
-          payload: user
+          payload: email
         });
       })
       .catch(err => {
@@ -38,14 +41,14 @@ export const register = user => {
   };
 };
 
-export const login = user => {
+export const login = email => {
   return dispatch => {
     return fetch('/api/login', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json'
       },
-      body: JSON.stringify(user)
+      body: JSON.stringify(email)
     })
       .then(response => {
         if (!response.ok) {
@@ -53,12 +56,12 @@ export const login = user => {
         }
         return response.json();
       })
-      .then(user => {
-        localStorage.setItem('email', user.email);
+      .then(email => {
+        localStorage.setItem('email', email.email);
         localStorage.setItem('loggedIn', true);
         return dispatch({
           type: LOGIN_USER,
-          payload: user
+          payload: email
         });
       })
       .catch(err => {
@@ -81,12 +84,13 @@ export const logout = () => {
         }
         return response.json();
       })
-      .then(user => {
+      .then(email => {
         localStorage.removeItem('email');
         localStorage.removeItem('loggedIn');
+        localStorage.removeItem('setHomePage')
         return dispatch({
           type: LOGOUT_USER,
-          payload: user
+          payload: email
         });
       })
       .catch(err => {
@@ -134,8 +138,8 @@ export const loadEntry = id => {
       .catch(err => {
         console.log(err);
       });
-  }
-}
+  };
+};
 
 export const loadEmotions = () => {
   return dispatch => {
@@ -152,8 +156,8 @@ export const loadEmotions = () => {
           payload: emotions
         });
       });
-  }
-}
+  };
+};
 
 export const fetchData = () => {
   return dispatch => {
@@ -164,7 +168,7 @@ export const fetchData = () => {
         }
         return response.json();
       })
-       .then(data => {
+      .then(data => {
         return dispatch({
           type: FETCHED_DATA,
           payload: data
@@ -175,8 +179,83 @@ export const fetchData = () => {
       });
   };
 };
-  }
-}
+
+export const editEmail = (editedEmail) => {
+  return (dispatch) => {
+    return fetch(`/api/profile/email`, {
+      method: 'PUT',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify(editedEmail)
+    })
+      .then((response) => {
+        if (!response.ok) {
+          throw Error(response.statusText)
+        }
+        return response.json()
+      })
+      .then((email) => {
+        return dispatch({
+          type: EDIT_EMAIL,
+          payload: email
+        })
+      })
+  };
+};
+
+export const editPassword = (oldPassword, editedPassword) => {
+  return (dispatch) => {
+    return fetch(`/api/profile/password`, {
+      method: 'PUT',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({
+        oldPassword: oldPassword.password,
+        newPassword: editedPassword.password
+      }),
+    })
+      .then((response) => {
+        if (!response.ok) {
+          throw Error(response.statusText)
+        }
+        return response.json()
+      })
+      .then((password) => {
+        return dispatch({
+          type: EDIT_PASSWORD,
+          payload: password
+        })
+      })
+  };
+};
+
+export const editHomepage = (page) => {
+  return (dispatch) => {
+    return fetch(`/api/settings`, {
+      method: 'PUT',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({ homepage: page })
+    })
+      .then((response) => {
+        console.log(response)
+        if (!response.ok) {
+          throw Error(response.statusText)
+        }
+        return response.json()
+      })
+      .then((page) => {
+        localStorage.setItem('setHomePage', page.result.homepage)
+        return dispatch({
+          type: EDIT_HOMEPAGE,
+          payload: page
+        })
+      })
+  };
+};
 
 export const loadActivities = () => {
   return dispatch => {
@@ -193,8 +272,8 @@ export const loadActivities = () => {
           payload: body
         });
       });
-  }
-}
+  };
+};
 
 export const addPreset = (presetObj, route) => {
   return dispatch => {
@@ -218,8 +297,8 @@ export const addPreset = (presetObj, route) => {
           payload: body
         });
       });
-  }
-}
+  };
+};
 
 export const submitEntry = (data) => {
   return dispatch => {
@@ -239,6 +318,6 @@ export const submitEntry = (data) => {
         payload: 'success: true'
       });
     });
-  }
-}
-     
+  };
+};
+

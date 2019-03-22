@@ -4,27 +4,34 @@
  justify-content: center;
  height: 35px;
  width: 100%;
- border: 1px solid black;
+ border-top: 1px solid black;
+ border-bottom: 1px solid black;
  position: fixed;
  bottom: 0;
  left: 0;
  background-color: white;
 
- div{
-   width: 33.33%;
+ .navbar{
+   width: 100%;
    display: flex;
-   align-items: center;
-   justify-content: center;
+
+   div{
+     width: 33.33%;
+     display: flex;
+     align-items: center;
+     justify-content: center;
+   }
+  
+   #home{
+    border-left: 1px solid black;
+    border-right: 1px solid black;
+   }
+  
+  .link{
+    text-decoration: none;
+    color: black;
+  }
  }
 
- .feed{
-  border-left: 1px solid black;
-  border-right: 1px solid black;
- }
-
-.link{
-  text-decoration: none;
-  color: black;
-}
 }
 

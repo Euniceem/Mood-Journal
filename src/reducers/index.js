@@ -1,10 +1,11 @@
-import { LOAD_ENTRIES, LOAD_EMOTIONS, LOAD_ACTIVITIES, LOGIN_USER, LOGOUT_USER, LOAD_ENTRY, FETCHED_DATA } from '../actions';
+import { LOAD_ENTRIES, LOAD_ENTRY, LOGIN_USER, LOGOUT_USER, EDIT_EMAIL, EDIT_HOMEPAGE, LOAD_EMOTIONS, LOAD_ACTIVITIES, FETCHED_DATA } from '../actions';
 
 const initialState = {
   entries: [],
   entry: [],
   email: localStorage.getItem('email'),
   loggedIn: localStorage.getItem('loggedIn'),
+  setHomePage: localStorage.getItem('setHomePage'),
   data: {
     moodData: {
       avgDay: [],
@@ -33,6 +34,8 @@ const moodJournalReducer = (state = initialState, action) => {
       });
     case LOGOUT_USER:
       return Object.assign({}, state, { loggedIn: false, email: '' });
+    case EDIT_EMAIL:
+      return Object.assign({}, state, { email: action.payload });
     case LOAD_ENTRIES:
       return Object.assign({}, state, { entries: [...action.payload] });
     case LOAD_EMOTIONS:
@@ -41,6 +44,8 @@ const moodJournalReducer = (state = initialState, action) => {
       return Object.assign({}, state, { activities: [...action.payload] });
     case LOAD_ENTRY:
       return Object.assign({}, state, { entry: action.payload });
+    case EDIT_HOMEPAGE:
+      return Object.assign({}, state, { setHomePage: action.payload.result.homepage });
     case FETCHED_DATA:
       return Object.assign({}, state, { data: action.payload });
     default:
