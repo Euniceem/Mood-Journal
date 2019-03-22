@@ -36,7 +36,15 @@ if (!SESSION_SECRET) {
 
 const app = express();
 
-app.use(express.static('build'));
+app.use((req, res, next) => {
+  res.header({
+    'Access-Allow-Content-Header': '*',
+    'Access-Allow-Content-Method': '*',
+    'Access-Allow-Content-Origin': '*'
+  });
+  next();
+});
+
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 
@@ -106,7 +114,16 @@ passport.use(
   )
 );
 
-app.use('/api', auth, profile, entries, emotions, activities, user_settings, data);
+app.use(
+  '/api',
+  auth,
+  profile,
+  entries,
+  emotions,
+  activities,
+  user_settings,
+  data
+);
 
 app.listen(PORT, () => {
   console.log(`Server is running in PORT: ${PORT}`);

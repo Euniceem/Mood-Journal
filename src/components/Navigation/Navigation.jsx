@@ -2,7 +2,12 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import { library } from '@fortawesome/fontawesome-svg-core';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faHome, faListAlt, faCalendarAlt, faChartLine } from '@fortawesome/free-solid-svg-icons';
+import {
+  faHome,
+  faListAlt,
+  faCalendarAlt,
+  faChartLine
+} from '@fortawesome/free-solid-svg-icons';
 import './Navigation.scss';
 
 library.add(faHome);
@@ -10,13 +15,10 @@ library.add(faCalendarAlt);
 library.add(faChartLine);
 library.add(faListAlt);
 
-
-const Navigation = (props) => {
+const Navigation = props => {
   return (
-
     <footer className="navigation-container">
-
-      {props.setHomePage === "calendar" ?
+      {props.setHomePage === 'calendar' ? (
         <div className="navbar">
           <div className="data">
             <Link to="/data" className="link">
@@ -36,10 +38,9 @@ const Navigation = (props) => {
             </Link>
           </div>
         </div>
-        : null
-      }
+      ) : null}
 
-      {props.setHomePage === "feed" ?
+      {props.setHomePage === 'feed' ? (
         <div className="navbar">
           <div className="data">
             <Link to="/data" className="link">
@@ -59,10 +60,9 @@ const Navigation = (props) => {
             </Link>
           </div>
         </div>
-        : null
-      }
+      ) : null}
 
-      {props.setHomePage === "data" ?
+      {props.setHomePage === 'data' ? (
         <div className="navbar">
           <div className="feed">
             <Link to="/feed" className="link">
@@ -82,14 +82,14 @@ const Navigation = (props) => {
             </Link>
           </div>
         </div>
-        : null
-      }
+      ) : null}
 
-      {props.setHomePage === null ?
+      {props.setHomePage === null ? (
         <div className="navbar">
           <div className="data">
             <Link to="/data" className="link">
-              <FontAwesomeIcon className="fa-icon" icon="chart-line" /></Link>
+              <FontAwesomeIcon className="fa-icon" icon="chart-line" />
+            </Link>
           </div>
 
           <div id="home" className="feed">
@@ -104,11 +104,9 @@ const Navigation = (props) => {
             </Link>
           </div>
         </div>
-        : null
-      }
-
+      ) : null}
     </footer>
-  )
-}
+  );
+};
 
 export default Navigation;
