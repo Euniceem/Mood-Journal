@@ -16,6 +16,7 @@ export const FETCHED_DATA = 'FETCHED_DATA';
 const proxy = 'http://54.245.41.187:8000';
 
 /** Action Creators*/
+
 export const register = email => {
   return dispatch => {
     return fetch(`${proxy}/api/register`, {
