@@ -54,7 +54,9 @@ class Header extends Component {
     this.setState({
       menuOpen: !this.state.menuOpen,
       showMenu: !this.state.showMenu
-    })
+    }, () => {
+      document.addEventListener('click', this.closeMenu);
+    });
   }
 
   toggleMoodEntry = () => {
@@ -77,7 +79,7 @@ class Header extends Component {
     console.log(this.state.showMenu)
 
     return (
-      <div className="header-container">
+      <div className="header-container" >
         <div className="nav-menu-container">
           <div className="menu-icon" onClick={() => this.toggleMenu()}>
             <div className="line"></div>
