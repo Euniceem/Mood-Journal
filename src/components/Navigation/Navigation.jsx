@@ -6,7 +6,7 @@ const Navigation = (props) => {
 
 
   return (
-    <div className="navigation-container">
+    <footer className="navigation-container">
 
       <div className="data">
         <Link to="/data" className="link"> DATA</Link>
@@ -20,7 +20,7 @@ const Navigation = (props) => {
         <Link to="/calendar" className="link"> CALENDAR </Link>
       </div>
 
-    </div>
+    </footer>
 
   )
 }

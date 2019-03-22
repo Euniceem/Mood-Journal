@@ -11,6 +11,7 @@ import CalendarView from '../../containers/CalendarView';
 import Settings from '../../containers/Settings';
 import Register from '../../components/Register';
 import Login from '../../components/Login';
+import SingleEntryView from '../../containers/SingleEntryView';
 
 const PrivateRoute = ({ component: Component, isAuth, ...rest }) => {
   return (
@@ -48,6 +49,7 @@ class App extends Component {
               <PrivateRoute isAuth={isAuthenticated} exact={true} path='/calendar' component={CalendarView} />
               <PrivateRoute isAuth={isAuthenticated} exact={true} path='/settings' component={Settings} />
               <PrivateRoute isAuth={isAuthenticated} exact={true} path='/entry' component={MoodEntry} />
+              <PrivateRoute isAuth={isAuthenticated} exact={true} path='/entry/:id' component={SingleEntryView} />
             </Switch>
             <Navigation />
           </>

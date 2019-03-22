@@ -1,7 +1,8 @@
-import { LOAD_ENTRIES, LOAD_EMOTIONS, LOAD_ACTIVITIES, LOGIN_USER, LOGOUT_USER } from '../actions';
+import { LOAD_ENTRIES, LOAD_EMOTIONS, LOAD_ACTIVITIES, LOGIN_USER, LOGOUT_USER, LOAD_ENTRY } from '../actions';
 
 const initialState = {
   entries: [],
+  entry: [],
   email: localStorage.getItem('email'),
   loggedIn: localStorage.getItem('loggedIn'),
 };
@@ -18,6 +19,8 @@ const moodJournalReducer = (state = initialState, action) => {
       return Object.assign({}, state, { emotions: [...action.payload] });
     case LOAD_ACTIVITIES:
       return Object.assign({}, state, { activities: [...action.payload] });
+    case LOAD_ENTRY:
+      return Object.assign({}, state, { entry: action.payload });
     default:
       return state;
   }

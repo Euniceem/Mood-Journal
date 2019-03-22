@@ -5,6 +5,7 @@ export const LOGOUT_USER = 'LOGOUT_USER';
 export const LOAD_ENTRIES = 'LOAD ENTIRES';
 export const LOAD_EMOTIONS = 'LOAD_EMOTIONS';
 export const LOAD_ACTIVITIES = 'LOAD_ACTIVITIES';
+export const LOAD_ENTRY = 'LOAD_ENTRY';
 export const ADD_PRESET = 'ADD_PRESET';
 export const SUBMIT_ENTRY = 'SUBMIT_ENTRY';
 
@@ -113,6 +114,28 @@ export const loadEntries = () => {
       });
   };
 };
+
+
+export const loadEntry = (id) => {
+  return dispatch => {
+    return fetch(`/api/entries/${id}`, {})
+      .then(response => {
+        if (!response.ok) {
+          throw Error(response.statusText);
+        }
+        return response.json();
+      })
+      .then(entry => {
+        return dispatch({
+          type: LOAD_ENTRY,
+          payload: entry
+        });
+      })
+      .catch(err => {
+        console.log(err);
+      });
+  }
+}
 
 export const loadEmotions = () => {
   return dispatch => {

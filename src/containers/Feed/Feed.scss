@@ -2,6 +2,8 @@ $font-family: 'Montserrat', sans-serif;
 
 .feed-container{
 font-family: $font-family;
+min-height: 100%;
+padding-bottom:50px;
 
   .title{
     text-align: center;
