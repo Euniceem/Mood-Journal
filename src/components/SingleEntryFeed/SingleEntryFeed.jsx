@@ -7,7 +7,6 @@ const SingleEntryFeed = props => {
   let time = new Date(props.entryData.created_at);
 
   const emotionList = props.entryData.entryEmotions.map((emotions, index) => {
-
     if (emotions.custom_emotion) {
       return (
         <div className="emotion" key={index}>
@@ -23,7 +22,6 @@ const SingleEntryFeed = props => {
   const activityList = props.entryData.entryActivities.map(
     (activities, index) => {
       if (activities.custom_activity) {
-
         return (
           <div className="action" key={index}>
             {activities.custom_activity
@@ -70,8 +68,8 @@ const SingleEntryFeed = props => {
               {props.entryData.entryEmotions ? (
                 emotionList
               ) : (
-                  <div className="emotion-zero-msg">None</div>
-                )}
+                <div className="emotion-zero-msg">None</div>
+              )}
             </div>
           </div>
 
@@ -80,8 +78,8 @@ const SingleEntryFeed = props => {
             {props.entryData.entryActivities ? (
               activityList
             ) : (
-                <div className="activity-zero-msg">None</div>
-              )}
+              <div className="activity-zero-msg">None</div>
+            )}
           </div>
 
           <div className="notes">Notes: {props.entryData.notes}</div>
