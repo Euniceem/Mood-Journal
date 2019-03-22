@@ -13,10 +13,12 @@ export const ADD_PRESET = 'ADD_PRESET';
 export const SUBMIT_ENTRY = 'SUBMIT_ENTRY';
 export const FETCHED_DATA = 'FETCHED_DATA';
 
+const proxy = 'http://54.245.41.187:8000';
+
 /** Action Creators*/
-export const register = (email) => {
+export const register = email => {
   return dispatch => {
-    return fetch('/api/register', {
+    return fetch(`${proxy}/api/register`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json'
@@ -43,7 +45,7 @@ export const register = (email) => {
 
 export const login = email => {
   return dispatch => {
-    return fetch('/api/login', {
+    return fetch(`${proxy}/api/login`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json'
@@ -72,7 +74,7 @@ export const login = email => {
 
 export const logout = () => {
   return dispatch => {
-    return fetch('/api/logout', {
+    return fetch(`${proxy}/api/logout`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json'
@@ -87,7 +89,7 @@ export const logout = () => {
       .then(email => {
         localStorage.removeItem('email');
         localStorage.removeItem('loggedIn');
-        localStorage.removeItem('setHomePage')
+        localStorage.removeItem('setHomePage');
         return dispatch({
           type: LOGOUT_USER,
           payload: email
@@ -101,7 +103,7 @@ export const logout = () => {
 
 export const loadEntries = () => {
   return dispatch => {
-    return fetch(`/api/entries/`, {})
+    return fetch(`${proxy}/api/entries/`, {})
       .then(response => {
         if (!response.ok) {
           throw Error(response.statusText);
@@ -122,7 +124,7 @@ export const loadEntries = () => {
 
 export const loadEntry = id => {
   return dispatch => {
-    return fetch(`/api/entries/${id}`, {})
+    return fetch(`${proxy}/api/entries/${id}`, {})
       .then(response => {
         if (!response.ok) {
           throw Error(response.statusText);
@@ -143,7 +145,7 @@ export const loadEntry = id => {
 
 export const loadEmotions = () => {
   return dispatch => {
-    return fetch(`/api/emotions`)
+    return fetch(`${proxy}/api/emotions`)
       .then(response => {
         if (!response.ok) {
           throw Error(response.statusText);
@@ -161,7 +163,7 @@ export const loadEmotions = () => {
 
 export const fetchData = () => {
   return dispatch => {
-    return fetch('/api/data')
+    return fetch(`${proxy}/api/data`)
       .then(response => {
         if (!response.ok) {
           throw Error(response.statusText);
@@ -180,33 +182,33 @@ export const fetchData = () => {
   };
 };
 
-export const editEmail = (editedEmail) => {
-  return (dispatch) => {
-    return fetch(`/api/profile/email`, {
+export const editEmail = editedEmail => {
+  return dispatch => {
+    return fetch(`${proxy}/api/profile/email`, {
       method: 'PUT',
       headers: {
         'Content-Type': 'application/json'
       },
       body: JSON.stringify(editedEmail)
     })
-      .then((response) => {
+      .then(response => {
         if (!response.ok) {
-          throw Error(response.statusText)
+          throw Error(response.statusText);
         }
-        return response.json()
+        return response.json();
       })
-      .then((email) => {
+      .then(email => {
         return dispatch({
           type: EDIT_EMAIL,
           payload: email
-        })
-      })
+        });
+      });
   };
 };
 
 export const editPassword = (oldPassword, editedPassword) => {
-  return (dispatch) => {
-    return fetch(`/api/profile/password`, {
+  return dispatch => {
+    return fetch(`${proxy}/api/profile/password`, {
       method: 'PUT',
       headers: {
         'Content-Type': 'application/json'
@@ -214,52 +216,52 @@ export const editPassword = (oldPassword, editedPassword) => {
       body: JSON.stringify({
         oldPassword: oldPassword.password,
         newPassword: editedPassword.password
-      }),
-    })
-      .then((response) => {
-        if (!response.ok) {
-          throw Error(response.statusText)
-        }
-        return response.json()
       })
-      .then((password) => {
+    })
+      .then(response => {
+        if (!response.ok) {
+          throw Error(response.statusText);
+        }
+        return response.json();
+      })
+      .then(password => {
         return dispatch({
           type: EDIT_PASSWORD,
           payload: password
-        })
-      })
+        });
+      });
   };
 };
 
-export const editHomepage = (page) => {
-  return (dispatch) => {
-    return fetch(`/api/settings`, {
+export const editHomepage = page => {
+  return dispatch => {
+    return fetch(`${proxy}/api/settings`, {
       method: 'PUT',
       headers: {
         'Content-Type': 'application/json'
       },
       body: JSON.stringify({ homepage: page })
     })
-      .then((response) => {
-        console.log(response)
+      .then(response => {
+        console.log(response);
         if (!response.ok) {
-          throw Error(response.statusText)
+          throw Error(response.statusText);
         }
-        return response.json()
+        return response.json();
       })
-      .then((page) => {
-        localStorage.setItem('setHomePage', page.result.homepage)
+      .then(page => {
+        localStorage.setItem('setHomePage', page.result.homepage);
         return dispatch({
           type: EDIT_HOMEPAGE,
           payload: page
-        })
-      })
+        });
+      });
   };
 };
 
 export const loadActivities = () => {
   return dispatch => {
-    fetch(`/api/activities`)
+    fetch(`${proxy}/api/activities`)
       .then(response => {
         if (!response.ok) {
           throw Error(response.statusText);
@@ -300,9 +302,9 @@ export const addPreset = (presetObj, route) => {
   };
 };
 
-export const submitEntry = (data) => {
+export const submitEntry = data => {
   return dispatch => {
-    return fetch(`api/entries`, {
+    return fetch(`${proxy}/api/entries`, {
       method: 'POST',
       body: JSON.stringify(data),
       headers: {
@@ -320,4 +322,3 @@ export const submitEntry = (data) => {
     });
   };
 };
-
