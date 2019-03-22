@@ -59,11 +59,11 @@ class Header extends Component {
     });
   }
 
-  toggleMoodEntry = () => {
-    this.setState({
-      showMoodEntry: !this.state.showMoodEntry
-    });
-  }
+  // toggleMoodEntry = () => {
+  //   this.setState({
+  //     showMoodEntry: !this.state.showMoodEntry
+  //   });
+  // }
 
   handleLogout(e) {
     e.preventDefault();
@@ -76,7 +76,8 @@ class Header extends Component {
   }
 
   render() {
-    console.log(this.state.showMenu)
+    console.log('showMenu', this.state.showMenu)
+    console.log('menuOpen', this.props.menuOpen)
 
     return (
       <div className="header-container" >
