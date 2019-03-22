@@ -46,7 +46,6 @@ class App extends Component {
     let isAuthenticated = this.props.email ? this.props.isLoggedIn : null
     return (
       <div className="App">
-        <button onClick={this.generateEntries}> asdasd</button>
         <Router>
           <>
             <Switch>

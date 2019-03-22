@@ -32,8 +32,6 @@ class Header extends Component {
 
     this.state = {
       menuOpen: false,
-      showMenu: true,
-      showMoodEntry: false,
     }
 
     this.closeMenu = this.closeMenu.bind(this);
@@ -47,23 +45,14 @@ class Header extends Component {
   }
 
   closeMenu() {
-    this.setState({ menuOpen: false, showMenu: false })
+    this.setState({ menuOpen: false })
   }
 
   toggleMenu() {
     this.setState({
       menuOpen: !this.state.menuOpen,
-      showMenu: !this.state.showMenu
-    }, () => {
-      document.addEventListener('click', this.closeMenu);
     });
   }
-
-  // toggleMoodEntry = () => {
-  //   this.setState({
-  //     showMoodEntry: !this.state.showMoodEntry
-  //   });
-  // }
 
   handleLogout(e) {
     e.preventDefault();
@@ -76,8 +65,6 @@ class Header extends Component {
   }
 
   render() {
-    console.log('showMenu', this.state.showMenu)
-    console.log('menuOpen', this.props.menuOpen)
 
     return (
       <div className="header-container" >
@@ -88,7 +75,7 @@ class Header extends Component {
             <div className="line"></div>
           </div>
 
-          {this.state.showMenu === true ?
+          {this.state.menuOpen ?
             <Menu
               isOpen={this.state.menuOpen}
               onStateChange={(state) => this.handleStateChange(state)}
