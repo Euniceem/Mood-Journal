@@ -27,23 +27,23 @@ const FAMood = props => {
   switch (mood) {
     case 'Amazing':
       moodIcon = ['far', 'smile-beam'];
-      moodId = 'fa-amazing';
+      moodId = 'icon-amazing';
       break;
     case 'Good':
       moodIcon = ['far', 'smile'];
-      moodId = 'fa-good';
+      moodId = 'icon-good';
       break;
     case 'OK':
       moodIcon = ['far', 'meh'];
-      moodId = 'fa-ok';
+      moodId = 'icon-ok';
       break;
     case 'Bad':
       moodIcon = ['far', 'frown'];
-      moodId = 'fa-bad';
+      moodId = 'icon-bad';
       break;
     case 'Awful':
       moodIcon = ['far', 'sad-tear'];
-      moodId = 'fa-awful';
+      moodId = 'icon-awful';
       break;
     default:
       moodIcon = 'Choose a mood!';
