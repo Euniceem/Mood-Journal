@@ -2,14 +2,14 @@ import React, { Component } from 'react';
 // import { connect } from 'react-redux';
 import './EditSliders.scss';
 
-import Tag from '../../components/Tag';
+import EntryList from '../../components/EntryList';
 
 class EditSliders extends Component {
   constructor(props) {
     super(props);
 
     this.state = {
-
+      emotions : this.props.emotions
     };
   }
 
@@ -26,29 +26,20 @@ class EditSliders extends Component {
           <div className="current-wrap">
             <div className="title">Your Presets</div>
 
-            {/* going to have to load these presets in dynamically */}
             <div className="current-presets">
-              <Tag className="preset" tagName="Happiness" removeHandler={ this.removePreset } />
-              <Tag className="preset" tagName="Stress" removeHandler={ this.removePreset } />
-              <Tag className="preset" tagName="Anxiety" removeHandler={ this.removePreset } />
-              <Tag className="preset" tagName="Fatigue" removeHandler={ this.removePreset } />
+              <EntryList clickHandler={ this.props.removeSliderHandler } presets={ this.props.selected } className="preset" />
             </div>
           </div>
 
           <div className="add-presets-wrap">
             <div className="title">Add a Preset</div>
 
-            {/* this will require communication with the back-end as well */}
             <div className="add-presets">
-              <Tag className="preset" tagName="Frustration" removeHandler={ this.removePreset } />
-              <Tag className="preset" tagName="Irritation" removeHandler={ this.removePreset } />
-              <Tag className="preset" tagName="Boredom" removeHandler={ this.removePreset } />
-              <Tag className="preset" tagName="Tension" removeHandler={ this.removePreset } />
+              <EntryList clickHandler={ this.props.addSliderHandler } presets={ this.props.unselected } className="preset" />
             </div>
           </div>
         </div>
 
-        {/* the custom feature is pretty much like POSTing a new kanban card to the database */}
         <div className="custom-wrap">
           <span className="text">Custom Slider</span>
           <span className="button">+</span>
@@ -61,7 +52,7 @@ class EditSliders extends Component {
             </div>
   
             <div className="done">
-              <button onClick={ this.updateSliders }>Done</button>
+              <button onClick={ this.props.openEditSliders }>Done</button>
             </div>
           </div>
         </div>

@@ -24,6 +24,8 @@ class MoodEntry extends Component {
       isEditSlidersOpen : false,
       isNotesOpen : false,
       sliders : {},
+      selectedSliders : [],
+      unselectedSliders : [],
       selectedActivities : [],
       unselectedActivities : [],
       notes : ''
@@ -42,12 +44,62 @@ class MoodEntry extends Component {
   }
 
   mapEmotionsToSliders = () => {
+
   }
 
   resetStateOnClick = () => {
     this.setState({
       isEditSlidersOpen : false,
       isNotesOpen : false
+    });
+  }
+
+  addSlider = e => {
+    const { selectedSliders, unselectedSliders } = this.state;
+    const name = e.target.innerHTML;
+
+    let count = 0;
+    let index = 0;
+
+    unselectedSliders.filter(slider => {
+      if (slider.name === name) {
+        index = count;
+
+        const splicedArray = [...unselectedSliders];
+
+        splicedArray.splice(index, 1);
+
+        return this.setState({
+          selectedSliders : [...selectedSliders, slider],
+          unselectedSliders : splicedArray
+        });
+      }
+
+      return count++;
+    });
+  }
+
+  removeSlider = e => {
+    const { selectedSliders, unselectedSliders } = this.state;
+    const name = e.target.innerHTML;
+
+    let count = 0;
+    let index = 0;
+
+    selectedSliders.filter(slider => {
+      if (slider.name === name) {
+        const splicedArray = [...selectedSliders];
+        
+        index = count;
+        splicedArray.splice(index, 1);
+
+        return this.setState({
+          selectedSliders : splicedArray,
+          unselectedSliders : [...unselectedSliders, slider]
+        });
+      }
+
+      return count++;
     });
   }
 
@@ -71,6 +123,7 @@ class MoodEntry extends Component {
           unselectedActivities : splicedArray
         });
       }
+
       return count++;
     });
   }
@@ -179,13 +232,28 @@ class MoodEntry extends Component {
 
   // doesn't load in time for componentDidMount. i need a safe alternative.
   componentDidMount() {
+    const { emotions } = this.props;
+    
     // render a list of all existing sliders so we can access them in the state.
     this.setState({
       isEditSlidersOpen : false,
       isNotesOpen : false
     });
 
-    this.props.onLoad();
+
+    this.props.onLoad()
+      .then(() => {
+        const { emotions } = this.props;
+
+        emotions.forEach(emotion => {
+          if (emotion.is_custom) {
+            this.setState({ unselectedSliders : [...this.state.unselectedSliders, emotion] });
+          }
+          if (!emotion.is_custom) {
+            this.setState({ selectedSliders : [...this.state.selectedSliders, emotion] });
+          }
+        });
+      });
   }
   
   render() {
@@ -194,7 +262,7 @@ class MoodEntry extends Component {
         <Header resetStateOnClick={ this.resetStateOnClick } />
 
         { this.state.isEditSlidersOpen ?
-          <EditSliders openEditSliders={ this.openEditSliders } isEditSlidersOpen={ this.state.isEditSlidersOpen } />
+          <EditSliders selected={ this.state.selectedSliders } unselected={ this.state.unselectedSliders } addSliderHandler={ this.addSlider } removeSliderHandler={ this.removeSlider } openEditSliders={ this.openEditSliders } isEditSlidersOpen={ this.state.isEditSlidersOpen } />
           : this.state.isNotesOpen ? 
           <NotesActions selectedMood={ this.state.selectedMood } selected={ this.state.selectedActivities } unselected={ this.state.unselectedActivities } openNotesAndActions={ this.openNotesAndActions } isNotesOpen={ this.state.isNotesOpen } addActivityHandler={ this.addActivity } removeActivityHandler = { this.removeActivity } handleNotes={ this.handleNotes } selectedActivites={ this.state.selectedActivities } notes={ this.state.notes } handleSubmit={ this.handleSubmit } />
           :
@@ -209,7 +277,7 @@ class MoodEntry extends Component {
               </ul>
             </div>
       
-            <SliderList emotions={ this.props.emotions } handleSliderData={ this.handleSliderData } sliderValues={ this.state.sliders } openEditSliders={ this.openEditSliders } />
+            <SliderList emotions={ this.state.selectedSliders } handleSliderData={ this.handleSliderData } sliderValues={ this.state.sliders } openEditSliders={ this.openEditSliders } />
       
             <div className="buttons">
               <div className="buttons-wrap">
