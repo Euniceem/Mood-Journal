@@ -1,10 +1,4 @@
-import {
-  LOAD_ENTRIES,
-  LOAD_ENTRY,
-  LOGIN_USER,
-  LOGOUT_USER,
-  FETCHED_DATA
-} from '../actions';
+import { LOAD_ENTRIES, LOAD_EMOTIONS, LOAD_ACTIVITIES, LOGIN_USER, LOGOUT_USER, LOAD_ENTRY, FETCHED_DATA } from '../actions';
 
 const initialState = {
   entries: [],
@@ -41,6 +35,10 @@ const moodJournalReducer = (state = initialState, action) => {
       return Object.assign({}, state, { loggedIn: false, email: '' });
     case LOAD_ENTRIES:
       return Object.assign({}, state, { entries: [...action.payload] });
+    case LOAD_EMOTIONS:
+      return Object.assign({}, state, { emotions: [...action.payload] });
+    case LOAD_ACTIVITIES:
+      return Object.assign({}, state, { activities: [...action.payload] });
     case LOAD_ENTRY:
       return Object.assign({}, state, { entry: action.payload });
     case FETCHED_DATA:

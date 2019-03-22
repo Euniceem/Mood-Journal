@@ -9,7 +9,7 @@ import ChartTypeSwitch from '../../components/ChartTypeSwitch';
 import LineChartBuilder from '../../components/LineChartBuilder';
 import ActivityDataDisplay from '../../components/ActivityDataDisplay';
 
-class Data extends Component {
+class Data extends Component {  
   constructor(props) {
     super(props);
 
