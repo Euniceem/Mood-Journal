@@ -7,7 +7,7 @@ import { library } from '@fortawesome/fontawesome-svg-core';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import './Header.scss';
 import { faUserCog, faHome, faSignOutAlt, faSignInAlt, faSmileBeam, faSmile, faMeh, faFrown, faSadTear } from '@fortawesome/free-solid-svg-icons';
-import { faSmileBeam as faSmileBeanRegular, faSmile as faSmileRegular, faMeh as faMehRegular, faFrown as faFrownRegular, faSadTear as faSadTearRegular } from '@fortawesome/free-regular-svg-icons'
+import { faSmileBeam as faSmileBeanRegular, faSmile as faSmileRegular, faMeh as faMehRegular, faFrown as faFrownRegular, faSadTear as faSadTearRegular } from '@fortawesome/free-regular-svg-icons';
 
 library.add(faHome);
 library.add(faUserCog);
