@@ -12,11 +12,13 @@ class Feed extends Component {
 
   render() {
     return (
+      <>
+      <Header />
       <div className="feed-container">
-        <Header />
         <h1 className="title">Recent Activity</h1>
         <FeedList entries={this.props.entries} />
       </div>
+      </>
     );
   }
 }

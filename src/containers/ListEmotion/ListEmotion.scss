@@ -11,7 +11,7 @@ li {
 
   img {
     display: block;
-    background-image: url('https://www.blackfootfamilydentistry.com/wp-content/uploads/2016/10/orionthemes-placeholder-image.png');
+    // background-image: url('https://www.blackfootfamilydentistry.com/wp-content/uploads/2016/10/orionthemes-placeholder-image.png');
     background-position: center;
     background-repeat: no-repeat;
     background-size: 400%;
@@ -19,6 +19,9 @@ li {
     overflow: hidden;
     margin-top: $margin-standard;
     margin-bottom: $margin-standard / 2;
+    position: relative;
+    top: 4rem;
+    z-index: 1;
     height: 3rem;
     width: 3rem;
   }
