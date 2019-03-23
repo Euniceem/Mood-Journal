@@ -242,7 +242,6 @@ export const editHomepage = (page) => {
       body: JSON.stringify({ homepage: page })
     })
       .then((response) => {
-        console.log(response)
         if (!response.ok) {
           throw Error(response.statusText)
         }

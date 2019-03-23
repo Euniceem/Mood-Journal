@@ -2,4 +2,126 @@
 
 .single-entry-view-main-container {
   padding-top: $margin-standard * 3;
+  font-family: $font-family;
+  color: $font-color;
+  width: 100%;
+
+  .single-entry-view-title-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: $margin-standard;
+    width: 100%;
+
+    .title {
+      font-family: $font-family;
+      font-size: 1.4rem;
+      color: $font-color;
+    }
+  }
+
+  .single-entry-view-second-container{
+    padding: 5px;
+
+
+    .single-entry-view-mood-container{
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+
+      .single-entry-view-mood{
+        display: none;
+      }
+    }
+
+    .single-entry-view-activity-container{
+      border: 1px solid $nav-border-color;
+      display: flex;
+      flex-direction: column;
+      border-radius: 8px;
+      margin-top: $margin-standard /2;
+
+      .activity-title{
+        background-color: $calendar-color;
+        .title{
+          font-size: 20px;
+          margin-left: 5px;
+          padding-bottom: 5px;
+          padding-top: 5px;
+        }
+      }
+
+      .activity-list{
+        display: flex;
+        justify-content: space-around;
+        padding-top: 10px;
+        padding-bottom: 10px;
+      }
+    }
+
+    .single-entry-view-emotion-container{
+      border: 1px solid $nav-border-color;
+      display: flex;
+      flex-direction: column;
+      border-radius: 8px;
+      margin-top: $margin-standard /2;
+
+      .emotion-title{
+        background-color: $calendar-color;
+
+        .title{
+          font-size: 20px;
+          margin-left: 5px;
+          padding-bottom: 5px;
+          padding-top: 5px;
+        }
+      }
+      .emotion-list{
+        display: flex;
+        flex-direction: column;
+        padding-top: 10px;
+        padding-bottom: 5px;
+        
+        .single-entry-view-emotion{
+          display: flex;
+
+          .emotion-name {
+            width: 48%;
+            margin-left: 2%;
+          }
+
+          .emotion-percent {
+            width: 50%;
+          }
+        }
+      }
+    }
+  }
+
+  .single-entry-view-notes{
+    border: 1px solid $nav-border-color;
+    display: flex;
+    flex-direction: column;
+    border-radius: 8px;
+    margin-top: $margin-standard /2;
+    margin-left: 5px; 
+    margin-right: 5px;
+
+    .notes-title{
+      background-color: $calendar-color;
+
+        .title{
+          font-size: 20px;
+          margin-left: 5px;
+          padding-bottom: 5px;
+          padding-top: 5px;
+        }
+    }
+
+    .notes{
+      padding-bottom: 5px;
+      padding-top: 10px;
+      margin-left: 5px;
+    }
+  }
 }
