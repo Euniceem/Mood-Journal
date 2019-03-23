@@ -6,7 +6,7 @@ const CalendarEntryEmotionsView = (props) => {
 
     if (!emotions.custom_emotion && !emotions.default_emotion) {
       return (
-        <>.</>
+        <React.Fragment key={index}>.</React.Fragment>
       )
     }
     if (emotions.percent !== 0) {

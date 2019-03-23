@@ -1,5 +1,7 @@
 @import '../../../sass/config';
 
+$calendar-font-color: #6C6C6C;
+
 .calender-container{
   width: 100%;
   min-height: 100%;
@@ -42,7 +44,7 @@
       text-transform: uppercase;
       font-weight: bold;
       font-size: 0.75em;
-      color: $font-color;
+      color: $calendar-font-color;
 
       abbr{
         text-decoration: none !important;
@@ -58,7 +60,7 @@
         left:2.5px;
         font-size: 12px;
         line-height: 30px;
-        color: $font-color;
+        color: $calendar-font-color;
       }
     }
 

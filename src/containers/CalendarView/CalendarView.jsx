@@ -37,6 +37,7 @@ class CalendarView extends Component {
   }
 
   render() {
+    console.log(this.props)
 
     return (
       <>
@@ -51,7 +52,7 @@ class CalendarView extends Component {
             view="month"
             onClickDay={this.onChangeDay}
           />
-          {this.state.showDayEntry === true ?
+          {this.state.showDayEntry === true && this.props.entries ?
 
             <div className="calendar-day-entry-container">
 
