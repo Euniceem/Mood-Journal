@@ -9,18 +9,18 @@ class EditSliders extends Component {
     super(props);
 
     this.state = {
-      emotions : this.props.emotions,
-      showForm : false
+      emotions: this.props.emotions,
+      showForm: false
     };
   }
 
   openForm = () => {
-    return this.setState({ showForm : true });
-  }
+    return this.setState({ showForm: true });
+  };
 
   updateSliders = () => {
     // call an action to update the database with the new sliders. update the state in MoodEntry.jsx and cause the page to re-render with the updated sliders.
-  }
+  };
 
   render() {
     return (
@@ -32,7 +32,11 @@ class EditSliders extends Component {
             <div className="title">Your Presets</div>
 
             <div className="current-presets">
-              <EntryList clickHandler={ this.props.removeSliderHandler } presets={ this.props.selected } className="preset" />
+              <EntryList
+                clickHandler={this.props.removeSliderHandler}
+                presets={this.props.selected}
+                className="preset"
+              />
             </div>
           </div>
 
@@ -40,30 +44,37 @@ class EditSliders extends Component {
             <div className="title">Add a Preset</div>
 
             <div className="add-presets">
-              <EntryList clickHandler={ this.props.addSliderHandler } presets={ this.props.unselected } className="preset" />
+              <EntryList
+                clickHandler={this.props.addSliderHandler}
+                presets={this.props.unselected}
+                className="preset"
+              />
             </div>
           </div>
         </div>
 
-        <div onClick={ this.openForm } className="custom-wrap">
-          { this.state.showForm ? 
-            <AddPreset onReloadData={ this.props.sortEmotions } routeOnUpdate={ `/api/emotions` } />
-          :
+        <div onClick={this.openForm} className="custom-wrap">
+          {this.state.showForm ? (
+            <AddPreset
+              onReloadData={this.props.sortEmotions}
+              routeOnUpdate={`https://api.moodcatcher.com/api/emotions`}
+            />
+          ) : (
             <>
               <span className="text">Custom Slider</span>
               <span className="button">+</span>
             </>
-          }
+          )}
         </div>
 
         <div className="buttons-wrap">
           <div className="buttons">
             <div className="close">
-              <button onClick={ this.props.openEditSliders }>Close</button>
+              <button onClick={this.props.openEditSliders}>Close</button>
             </div>
-  
+
             <div className="done">
-              <button onClick={ this.props.openEditSliders }>Done</button>
+              <button onClick={this.props.openEditSliders}>Done</button>
             </div>
           </div>
         </div>
