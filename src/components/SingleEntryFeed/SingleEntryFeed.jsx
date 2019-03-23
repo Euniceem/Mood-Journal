@@ -22,32 +22,34 @@ const SingleEntryFeed = props => {
   let date = new Date(props.entryData.created_at);
   let time = new Date(props.entryData.created_at);
 
-  const emotionList = props.entryData.entryEmotions.map((emotions, index) => {
-
-    if (emotions.custom_emotion) {
-      return (
-        <div className="emotion" key={index}>
-          {emotions.custom_emotion
-            ? emotions.custom_emotion.name
-            : emotions.default_emotion.name}
-          : {emotions.percent}
-        </div>
-      );
+  const emotionList = props.entryData.entryEmotions.map((emotion, index) => {
+    if (!emotion.custom_emotion && !emotion.default_emotion) {
+      return <></>;
     }
+
+    return (
+      <div className="emotion" key={index}>
+        {emotion.custom_emotion
+          ? emotion.custom_emotion.name
+          : emotion.default_emotion.name}
+        : {emotion.percent}
+      </div>
+    );
   });
 
   const activityList = props.entryData.entryActivities.map(
-    (activities, index) => {
-      if (activities.custom_activity) {
-
-        return (
-          <div className="activity" key={index}>
-            {activities.custom_activity
-              ? activities.custom_activity.name
-              : activities.default_activity.name}
-          </div>
-        );
+    (activity, index) => {
+      if (!activity.custom_activity && !activity.default_activity) {
+        return <></>;
       }
+
+      return (
+        <div className="action" key={index}>
+          {activity.custom_activity
+            ? activity.custom_activity.name
+            : activity.default_activity.name}
+        </div>
+      );
     }
   );
 
