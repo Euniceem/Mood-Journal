@@ -1,19 +1,10 @@
-$red: #FF9696;
-$dark-red: #FF3535;
-$orange: #FFCB96;
-$dark-orange: #FFAD5B;
-$green: #97E3AD;
-$dark-green: #419058;
-$blue: #79A2C1;
-$dark-blue: #2B7FBF;
-$grey: #D0D0D0;
-$dark-grey: #7E7E7E;
-$font-family: 'Montserrat', sans-serif;
+@import '../../../sass/config';
 
 .entry-container{  
-  border: 1px solid black;
   margin-bottom: 10px;
   height: 205px;
+  white-space: nowrap; 
+  text-overflow: ellipsis;
   overflow: hidden;
   margin: 10px;
   border-radius: 8px; 
@@ -22,81 +13,137 @@ $font-family: 'Montserrat', sans-serif;
   .time-date-container{
     text-align: center;
     margin-right: 5px;
+    height: 25px;
 
     span{
-      font-size: 20px;
-
+      font-size: 21px;
     }
 
     .date {
-      margin-right: 5px;
+      margin-right: 10px;
     }
   }
 
   .content-container{
+    height: 170px;
     margin: 5px;
     
     .emotions-main-container{
       display: flex;
       justify-content: space-around;
       margin: 10px;
+      max-height: 80px;
       
         .mood{
           border: 1px solid white;
-          width: 45%;
-          height: 80px;
+          width: 50px;
+          height: auto;
           display: flex;
-          justify-content: center;
-          align-items: center;
+          flex-direction: column;
+
+          .mood-icon-container{
+            display: flex;
+            justify-content: center;
+          }
+
+          .mood-name{
+            display: flex;
+            justify-content: center;
+            margin-top: 5px;
+          }
         }
 
-        .emotion-title{
-          margin-right: 4.5em;
+        .emotions-second-container{
+          display: flex;
+          flex-direction: column;
+          flex-wrap: wrap;
+          width: 50%;
+
+          .emotion-title{
+            margin-bottom: 5px;
+          }
+  
+          .emotion{
+             margin-bottom: 5px;
+            margin-right: 5px;
+            font-size: 14px;
+          }
         }
 
-        .emotion{
-           margin-left: 5px;
-           margin-bottom: 2.5px;
-        }
     }
 
     .actions-container{
       display: flex;
-      justify-content: space-around;
-      margin-bottom: 20px;
+      justify-content: flex-start;
+      flex-wrap: nowrap;
+      min-height: 50px;
+      width: 100%;
+
+      .activity-title{
+        margin-right: 5px;
+      }
+
+      .activity-list{
+        display: flex;
+      flex-wrap: wrap;
+      justify-content: flex-start;
+
+        .activity{
+          font-size: 14px;
+          margin-right: 5px;
+        
+        }
+      }
+
+    }
+
+    .notes-container{
+      display: flex;
+      flex-wrap: nowrap;
+      justify-content: flex-start;
+      margin-top: 12px;
+
+      .notes-title{
+        margin-right: 5px;
+      }
+
+      .notes{
+      font-size: 14px;
+     
+      }
     }
   }
 }
 
 .amazing{
-  border: 2px solid $dark-red;
+  border: 2px solid $dark-orange;
 
   .time-date-container{
     width: 100%;
-    background-color: $red;
+    background-color: $amazing;
   }
 
   .content-container{    
     .emotions-main-container{
         .mood{
-          color: $red;
+          color: $amazing;
         }
       }
     }
 }
 
 .good{
-  border: 2px solid $dark-orange;
+  border: 2px solid $dark-yellow;
 
   .time-date-container{
     width: 100%;
-    background-color: $orange;
+    background-color: $good;
   }
 
   .content-container{    
     .emotions-main-container{
         .mood{
-          color: $orange;
+          color: $good;
         }
       }
     }
@@ -107,13 +154,13 @@ $font-family: 'Montserrat', sans-serif;
 
   .time-date-container{
     width: 100%;
-    background-color: $green;
+    background-color: $ok;
   }
 
   .content-container{    
     .emotions-main-container{
         .mood{
-          color: $green;
+          color: $ok;
         }
       }
     }
@@ -124,30 +171,30 @@ $font-family: 'Montserrat', sans-serif;
 
   .time-date-container{
     width: 100%;
-    background-color: $blue;
+    background-color: $bad;
   }
 
   .content-container{    
     .emotions-main-container{
         .mood{
-          color: $blue;
+          color: $bad;
         }
       }
     }
 }
 
 .awful{
-  border: 2px solid $dark-grey;
+  border: 2px solid $dark-purple;
 
   .time-date-container{
     width: 100%;
-    background-color: $grey;
+    background-color: $awful;
   }
 
   .content-container{    
     .emotions-main-container{
         .mood{
-          color: $grey;
+          color: $awful;
         }
       }
     }

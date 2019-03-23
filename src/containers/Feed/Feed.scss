@@ -1,4 +1,4 @@
-$font-family: 'Montserrat', sans-serif;
+@import '../../../sass/config';
 
 .feed-container{
 font-family: $font-family;
@@ -7,6 +7,9 @@ padding-bottom:50px;
 
   .title{
     text-align: center;
-    margin-top: 0;
+    margin-top: 10px;
+    font-size: 30px;
+    font-family: $title-font;
+    color: $font-color;
   }
 }
