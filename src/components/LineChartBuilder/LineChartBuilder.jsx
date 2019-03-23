@@ -24,7 +24,7 @@ const LineChartBuilder = props => {
         margin={{ top: 5, right: 5, left: 5, bottom: 5 }}
       >
         <XAxis dataKey="time_label" />
-        <YAxis />
+        <YAxis type="number" domain={[0, 5]} />
         <Legend />
         <Area
           type="monotone"
@@ -47,7 +47,7 @@ const LineChartBuilder = props => {
       margin={{ top: 5, right: 5, left: 5, bottom: 5 }}
     >
       <XAxis dataKey="time_label" />
-      <YAxis />
+      <YAxis type="number" domain={[0, 100]} />
       <Legend />
       <Line
         type="monotone"
