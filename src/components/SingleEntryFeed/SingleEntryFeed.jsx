@@ -17,7 +17,6 @@ const SingleEntryFeed = props => {
     });
 
   const emotionList = props.entryData.entryEmotions.map((emotions, index) => {
-
     if (emotions.custom_emotion) {
       return (
         <div className="emotion" key={index}>
@@ -33,7 +32,6 @@ const SingleEntryFeed = props => {
   const activityList = props.entryData.entryActivities.map(
     (activities, index) => {
       if (activities.custom_activity) {
-
         return (
           <div className="action" key={index}>
             {activities.custom_activity
