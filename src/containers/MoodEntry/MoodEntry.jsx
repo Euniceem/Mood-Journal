@@ -66,7 +66,7 @@ class MoodEntry extends Component {
     this.setState({ isNotesOpen: !this.state.isNotesOpen });
   };
 
-  mapEmotionsToSliders = () => { };
+  mapEmotionsToSliders = () => {};
 
   resetStateOnClick = () => {
     this.setState({
@@ -181,7 +181,7 @@ class MoodEntry extends Component {
       selectedMood: name || 'Pick a mood!',
       moodId: mood_id || 'Invalid id'
     });
-  }
+  };
 
   handleSliderData = e => {
     const value = e.target.value;
@@ -331,74 +331,74 @@ class MoodEntry extends Component {
             handleSubmit={this.handleSubmit}
           />
         ) : (
-              <div className="component-mood-entry">
-                <div className="select-emotion">
-                  <ul className="list-emotion">
-                    <ListEmotion
-                      handleSelectMood={this.handleSelectMood}
-                      selectedMood={this.state.selectedMood}
-                      mood="Amazing"
-                      mood_id="1"
-                    />
-                    <ListEmotion
-                      handleSelectMood={this.handleSelectMood}
-                      selectedMood={this.state.selectedMood}
-                      mood="Good"
-                      mood_id="2"
-                    />
-                    <ListEmotion
-                      handleSelectMood={this.handleSelectMood}
-                      selectedMood={this.state.selectedMood}
-                      mood="OK"
-                      mood_id="3"
-                    />
-                    <ListEmotion
-                      handleSelectMood={this.handleSelectMood}
-                      selectedMood={this.state.selectedMood}
-                      mood="Bad"
-                      mood_id="4"
-                    />
-                    <ListEmotion
-                      handleSelectMood={this.handleSelectMood}
-                      selectedMood={this.state.selectedMood}
-                      mood="Awful"
-                      mood_id="5"
-                    />
-                  </ul>
+          <div className="component-mood-entry">
+            <div className="select-emotion">
+              <ul className="list-emotion">
+                <ListEmotion
+                  handleSelectMood={this.handleSelectMood}
+                  selectedMood={this.state.selectedMood}
+                  mood="Amazing"
+                  mood_id="5"
+                />
+                <ListEmotion
+                  handleSelectMood={this.handleSelectMood}
+                  selectedMood={this.state.selectedMood}
+                  mood="Good"
+                  mood_id="4"
+                />
+                <ListEmotion
+                  handleSelectMood={this.handleSelectMood}
+                  selectedMood={this.state.selectedMood}
+                  mood="OK"
+                  mood_id="3"
+                />
+                <ListEmotion
+                  handleSelectMood={this.handleSelectMood}
+                  selectedMood={this.state.selectedMood}
+                  mood="Bad"
+                  mood_id="2"
+                />
+                <ListEmotion
+                  handleSelectMood={this.handleSelectMood}
+                  selectedMood={this.state.selectedMood}
+                  mood="Awful"
+                  mood_id="1"
+                />
+              </ul>
+            </div>
+
+            <SliderList
+              emotions={this.state.selectedSliders}
+              handleSliderData={this.handleSliderData}
+              sliderValues={this.state.sliders}
+              openEditSliders={this.openEditSliders}
+            />
+
+            <div className="buttons">
+              <div className="buttons-wrap">
+                <div className="add-more">
+                  <button onClick={this.openNotesAndActions}>
+                    + Notes/Actions
+                  </button>
                 </div>
 
-                <SliderList
-                  emotions={this.state.selectedSliders}
-                  handleSliderData={this.handleSliderData}
-                  sliderValues={this.state.sliders}
-                  openEditSliders={this.openEditSliders}
-                />
-
-                <div className="buttons">
-                  <div className="buttons-wrap">
-                    <div className="add-more">
-                      <button onClick={this.openNotesAndActions}>
-                        + Notes/Actions
+                <div className="submit-wrap">
+                  <button
+                    onClick={this.handleSubmit}
+                    disabled={this.state.selectedMood === 'Pick a mood!'}
+                    className={
+                      this.state.selectedMood === 'Pick a mood!'
+                        ? 'disabled'
+                        : ''
+                    }
+                  >
+                    Submit Entry
                   </button>
-                    </div>
-
-                    <div className="submit-wrap">
-                      <button
-                        onClick={this.handleSubmit}
-                        disabled={this.state.selectedMood === 'Pick a mood!'}
-                        className={
-                          this.state.selectedMood === 'Pick a mood!'
-                            ? 'disabled'
-                            : ''
-                        }
-                      >
-                        Submit Entry
-                  </button>
-                    </div>
-                  </div>
                 </div>
               </div>
-            )}
+            </div>
+          </div>
+        )}
       </>
     );
   }

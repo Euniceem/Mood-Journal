@@ -10,14 +10,20 @@ class Feed extends Component {
     this.props.loadEntries();
   }
 
+  componentDidUpdate(prevProps) {
+    if (this.props !== prevProps) {
+      this.props.loadEntries();
+    }
+  }
+
   render() {
     return (
       <>
-      <Header />
-      <div className="feed-container">
-        <h1 className="title">Recent Activity</h1>
-        <FeedList entries={this.props.entries} />
-      </div>
+        <Header />
+        <div className="feed-container">
+          <h1 className="title">Recent Activity</h1>
+          <FeedList entries={this.props.entries} />
+        </div>
       </>
     );
   }
