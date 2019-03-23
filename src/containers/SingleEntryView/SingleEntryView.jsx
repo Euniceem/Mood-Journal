@@ -21,8 +21,6 @@ class SingleEntryView extends Component {
 
     let getMoodId = 'Select a mood!';
 
-    console.log(entry.mood);
-
     switch (entry.mood) {
       case 'Amazing':
         getMoodId = 1;
@@ -43,8 +41,6 @@ class SingleEntryView extends Component {
         getMoodId = 'Select a mood!';
         break;
     }
-
-    console.log(entry.entryEmotions);
 
     return (
       <>

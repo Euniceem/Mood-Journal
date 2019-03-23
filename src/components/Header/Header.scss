@@ -25,7 +25,7 @@
   }
 
   .bm-menu-wrap{
-    top: 0;
+  top: 0;
     
   }
   
@@ -89,10 +89,11 @@
       margin-bottom: 10px;
     }
 
-     .home-container, .settings-container, .login-container, .logout-container{
+   
+
+     .home-container, .settings-icon-container, .login-container, .logout-container{
       display: flex !important;
       flex-direction: row;
-      
      
       .home-link {
         margin-left: 3.5px;
