@@ -3,15 +3,16 @@
 
 .edit-sliders {
   font-family: $primary-font, $font-type;
+  background-color: $background-off-white;
   color: $font-color-black;
-  // padding-top: $margin-standard * 2.4;
   height: 100%;
 
   .presets {
     display: flex;
     flex-direction: column;
     align-items: center;
-    margin-top: $margin-standard / 2;
+    padding-top: $margin-standard * 3;
+    // margin-top: $margin-standard / 2;
     margin-bottom: $margin-standard;
     // height: 100%;
 
@@ -179,7 +180,7 @@
     display: flex;
     justify-content: center;
     margin-top: $margin-standard * 2;
-    margin-bottom: $margin-standard;
+    margin-bottom: $margin-standard * 2;
     width: 100%;
 
     .buttons {
@@ -196,7 +197,7 @@
         button {
           font-family: $primary-font, $font-type;
           font-size: 0.95rem;
-          background-color: $background-color-white;
+          background-color: $background-off-white;
           border: none;
         }
       }

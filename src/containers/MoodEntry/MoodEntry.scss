@@ -5,8 +5,9 @@
   width: 100%;
   height: fit-content;
   background-color: $background-off-white;
-  margin-bottom: $margin-standard / 2;
   font-family: $primary-font, $font-type;
+  padding-top: $margin-standard / 5;
+  margin-bottom: $margin-standard / 2;
 
   .select-emotion {
     display: flex;

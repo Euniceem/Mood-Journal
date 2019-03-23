@@ -1,3 +1,46 @@
 @import '../../../sass/config';
 
+.form-add-preset {
+  border-radius: $radius-minimal;
+  height: 2rem;
 
+  .form-wrap {
+    display: flex;
+    box-shadow: $component-light-shadow $shadow-color-header;
+    height: fit-content;
+    
+    input, div {
+      font-family: $font-family;
+      color: $font-color;
+      border-radius: $radius-minimal / 2;
+      height: 2rem;
+    }
+
+    input {
+      background-color: $background-color-white;
+      border: 1px solid white;
+      outline: none;
+      padding: $pad-standard / 4;
+
+      &::placeholder {
+        color: $font-color;
+      }
+    }
+
+    div {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      font-size: 0.9rem;
+      background-color: $background-color-2;
+      border: none;
+      padding: $pad-standard / 3;
+      padding-left: 0; padding-right: 0;
+      outline: none;
+
+      .text {
+
+      }
+    }
+  }
+}

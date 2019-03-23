@@ -1,3 +1,5 @@
+@import '../../../sass/config';
+
 $font-family: 'Montserrat', sans-serif;
 $title-color: #D6C7B1; 
 $border-color: #E7E7E7;
@@ -5,6 +7,7 @@ $font-color: #C0C0C0;
 $button-color: rgb(4, 110, 93);
 
 .login-container{
+  padding-top: $margin-standard * 3;
   font-family: $font-family;
   width: 100%;
 
