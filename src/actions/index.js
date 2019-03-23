@@ -333,3 +333,21 @@ export const submitEntry = data => {
     });
   };
 };
+
+export const generateEntries = entry => {
+  console.log(entry, 2);
+  return () => {
+    return fetch(`${proxy}/api/entries`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      credentials: 'include',
+      body: JSON.stringify(entry)
+    })
+      .then(res => {
+        if (!res.ok) {
+          throw new Error(res.statusText);
+        }
+      })
+      .catch(err => console.log(err));
+  };
+};
