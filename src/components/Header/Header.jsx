@@ -103,44 +103,46 @@ class Header extends Component {
               </div>
               <h3 className="username">Aloha </h3>
               <h3 className="email">{this.props.email}</h3>
-              <div className="home-container">
+              <div className="settings-links">
+                <div className="home-container">
 
-                <div className="home-icon">
-                  <FontAwesomeIcon id="fa-home" className="link" icon="home" />
+                  <div className="home-icon">
+                    <FontAwesomeIcon id="fa-home" className="link" icon="home" />
+                  </div>
+                  <div className="home-link">
+                    <Link to="/" className="link" onClick={() => this.closeMenu()}>Home</Link>
+                  </div>
                 </div>
-                <div className="home-link">
-                  <Link to="/" className="link" onClick={() => this.closeMenu()}>Home</Link>
+                <div className="settings-icon-container">
+                  <div className="settings-icon">
+                    <FontAwesomeIcon id="fa-settings" className="link" icon="user-cog" />
+                  </div>
+                  <div className="settings-link">
+                    <Link to="/settings" className="link" onClick={() => this.closeMenu()}>Settings</Link>
+                  </div>
                 </div>
-              </div>
-              <div className="settings-container">
-                <div className="settings-icon">
-                  <FontAwesomeIcon id="fa-settings" className="link" icon="user-cog" />
-                </div>
-                <div className="settings-link">
-                  <Link to="/settings" className="link" onClick={() => this.closeMenu()}>Settings</Link>
-                </div>
-              </div>
 
-              {!this.props.email && this.props.isLoggedIn === false
-                ?
-                <div className="login-container">
-                  <div className="login-icon">
-                    <FontAwesomeIcon id="fa-login" className="link" icon="sign-in-alt" />
+                {!this.props.email && this.props.isLoggedIn === false
+                  ?
+                  <div className="login-container">
+                    <div className="login-icon">
+                      <FontAwesomeIcon id="fa-login" className="link" icon="sign-in-alt" />
+                    </div>
+                    <div className="login-link">
+                      <Link to="/login" className="link" onClick={() => this.closeMenu()}>Login</Link>
+                    </div>
                   </div>
-                  <div className="login-link">
-                    <Link to="/login" className="link" onClick={() => this.closeMenu()}>Login</Link>
+                  :
+                  <div className="logout-container">
+                    <div className="logout-icon">
+                      <FontAwesomeIcon id="fa-logout" className="link" icon="sign-out-alt" />
+                    </div>
+                    <div className="logout-link">
+                      <div className="link" onClick={this.handleLogout}>Logout</div>
+                    </div>
                   </div>
-                </div>
-                :
-                <div className="logout-container">
-                  <div className="logout-icon">
-                    <FontAwesomeIcon id="fa-logout" className="link" icon="sign-out-alt" />
-                  </div>
-                  <div className="logout-link">
-                    <div className="link" onClick={this.handleLogout}>Logout</div>
-                  </div>
-                </div>
-              }
+                }
+              </div>
             </Menu>
             : null}
         </div>

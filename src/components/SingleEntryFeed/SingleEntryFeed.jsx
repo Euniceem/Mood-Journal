@@ -21,20 +21,20 @@ library.add(faSadTear, faSadTearRegular);
 const SingleEntryFeed = props => {
   let date = new Date(props.entryData.created_at)
     .toLocaleDateString('en-US', {
-      weekday : 'long',
-      month : 'short',
-      day : 'numeric',
-      year : 'numeric'
+      weekday: 'long',
+      month: 'short',
+      day: 'numeric',
+      year: 'numeric'
     });
   let time = new Date(props.entryData.created_at)
     .toLocaleTimeString('en-US', {
-      hour : 'numeric',
-      minute : 'numeric'
+      hour: 'numeric',
+      minute: 'numeric'
     });
 
   const emotionList = props.entryData.entryEmotions.map((emotion, index) => {
     if (!emotion.custom_emotion && !emotion.default_emotion) {
-      return <></>;
+      return <React.Fragment key={index}></React.Fragment>;
     }
 
     return (
@@ -50,7 +50,7 @@ const SingleEntryFeed = props => {
   const activityList = props.entryData.entryActivities.map(
     (activity, index) => {
       if (!activity.custom_activity && !activity.default_activity) {
-        return <></>;
+        return <React.Fragment key={index}></React.Fragment>;
       }
 
       return (

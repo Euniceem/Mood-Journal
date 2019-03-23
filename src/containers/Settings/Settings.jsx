@@ -130,57 +130,59 @@ class Settings extends Component {
 
   render() {
     return (
-      <div className="settings-container">
+      <>
         <Header />
-        <div className="title-container">
-          <h1 className="settings-title">Settings</h1>
-        </div>
+        <div className="settings-container">
+          <div className="title-container">
+            <h1 className="settings-title">Settings</h1>
+          </div>
 
-        <div className="user-profile-edit-container">
-          <h2 className="user-title">Edit Profile</h2>
-          <form className="user-form">
-            <div className="email-container">
-              <label className="email-label">Email:</label>
-              <input name="email" type="text" className="email-input" placeholder={this.state.email}
-                onKeyUp={this.checkEmailIsValid} value={this.state.email} onChange={this.handleInputChange} />
+          <div className="user-profile-edit-container">
+            <h2 className="user-title">Edit Profile</h2>
+            <form className="user-form">
+              <div className="email-container">
+                <label className="email-label">Email:</label>
+                <input name="email" type="text" className="email-input" placeholder={this.state.email}
+                  onKeyUp={this.checkEmailIsValid} value={this.state.email} onChange={this.handleInputChange} />
+              </div>
+
+              <div className="old-password-container">
+                <label className="password-label">Current Password: </label>
+                <input name="password" type="password" className="password-input"
+                  value={this.state.password} onChange={this.handleInputChange} />
+              </div>
+
+              <div className="new-password-container">
+                <label className="new-password-label">New Password</label>
+                <input name="newPassword" type="password" className="new-password-input"
+                  value={this.state.newPassword} onChange={this.handleInputChange} onKeyUp={this.checkPasswordIsValid} />
+                {this.state.emailErr || this.state.passwordErr ?
+                  <div className="err-msg">Error, please try again</div>
+                  : null}
+
+                {this.state.isEmailValid && this.state.isPasswordValid ?
+                  <button className="edit-user-disabled-btn" disabled>EDIT</button>
+                  :
+                  <button className="edit-user-btn" onClick={this.handleProfileSubmitChange}>EDIT</button>
+                }
+              </div>
+            </form>
+          </div>
+
+          <div className="edit-homepage">
+            <h2 className="homepage-title">Change Homepage view</h2>
+            <div className="homepage-btn-container">
+              <button className="data-btn" onClick={this.handleHomePageSubmitChange}>Data</button>
+              <button className="feed-btn" onClick={this.handleHomePageSubmitChange}>Feed</button>
+              <button className="calendar-btn" onClick={this.handleHomePageSubmitChange}>Calendar</button>
             </div>
+          </div>
 
-            <div className="old-password-container">
-              <label className="password-label">Current Password: </label>
-              <input name="password" type="password" className="password-input"
-                value={this.state.password} onChange={this.handleInputChange} />
-            </div>
-
-            <div className="new-password-container">
-              <label className="new-password-label">New Password</label>
-              <input name="newPassword" type="password" className="new-password-input"
-                value={this.state.newPassword} onChange={this.handleInputChange} onKeyUp={this.checkPasswordIsValid} />
-              {this.state.emailErr || this.state.passwordErr ?
-                <div className="err-msg">Error, please try again</div>
-                : null}
-
-              {this.state.isEmailValid && this.state.isPasswordValid ?
-                <button className="edit-user-disabled-btn" disabled>EDIT</button>
-                :
-                <button className="edit-user-btn" onClick={this.handleProfileSubmitChange}>EDIT</button>
-              }
-            </div>
-          </form>
-        </div>
-
-        <div className="edit-homepage">
-          <h2 className="homepage-title">Change Homepage view</h2>
-          <div className="homepage-btn-container">
-            <button className="data-btn" onClick={this.handleHomePageSubmitChange}>Data</button>
-            <button className="feed-btn" onClick={this.handleHomePageSubmitChange}>Feed</button>
-            <button className="calendar-btn" onClick={this.handleHomePageSubmitChange}>Calendar</button>
+          <div className="done-btn-container">
+            <button className="done-btn" onClick={this.handleDoneSubmit}>Done</button>
           </div>
         </div>
-
-        <div className="done-btn-container">
-          <button className="done-btn" onClick={this.handleDoneSubmit}>Done</button>
-        </div>
-      </div>
+      </>
     )
   }
 }

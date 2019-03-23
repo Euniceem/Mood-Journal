@@ -1,4 +1,14 @@
-import { LOAD_ENTRIES, LOAD_ENTRY, LOGIN_USER, LOGOUT_USER, EDIT_EMAIL, EDIT_HOMEPAGE, LOAD_EMOTIONS, LOAD_ACTIVITIES, FETCHED_DATA } from '../actions';
+import {
+  LOAD_ENTRIES,
+  LOAD_ENTRY,
+  LOGIN_USER,
+  LOGOUT_USER,
+  EDIT_EMAIL,
+  EDIT_HOMEPAGE,
+  LOAD_EMOTIONS,
+  LOAD_ACTIVITIES,
+  FETCHED_DATA
+} from '../actions';
 
 const initialState = {
   entries: [],
@@ -18,7 +28,7 @@ const initialState = {
       allDays: []
     },
     activityData: {
-      avgDay: {},
+      avgDay: [],
       avgWeek: [],
       allDays: []
     }
@@ -45,7 +55,9 @@ const moodJournalReducer = (state = initialState, action) => {
     case LOAD_ENTRY:
       return Object.assign({}, state, { entry: action.payload });
     case EDIT_HOMEPAGE:
-      return Object.assign({}, state, { setHomePage: action.payload.result.homepage });
+      return Object.assign({}, state, {
+        setHomePage: action.payload.result.homepage
+      });
     case FETCHED_DATA:
       return Object.assign({}, state, { data: action.payload });
     default:
