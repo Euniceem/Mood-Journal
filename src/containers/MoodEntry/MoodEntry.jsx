@@ -177,9 +177,6 @@ class MoodEntry extends Component {
     const name = e.target.dataset.name;
     const mood_id = e.target.dataset.mood_id;
 
-    console.log(e.target);
-    console.log(name, mood_id);
-
     this.setState({
       selectedMood: name || 'Pick a mood!',
       moodId: mood_id || 'Invalid id'

@@ -1,9 +1,6 @@
 @import '../../../sass/config';
 
-$border-color: #E7E7E7;
-$background-color: rgb(14, 142, 121);
-$weekend-color: #B96E41;
-$primary-color: #3E3C3B;
+$calendar-font-color: #6C6C6C;
 
 .calender-container{
   width: 100%;
@@ -11,20 +8,17 @@ $primary-color: #3E3C3B;
   padding-top: $margin-standard * 2.5;
   padding-bottom:50px;
 
-.title{
-  text-align: center;
-  margin-top: 0;
-}
-
 .react-calendar {
   margin: auto;
-  border: 0.019px solid $border-color;
-  color: $primary-color;
+  border: 0.019px solid $calendar-border-color;
+  color: $calendar-primary-color;
   margin-bottom: 15px;
+  margin-top: 20px;
 
   .react-calendar__navigation {
-    background-color: $background-color;
+    background-color: $calendar-color;
     height: 50px;
+    border-bottom: 1px solid $calendar-border-color;
 
     button{
       font-size: 18px;
@@ -50,14 +44,15 @@ $primary-color: #3E3C3B;
       text-transform: uppercase;
       font-weight: bold;
       font-size: 0.75em;
+      color: $calendar-font-color;
 
       abbr{
         text-decoration: none !important;
       }
     }
-
+ 
     .react-calendar__month-view__days{
-      border: 0.019px solid $border-color;
+      border: 0.019px solid $calendar-border-color;
 
       abbr{
         position: relative;
@@ -65,49 +60,51 @@ $primary-color: #3E3C3B;
         left:2.5px;
         font-size: 12px;
         line-height: 30px;
-        
+        color: $calendar-font-color;
       }
     }
 
     .react-calendar__month-view__days__day--weekend {
-      color: $weekend-color;
+      abbr{
+        color: $weekend-color;
+      }
   }
 
     .react-calendar__tile{
       padding: 1em 0.30em;
-      border: 0.019px solid $border-color;
+      border: 0.019px solid $calendar-border-color;
       text-align: left;
       background-color: white;
 
     }
 
     .react-calendar__tile--active {
-      color: white;
-      background: $background-color;
-
-      // abbr {
-      //   border-radius: 49%; 
-      //   // width: 20px;
-      //   padding: 5px;
-      //   background: $background-color;
-      //   // border: 2px solid $background-color;
-      // }
+      color: white !important;
+      background: $calendar-color;
   }
 
     .react-calendar__month-view__days__day--neighboringMonth {
-      color: #A4A4A4;
-  }
+      abbr{
+        color: #A4A4A4 !important;
+      }
+    }
   }
 }
 
 .calendar-day-entry-container{
-  border: 1px solid $background-color;
-  width: 90%;
-  // height: 100px;
+  background-color: $calendar-color;
+  border: 1px solid $calendar-border-color;
+  width: 93%;
   margin: auto;
+  font-family: $font-family;
+  border-top-left-radius: 8px;
+  border-top-right-radius: 8px;
 
   .calendar-day-entry-date-title{
     text-align: center;
+    font-size: 18px;
+    padding: 5px;
+    color: white;
   }
 }
 }
