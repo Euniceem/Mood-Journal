@@ -235,7 +235,7 @@ class MoodEntry extends Component {
       if (!emotion.is_custom) {
         defaultEmotions.push({
           name: emotion.name,
-          custom_emotion_id: emotion.id,
+          default_emotion_id: emotion.id,
           percent: this.state.sliders[emotion.name] || "0"
         });
       }
@@ -249,7 +249,6 @@ class MoodEntry extends Component {
       default_activities: defaultActivities,
       notes: this.state.notes
     };
-
     this.props.onSubmit(submitData);
     this.props.history.push('/');
   }

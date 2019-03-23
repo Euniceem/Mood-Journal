@@ -110,6 +110,8 @@ export const loadEntries = () => {
         return response.json();
       })
       .then(entries => {
+        console.log(entries)
+
         return dispatch({
           type: LOAD_ENTRIES,
           payload: entries

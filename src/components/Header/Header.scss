@@ -9,7 +9,7 @@ background-color: $background-color-3;
 color: white;
 font-family: $font-family;
 overflow: hidden;
-position: fixed;
+position: relative;
 
   .menu-icon{
     margin-left: $margin-standard / 2;
@@ -29,7 +29,7 @@ position: fixed;
   
   .bm-item-list{
     background-color: whitesmoke;
-    position: fixed;
+    position: fixed ;
     top: 0;
     left: 0;
     width: 80%;

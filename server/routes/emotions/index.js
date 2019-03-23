@@ -85,8 +85,6 @@ router.post('/emotions', isAuthenticated, (req, res) => {
   const user_id = req.user.id;
   const { name } = req.body;
 
-  console.log(req.body);
-
   const newEmotion = {
     user_id,
     name,
