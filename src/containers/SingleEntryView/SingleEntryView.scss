@@ -1,5 +1,38 @@
 @import '../../../sass/config';
 
+$primary-font: 'Open Sans';
+$font-type: monospace;
+$title-font: 'Lora', serif;
+$font-family: 'Montserrat', sans-serif;
+
+//mood colors
+$amazing: #FFCB96;
+$good: #ECE99A;
+$ok: #A7E880;
+$bad: #93D3D6;
+$awful: #B893D6;
+
+//Border colors
+$dark-orange: #FFAD5B;
+$dark-yellow:#DFDF37;
+$dark-green: #18B022;
+$dark-blue: #188CB0;
+$dark-purple: #9038CA;
+
+$main-color: #D2F3FF;
+$pastel-selected: #FFE8D0;
+$font-color: rgb(70, 117, 144);
+
+$nav-border-color:#676C6F;
+$nav-link-color:#2E3133;
+
+//calendar colors
+$calendar-border-color: #E7E7E7;
+$calendar-font-color:#333336;
+$calendar-color: #B2DAE7;
+$weekend-color: #2976A4;
+$calendar-primary-color: #3E3C3B;
+
 .single-entry-view-main-container {
   padding-top: $margin-standard * 3;
   font-family: $font-family;
@@ -17,6 +50,111 @@
       font-family: $font-family;
       font-size: 1.4rem;
       color: $font-color;
+    }
+  }
+
+  .single-entry-view-second-container{
+    padding: 5px;
+
+
+    .single-entry-view-mood-container{
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+
+      .single-entry-view-mood{
+        display: none;
+      }
+    }
+
+    .single-entry-view-activity-container{
+      border: 1px solid $nav-border-color;
+      display: flex;
+      flex-direction: column;
+      border-radius: 8px;
+      margin-top: $margin-standard /2;
+
+      .activity-title{
+        background-color: $calendar-color;
+        .title{
+          font-size: 20px;
+          margin-left: 5px;
+          padding-bottom: 5px;
+          padding-top: 5px;
+        }
+      }
+
+      .activity-list{
+        display: flex;
+        justify-content: space-around;
+        padding-top: 10px;
+        padding-bottom: 10px;
+      }
+    }
+
+    .single-entry-view-emotion-container{
+      border: 1px solid $nav-border-color;
+      display: flex;
+      flex-direction: column;
+      border-radius: 8px;
+      margin-top: $margin-standard /2;
+
+      .emotion-title{
+        background-color: $calendar-color;
+
+        .title{
+          font-size: 20px;
+          margin-left: 5px;
+          padding-bottom: 5px;
+          padding-top: 5px;
+        }
+      }
+      .emotion-list{
+        display: flex;
+        flex-direction: column;
+        padding-top: 10px;
+        padding-bottom: 5px;
+        
+        .single-entry-view-emotion{
+          display: flex;
+
+          .emotion-name {
+            width: 48%;
+            margin-left: 2%;
+          }
+
+          .emotion-percent {
+            width: 50%;
+          }
+        }
+      }
+    }
+  }
+
+  .single-entry-view-notes{
+    border: 1px solid $nav-border-color;
+    display: flex;
+    flex-direction: column;
+    border-radius: 8px;
+    margin-top: $margin-standard /2;
+    margin-left: 5px; 
+    margin-right: 5px;
+
+    .notes-title{
+      background-color: $calendar-color;
+
+        .title{
+          font-size: 20px;
+          margin-left: 5px;
+          padding-bottom: 5px;
+          padding-top: 5px;
+        }
+    }
+
+    .notes{
+      padding-bottom: 5px;
+      padding-top: 10px;
+      margin-left: 5px;
     }
   }
 }
