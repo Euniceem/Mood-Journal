@@ -36,6 +36,14 @@ if (!SESSION_SECRET) {
 
 const app = express();
 
+app.use((req, res, next) => {
+  res.header({
+    'Access-Allow-Content-Header': '*',
+    'Access-Allow-Content-Method': '*',
+    'Access-Allow-Content-Origin': '*'
+  });
+  next();
+});
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 
@@ -108,15 +116,6 @@ passport.use(
     }
   )
 );
-
-app.use((req, res, next) => {
-  res.header({
-    'Access-Allow-Content-Header': '*',
-    'Access-Allow-Content-Method': '*',
-    'Access-Allow-Content-Origin': '*'
-  });
-  next();
-});
 
 app.use(
   '/api',
