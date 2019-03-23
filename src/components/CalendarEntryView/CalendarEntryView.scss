@@ -1,9 +1,12 @@
+@import '../../../sass/config';
 
 .calendar-day-single-entry-container{
-  border: 1px solid black;
+  border: 1px solid $calendar-border-color;
+  background-color: white;
+  padding: 8px;
 
   .day-entry-time-title{
-    margin-left: 2em;
+    margin-left: 1em;
   }
 
   .calendar-day-single-entry-second-container{
@@ -14,7 +17,43 @@
     .calendar-day-single-entry-left-container{
       width: 50%;
       margin-left: 2em;
-      margin-top: 1em;
+      margin-top: 0.5em;
+
+      .cal-awful{
+        color: $awful;
+        .calendar-emotion{
+          font-size: 40px; 
+        
+        }
+      }
+
+      .cal-bad{
+        color: $bad;
+        .calendar-emotion{
+          font-size: 40px; 
+        }
+      }
+
+      .cal-average{
+        color: $ok;
+        .calendar-emotion{
+          font-size: 40px; 
+        }
+      }
+
+      .cal-good{
+        color: $good;
+        .calendar-emotion{
+          font-size: 40px; 
+        }
+      }
+
+      .cal-amazing{
+        color: $amazing;
+        .calendar-emotion{
+          font-size: 40px; 
+        }
+      }
     }
 
     .calendar-day-single-entry-right-container{
@@ -28,5 +67,5 @@
 
 .calendar-day-single-entry-link{
   text-decoration: none;
-  color: black;
+  color: $font-color;
 }
