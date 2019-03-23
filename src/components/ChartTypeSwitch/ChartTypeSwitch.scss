@@ -6,9 +6,8 @@
   .mood-or-emotions-switch {
     display: flex;
     justify-content: space-evenly;
+    border: 1px solid $calendar-border-color;
     margin-bottom: 20px;
-    // border: 1px solid $font-color;
-    border-radius: 2px;
     width: 100%;
 
     .btn {
@@ -20,13 +19,15 @@
       background: transparent;
       border: none;
       width: 100%;
-      margin-left: 0; margin-right: 0;
+      margin-left: 0;
+      margin-right: 0;
     }
 
     .selected {
       font-size: 18px;
-      background-color: $pastel-selected;
-      color: $font-color;
+      background-color: $calendar-color;
+      color: white;
+      box-shadow: $component-light-shadow $shadow-color-header;
     }
   }
 }

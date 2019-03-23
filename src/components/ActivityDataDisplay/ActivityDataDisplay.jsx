@@ -15,19 +15,19 @@ const ActivityDataDisplay = props => {
   const { time, activity_data } = props;
   const arrayData = [];
   const colors = [
-    '#1a1334',
-    '#26294a',
-    '#01545a',
-    '#017351',
-    '#03c383',
-    '#aad962',
-    '#fbbf45',
-    '#ef6a32',
-    '#ed0345',
-    '#a12a5e',
-    '#710162',
-    '#110141'
-  ];
+    '#d53e4f',
+    '#f46d43',
+    '#fdae61',
+    '#fee08b',
+    '#ffffbf',
+    '#e6f598',
+    '#abdda4',
+    '#88ddaa',
+    '#66c2a5',
+    '#37b69b',
+    '#3288bd',
+    '#71acbc'
+  ].reverse();
 
   if (time === 'avgWeek' || time === 'avgDay') {
     const activityNames = [];

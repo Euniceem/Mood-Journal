@@ -15,10 +15,10 @@ class Data extends Component {
 
     this.state = {
       chart_type: 'mood',
-      time: '1',
-      mood_chart_data: this.props.data.moodData.avgDay,
-      emotion_chart_data: this.props.data.emotionData.avgDay,
-      activity_data: this.props.data.activityData.avgDay
+      time: 'avgDay',
+      mood_chart_data: [],
+      emotion_chart_data: [],
+      activity_data: []
     };
 
     this.handleOptionsOnClick = this.handleOptionsOnClick.bind(this);
@@ -27,6 +27,16 @@ class Data extends Component {
 
   componentDidMount() {
     this.props.fetchData();
+  }
+
+  componentDidUpdate(prevProps) {
+    if (this.props !== prevProps) {
+      this.setState({
+        mood_chart_data: this.props.data.moodData.avgDay,
+        emotion_chart_data: this.props.data.emotionData.avgDay,
+        activity_data: this.props.data.activityData.avgDay
+      });
+    }
   }
 
   handleOptionsOnClick(e) {

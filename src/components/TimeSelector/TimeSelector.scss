@@ -1,40 +1,52 @@
 @import '../../../sass/config';
 
 .data-container {
+  background-color: $background-off-white;
   .average-trends {
     display: flex;
     flex-flow: row nowrap;
     align-items: center;
-    border-top: 1px solid green;
-    border-bottom: 1px solid green;
+    border-top: 1px solid $calendar-border-color;
+    border-bottom: 1px solid $calendar-border-color;
   }
 
   .past-trends {
     display: flex;
     flex-flow: row nowrap;
     align-items: center;
-    border-top: 1px solid green;
-    border-bottom: 1px solid green;
+    border-bottom: 1px solid $calendar-border-color;
   }
 
   .title {
     width: 20%;
     margin: 0;
     padding: 5px;
-    font-size: 16px;
-    background-color: $background-color-3;
-    color: white;
+    font-size: 14px;
+    color: $weekend-color;
   }
 
   .btn {
     padding: 3px;
     margin: 1.5px;
     font-size: 14px;
+    color: $weekend-color;
   }
 
-  .selected {
-    background-color: orange;
-    color: white;
-    font-size: 16px;
+  .selected.average-trends {
+    background-color: $calendar-color;
+
+    .selected {
+      color: white;
+      font-size: 16px;
+    }
+  }
+
+  .selected.past-trends {
+    background-color: $calendar-color;
+
+    .selected {
+      color: white;
+      font-size: 16px;
+    }
   }
 }
