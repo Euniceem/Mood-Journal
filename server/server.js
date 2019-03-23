@@ -36,15 +36,6 @@ if (!SESSION_SECRET) {
 
 const app = express();
 
-app.use((req, res, next) => {
-  res.header({
-    'Access-Allow-Content-Header': '*',
-    'Access-Allow-Content-Method': '*',
-    'Access-Allow-Content-Origin': '*'
-  });
-  next();
-});
-
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 
@@ -56,7 +47,11 @@ app.use(
     }),
     secret: SESSION_SECRET,
     resave: false,
-    saveUninitialized: false
+    saveUninitialized: false,
+    cookie: {
+      domain: '.moodcatcher.com',
+      maxAge: 1000 * 60 * 24
+    }
   })
 );
 
@@ -113,6 +108,15 @@ passport.use(
     }
   )
 );
+
+app.use((req, res, next) => {
+  res.header({
+    'Access-Allow-Content-Header': '*',
+    'Access-Allow-Content-Method': '*',
+    'Access-Allow-Content-Origin': '*'
+  });
+  next();
+});
 
 app.use(
   '/api',

@@ -24,6 +24,7 @@ export const register = email => {
       headers: {
         'Content-Type': 'application/json'
       },
+      credentials: 'include',
       body: JSON.stringify(email)
     })
       .then(response => {
@@ -51,6 +52,7 @@ export const login = email => {
       headers: {
         'Content-Type': 'application/json'
       },
+      credentials: 'include',
       body: JSON.stringify(email)
     })
       .then(response => {
@@ -79,7 +81,8 @@ export const logout = () => {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json'
-      }
+      },
+      credentials: 'include'
     })
       .then(response => {
         if (!response.ok) {
@@ -104,7 +107,9 @@ export const logout = () => {
 
 export const loadEntries = () => {
   return dispatch => {
-    return fetch(`${proxy}/api/entries/`, {})
+    return fetch(`${proxy}/api/entries/`, {
+      credentials: 'include'
+    })
       .then(response => {
         if (!response.ok) {
           throw Error(response.statusText);
@@ -125,7 +130,7 @@ export const loadEntries = () => {
 
 export const loadEntry = id => {
   return dispatch => {
-    return fetch(`${proxy}/api/entries/${id}`, {})
+    return fetch(`${proxy}/api/entries/${id}`, { credentials: 'include' })
       .then(response => {
         if (!response.ok) {
           throw Error(response.statusText);
@@ -146,7 +151,7 @@ export const loadEntry = id => {
 
 export const loadEmotions = () => {
   return dispatch => {
-    return fetch(`${proxy}/api/emotions`)
+    return fetch(`${proxy}/api/emotions`, { credentials: 'include' })
       .then(response => {
         if (!response.ok) {
           throw Error(response.statusText);
@@ -164,7 +169,7 @@ export const loadEmotions = () => {
 
 export const fetchData = () => {
   return dispatch => {
-    return fetch(`${proxy}/api/data`)
+    return fetch(`${proxy}/api/data`, { credentials: 'include' })
       .then(response => {
         if (!response.ok) {
           throw Error(response.statusText);
@@ -190,6 +195,7 @@ export const editEmail = editedEmail => {
       headers: {
         'Content-Type': 'application/json'
       },
+      credentials: 'include',
       body: JSON.stringify(editedEmail)
     })
       .then(response => {
@@ -214,6 +220,7 @@ export const editPassword = (oldPassword, editedPassword) => {
       headers: {
         'Content-Type': 'application/json'
       },
+      credentials: 'include',
       body: JSON.stringify({
         oldPassword: oldPassword.password,
         newPassword: editedPassword.password
@@ -241,6 +248,7 @@ export const editHomepage = page => {
       headers: {
         'Content-Type': 'application/json'
       },
+      credentials: 'include',
       body: JSON.stringify({ homepage: page })
     })
       .then(response => {
@@ -262,7 +270,7 @@ export const editHomepage = page => {
 
 export const loadActivities = () => {
   return dispatch => {
-    fetch(`${proxy}/api/activities`)
+    fetch(`${proxy}/api/activities`, { credentials: 'include' })
       .then(response => {
         if (!response.ok) {
           throw Error(response.statusText);
@@ -285,7 +293,8 @@ export const addPreset = (presetObj, route) => {
       body: JSON.stringify(presetObj),
       headers: {
         'Content-Type': 'application/json'
-      }
+      },
+      credentials: 'include'
     })
       .then(response => {
         if (!response.ok) {
@@ -310,7 +319,8 @@ export const submitEntry = data => {
       body: JSON.stringify(data),
       headers: {
         'Content-Type': 'application/json'
-      }
+      },
+      credentials: 'include'
     }).then(response => {
       if (!response.ok) {
         throw Error(response.statusText);
