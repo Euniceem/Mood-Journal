@@ -5,7 +5,8 @@ $font-color: #C0C0C0;
 $button-color: rgb(4, 110, 93);
 
 .register-container {
-font-family: $font-family;
+  padding-top: $margin-standard * 3;
+  font-family: $font-family;
 
   .register-title{
     text-align: center;

@@ -1,23 +1,27 @@
-$font-family: 'Montserrat', sans-serif;
-$title-color: #D6C7B1; 
-$border-color: #E7E7E7;
-$font-color: #C0C0C0;
-$button-color: rgb(4, 110, 93);
+@import '../../../sass/config';
 
+$border-color: #E7E7E7;
+g
 .settings-container{
   font-family: $font-family;
-  width: 100%;
+  width: 100%; 
+  min-height: 100%;
+  padding-top: $margin-standard * 2.5;
+  padding-bottom:50px;
+  color: $font-color;
 
   .title-container{
     text-align: center;
-    color: $title-color;
     border-bottom: 1px solid $border-color;
     width: 95%;
     margin: auto; 
-    font-size: 25px;
+    font-size: 30px;
+    font-family: $title-font;
 
     h1{
     margin-top: 10px; 
+    color: $font-color;
+    margin-bottom: 10px;
       
     }
   }
@@ -29,7 +33,6 @@ $button-color: rgb(4, 110, 93);
 
     .user-title{
       margin-left: 10px;
-      color: $title-color;
       margin-bottom: 2em;
       margin-top: 1em;
     }
@@ -43,27 +46,27 @@ $button-color: rgb(4, 110, 93);
       .email-input, .password-input, .new-password-input {
       font-size: 14px;
       width: 95%;
-      border: 1px solid $font-color;
-      margin-bottom: 5px;
+      border: 1px solid $nav-border-color;
+      margin-bottom: 10px;
+      color: $font-color;
       }
 
       .edit-user-btn{
         font-size: 14px;
         margin-right: 2em;
         margin-top: 10px;
-        color: $button-color;
-        border: 1px solid $button-color;
+        color: $font-color;
+        border: 1px solid $font-color;
         background-color: white;
         padding: 5px;
         border-radius: 8px; 
         float: right;
-        // display: flex;
-        // justify-content: flex-end;
+        width: 50px;
       }
 
       .edit-user-btn:active{
-        background-color: $button-color;
-        color: white;
+        background-color: $main-color;
+        color: $font-color;
       }
     }
   }
@@ -76,7 +79,7 @@ $button-color: rgb(4, 110, 93);
 
     .homepage-title{
       margin-left: 10px;
-      color: $title-color;
+      color: $font-color;
       margin-bottom: 2em;
       margin-top: 1em;
     }
@@ -88,8 +91,8 @@ $button-color: rgb(4, 110, 93);
 
       button{
       font-size: 14px;
-      color: $button-color;
-      border: 1px solid $button-color;
+      color: $font-color;
+      border: 1px solid $font-color;
       background-color: white;
       border-radius: 8px; 
       padding: 10px;
@@ -97,13 +100,13 @@ $button-color: rgb(4, 110, 93);
       }
 
       button:active{
-        background-color: $button-color;
-        color: white;
+        background-color: $main-color;
+        color: $font-color;
       }
 
       button:focus{
-        background-color: $button-color;
-        color: white;
+        background-color: $main-color;
+        color: $font-color;
       }
     }
   }
@@ -115,8 +118,8 @@ $button-color: rgb(4, 110, 93);
 
     .done-btn{
       font-size: 16px;
-      color: $button-color;
-      border: 1px solid $button-color;
+      color: $font-color;
+      border: 1px solid $font-color;
       background-color: white;
       padding: 10px;
       border-radius: 8px; 
@@ -125,8 +128,8 @@ $button-color: rgb(4, 110, 93);
     }
 
     .done-btn:active{
-      background-color: $button-color;
-      color: white;
+      background-color: $main-color;
+      color: $font-color;
     }
   }
 
