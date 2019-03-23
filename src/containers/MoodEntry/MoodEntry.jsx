@@ -29,54 +29,51 @@ class MoodEntry extends Component {
       selectedActivities: [],
       unselectedActivities: [],
       notes: ''
-    }
+    };
   }
 
   openEditSliders = () => {
     this.setState({ isEditSlidersOpen: !this.state.isEditSlidersOpen });
-  }
+  };
 
   reloadActivities = () => {
-    this.props.onLoad()
-      .then(() => {
-        const { activities } = this.props;
-        let tempArray = [];
+    this.props.onLoad().then(() => {
+      const { activities } = this.props;
+      let tempArray = [];
 
-        activities.forEach(activity => {
-          let foundMatch = false;
+      activities.forEach(activity => {
+        let foundMatch = false;
 
-          this.state.selectedActivities.forEach(selectedActivity => {
-            if (selectedActivity.name === activity.name) {
-              foundMatch = true;
-            }
-          });
-
-          if (!foundMatch) {
-            tempArray.push(activity);
+        this.state.selectedActivities.forEach(selectedActivity => {
+          if (selectedActivity.name === activity.name) {
+            foundMatch = true;
           }
         });
 
-        this.setState({
-          unselectedActivities: tempArray
-        });
+        if (!foundMatch) {
+          tempArray.push(activity);
+        }
       });
-  }
+
+      this.setState({
+        unselectedActivities: tempArray
+      });
+    });
+  };
 
   openNotesAndActions = () => {
     this.reloadActivities();
     this.setState({ isNotesOpen: !this.state.isNotesOpen });
-  }
+  };
 
-  mapEmotionsToSliders = () => {
-
-  }
+  mapEmotionsToSliders = () => {};
 
   resetStateOnClick = () => {
     this.setState({
       isEditSlidersOpen: false,
       isNotesOpen: false
     });
-  }
+  };
 
   addSlider = e => {
     const { selectedSliders, unselectedSliders } = this.state;
@@ -101,7 +98,7 @@ class MoodEntry extends Component {
 
       return count++;
     });
-  }
+  };
 
   removeSlider = e => {
     const { selectedSliders, unselectedSliders } = this.state;
@@ -125,7 +122,7 @@ class MoodEntry extends Component {
 
       return count++;
     });
-  }
+  };
 
   addActivity = e => {
     const { selectedActivities, unselectedActivities } = this.state;
@@ -150,7 +147,7 @@ class MoodEntry extends Component {
 
       return count++;
     });
-  }
+  };
 
   removeActivity = e => {
     const { selectedActivities, unselectedActivities } = this.state;
@@ -174,7 +171,7 @@ class MoodEntry extends Component {
       }
       return count++;
     });
-  }
+  };
 
   handleSelectMood = e => {
     const name = e.target.dataset.name;
@@ -186,7 +183,7 @@ class MoodEntry extends Component {
     this.setState({
       selectedMood: name || 'Pick a mood!',
       moodId: mood_id || 'Invalid id'
-    }, console.log(this.state.selectedMood, this.state.moodId));
+    });
   }
 
   handleSliderData = e => {
@@ -199,7 +196,7 @@ class MoodEntry extends Component {
     newSliders[field] = value;
 
     this.setState({ sliders: newSliders });
-  }
+  };
 
   handleNotes = e => {
     const value = e.target.value;
@@ -207,7 +204,7 @@ class MoodEntry extends Component {
     this.setState({
       notes: value
     });
-  }
+  };
 
   handleSubmit = e => {
     const { selectedActivities, selectedSliders } = this.state;
@@ -231,15 +228,15 @@ class MoodEntry extends Component {
         customEmotions.push({
           name: emotion.name,
           custom_emotion_id: emotion.id,
-          percent: this.state.sliders[emotion.name] || "0"
+          percent: this.state.sliders[emotion.name] || '0'
         });
       }
 
       if (!emotion.is_custom) {
         defaultEmotions.push({
           name: emotion.name,
-          custom_emotion_id: emotion.id,
-          percent: this.state.sliders[emotion.name] || "0"
+          default_emotion_id: emotion.id,
+          percent: this.state.sliders[emotion.name] || '0'
         });
       }
     });
@@ -255,28 +252,31 @@ class MoodEntry extends Component {
 
     this.props.onSubmit(submitData);
     this.props.history.push('/');
-  }
+  };
 
   sortEmotions = () => {
-    return this.props.onLoad()
-      .then(() => {
-        const { emotions } = this.props;
+    return this.props.onLoad().then(() => {
+      const { emotions } = this.props;
 
-        this.setState({
-          unselectedSliders: [],
-          selectedSliders: []
-        });
-
-        emotions.forEach(emotion => {
-          if (emotion.is_custom) {
-            this.setState({ unselectedSliders: [...this.state.unselectedSliders, emotion] });
-          }
-          if (!emotion.is_custom) {
-            this.setState({ selectedSliders: [...this.state.selectedSliders, emotion] });
-          }
-        });
+      this.setState({
+        unselectedSliders: [],
+        selectedSliders: []
       });
-  }
+
+      emotions.forEach(emotion => {
+        if (emotion.is_custom) {
+          this.setState({
+            unselectedSliders: [...this.state.unselectedSliders, emotion]
+          });
+        }
+        if (!emotion.is_custom) {
+          this.setState({
+            selectedSliders: [...this.state.selectedSliders, emotion]
+          });
+        }
+      });
+    });
+  };
 
   // doesn't load in time for componentDidMount. i need a safe alternative.
   componentDidMount() {
@@ -286,19 +286,22 @@ class MoodEntry extends Component {
       isNotesOpen: false
     });
 
-    this.props.onLoad()
-      .then(() => {
-        const { emotions } = this.props;
+    this.props.onLoad().then(() => {
+      const { emotions } = this.props;
 
-        emotions.forEach(emotion => {
-          if (emotion.is_custom) {
-            this.setState({ unselectedSliders: [...this.state.unselectedSliders, emotion] });
-          }
-          if (!emotion.is_custom) {
-            this.setState({ selectedSliders: [...this.state.selectedSliders, emotion] });
-          }
-        });
+      emotions.forEach(emotion => {
+        if (emotion.is_custom) {
+          this.setState({
+            unselectedSliders: [...this.state.unselectedSliders, emotion]
+          });
+        }
+        if (!emotion.is_custom) {
+          this.setState({
+            selectedSliders: [...this.state.selectedSliders, emotion]
+          });
+        }
       });
+    });
   }
 
   render() {
@@ -306,37 +309,100 @@ class MoodEntry extends Component {
       <>
         <Header resetStateOnClick={this.resetStateOnClick} />
 
-        {this.state.isEditSlidersOpen ?
-          <EditSliders selected={this.state.selectedSliders} unselected={this.state.unselectedSliders} addSliderHandler={this.addSlider} removeSliderHandler={this.removeSlider} sortEmotions={this.sortEmotions} openEditSliders={this.openEditSliders} isEditSlidersOpen={this.state.isEditSlidersOpen} />
-          : this.state.isNotesOpen ?
-            <NotesActions selectedMood={this.state.selectedMood} selected={this.state.selectedActivities} unselected={this.state.unselectedActivities} reloadActivities={this.reloadActivities} openNotesAndActions={this.openNotesAndActions} isNotesOpen={this.state.isNotesOpen} addActivityHandler={this.addActivity} removeActivityHandler={this.removeActivity} handleNotes={this.handleNotes} selectedActivites={this.state.selectedActivities} notes={this.state.notes} handleSubmit={this.handleSubmit} />
-            :
-            <div className="component-mood-entry">
-              <div className="select-emotion">
-                <ul className="list-emotion">
-                  <ListEmotion handleSelectMood={this.handleSelectMood} selectedMood={this.state.selectedMood} mood="Amazing" mood_id="1" />
-                  <ListEmotion handleSelectMood={this.handleSelectMood} selectedMood={this.state.selectedMood} mood="Good" mood_id="2" />
-                  <ListEmotion handleSelectMood={this.handleSelectMood} selectedMood={this.state.selectedMood} mood="OK" mood_id="3" />
-                  <ListEmotion handleSelectMood={this.handleSelectMood} selectedMood={this.state.selectedMood} mood="Bad" mood_id="4" />
-                  <ListEmotion handleSelectMood={this.handleSelectMood} selectedMood={this.state.selectedMood} mood="Awful" mood_id="5" />
-                </ul>
-              </div>
+        {this.state.isEditSlidersOpen ? (
+          <EditSliders
+            selected={this.state.selectedSliders}
+            unselected={this.state.unselectedSliders}
+            addSliderHandler={this.addSlider}
+            removeSliderHandler={this.removeSlider}
+            sortEmotions={this.sortEmotions}
+            openEditSliders={this.openEditSliders}
+            isEditSlidersOpen={this.state.isEditSlidersOpen}
+          />
+        ) : this.state.isNotesOpen ? (
+          <NotesActions
+            selectedMood={this.state.selectedMood}
+            selected={this.state.selectedActivities}
+            unselected={this.state.unselectedActivities}
+            reloadActivities={this.reloadActivities}
+            openNotesAndActions={this.openNotesAndActions}
+            isNotesOpen={this.state.isNotesOpen}
+            addActivityHandler={this.addActivity}
+            removeActivityHandler={this.removeActivity}
+            handleNotes={this.handleNotes}
+            selectedActivites={this.state.selectedActivities}
+            notes={this.state.notes}
+            handleSubmit={this.handleSubmit}
+          />
+        ) : (
+          <div className="component-mood-entry">
+            <div className="select-emotion">
+              <ul className="list-emotion">
+                <ListEmotion
+                  handleSelectMood={this.handleSelectMood}
+                  selectedMood={this.state.selectedMood}
+                  mood="Amazing"
+                  mood_id="1"
+                />
+                <ListEmotion
+                  handleSelectMood={this.handleSelectMood}
+                  selectedMood={this.state.selectedMood}
+                  mood="Good"
+                  mood_id="2"
+                />
+                <ListEmotion
+                  handleSelectMood={this.handleSelectMood}
+                  selectedMood={this.state.selectedMood}
+                  mood="OK"
+                  mood_id="3"
+                />
+                <ListEmotion
+                  handleSelectMood={this.handleSelectMood}
+                  selectedMood={this.state.selectedMood}
+                  mood="Bad"
+                  mood_id="4"
+                />
+                <ListEmotion
+                  handleSelectMood={this.handleSelectMood}
+                  selectedMood={this.state.selectedMood}
+                  mood="Awful"
+                  mood_id="5"
+                />
+              </ul>
+            </div>
 
-              <SliderList emotions={this.state.selectedSliders} handleSliderData={this.handleSliderData} sliderValues={this.state.sliders} openEditSliders={this.openEditSliders} />
+            <SliderList
+              emotions={this.state.selectedSliders}
+              handleSliderData={this.handleSliderData}
+              sliderValues={this.state.sliders}
+              openEditSliders={this.openEditSliders}
+            />
 
-              <div className="buttons">
-                <div className="buttons-wrap">
-                  <div className="add-more">
-                    <button onClick={this.openNotesAndActions}>+ Notes/Actions</button>
-                  </div>
+            <div className="buttons">
+              <div className="buttons-wrap">
+                <div className="add-more">
+                  <button onClick={this.openNotesAndActions}>
+                    + Notes/Actions
+                  </button>
+                </div>
 
-                  <div className="submit-wrap">
-                    <button onClick={this.handleSubmit} disabled={this.state.selectedMood === 'Pick a mood!'} className={this.state.selectedMood === 'Pick a mood!' ? "disabled" : ""}>Submit Entry</button>
-                  </div>
+                <div className="submit-wrap">
+                  <button
+                    onClick={this.handleSubmit}
+                    disabled={this.state.selectedMood === 'Pick a mood!'}
+                    className={
+                      this.state.selectedMood === 'Pick a mood!'
+                        ? 'disabled'
+                        : ''
+                    }
+                  >
+                    Submit Entry
+                  </button>
                 </div>
               </div>
             </div>
-        }
+          </div>
+        )}
       </>
     );
   }
@@ -347,7 +413,7 @@ const mapStateToProps = state => {
     emotions: state.emotions,
     activities: state.activities
   };
-}
+};
 
 const mapDispatchToProps = dispatch => {
   return {
@@ -355,11 +421,11 @@ const mapDispatchToProps = dispatch => {
       dispatch(loadActivities());
       return dispatch(loadEmotions());
     },
-    onSubmit: (data) => {
+    onSubmit: data => {
       return dispatch(submitEntry(data));
     }
   };
-}
+};
 
 MoodEntry = connect(
   mapStateToProps,
