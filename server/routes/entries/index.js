@@ -114,11 +114,10 @@ router.post('/entries', isAuthenticated, (req, res) => {
     default_activities,
     custom_activities,
     default_emotions,
-    custom_emotions,
-    created_at
+    custom_emotions
   } = req.body;
 
-  const entry = { user_id, mood_id, notes, created_at };
+  const entry = { user_id, mood_id, notes };
 
   Entry.forge(entry)
     .save(null, { method: 'insert' })

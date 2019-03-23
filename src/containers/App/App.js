@@ -17,7 +17,6 @@ import Settings from '../../containers/Settings';
 import Register from '../../components/Register';
 import Login from '../../components/Login';
 import SingleEntryView from '../../containers/SingleEntryView';
-import Gen from '../Gen';
 
 const PrivateRoute = ({ component: Component, isAuth, ...rest }) => {
   return (
@@ -52,8 +51,6 @@ class App extends Component {
     let isAuthenticated = this.props.email ? this.props.isLoggedIn : null;
     return (
       <div className="App">
-        <Gen />
-        <div>updated</div>
         <Router>
           <>
             <Switch>
