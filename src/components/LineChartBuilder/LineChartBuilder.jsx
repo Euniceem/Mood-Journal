@@ -29,9 +29,9 @@ const LineChartBuilder = props => {
         <Area
           type="monotone"
           dataKey="mood"
-          stroke="#aad962"
-          strokeWidth="2"
-          fill="#aad962"
+          stroke="#2976A4"
+          strokeWidth="1"
+          fill="#B2DAE7"
         />
         <Tooltip />
       </AreaChart>
@@ -52,21 +52,21 @@ const LineChartBuilder = props => {
       <Line
         type="monotone"
         dataKey="happiness"
-        stroke="#aad962"
+        stroke="#93D3D6"
         strokeWidth="1.5"
         dot={false}
       />
       <Line
         type="monotone"
         dataKey="energy"
-        stroke="#fbbf45"
+        stroke="#ECE99A"
         strokeWidth="1.5"
         dot={false}
       />
       <Line
         type="monotone"
         dataKey="stress"
-        stroke="#ef6a32"
+        stroke="#FFCB96"
         strokeWidth="1.5"
         dot={false}
       />
