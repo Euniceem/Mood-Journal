@@ -1,29 +1,32 @@
+@import '../../../sass/config';
+
 .data-container {
+  font-family: $font-family;
+
   .mood-or-emotions-switch {
     display: flex;
     justify-content: space-evenly;
     margin-bottom: 20px;
-    border: 1px solid green;
+    // border: 1px solid $font-color;
     border-radius: 2px;
     width: 100%;
 
     .btn {
+      font-family: $font-family;
+      color: $font-color;
       text-align: center;
       font-size: 16px;
-      padding: 5px;
+      padding: 0.4rem;
       background: transparent;
       border: none;
       width: 100%;
-    }
-
-    .emotion {
-      border-left: 1px solid green;
+      margin-left: 0; margin-right: 0;
     }
 
     .selected {
       font-size: 18px;
-      background-color: orange;
-      color: white;
+      background-color: $pastel-selected;
+      color: $font-color;
     }
   }
 }
