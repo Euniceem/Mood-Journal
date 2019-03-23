@@ -3,7 +3,6 @@ import { Link } from 'react-router-dom';
 import './SingleEntryFeed.scss';
 
 const SingleEntryFeed = props => {
-  console.log(props);
   let date = new Date(props.entryData.created_at);
   let time = new Date(props.entryData.created_at);
 
