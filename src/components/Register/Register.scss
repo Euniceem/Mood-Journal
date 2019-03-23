@@ -1,64 +1,64 @@
+@import '../../../sass/config';
+
 $font-family: 'Montserrat', sans-serif;
-$title-color: #D6C7B1; 
-$border-color: #E7E7E7;
-$font-color: #C0C0C0;
+$title-color: #d6c7b1;
+$border-color: #e7e7e7;
+$font-color: #c0c0c0;
 $button-color: rgb(4, 110, 93);
 
 .register-container {
-font-family: $font-family;
+  padding-top: $margin-standard * 3;
+  font-family: $font-family;
 
-  .register-title{
+  .register-title {
     text-align: center;
     font-size: 24px;
     color: $title-color;
   }
 
-  .register-form-container{
+  .register-form-container {
     margin-left: 5em;
     margin-top: 2em;
 
-    .register-form{
+    .register-form {
       font-size: 16px;
       color: $font-color;
 
-      div{
+      div {
         margin-bottom: 10px;
       }
 
-      input{
+      input {
         border: 1px solid $border-color;
         height: 16px;
         width: 70%;
       }
 
-      .register-form-btn-container{
+      .register-form-btn-container {
         display: flex;
         justify-content: flex-start;
 
-        .register-form-btn{
-        font-size: 14px;
-        border: 1px solid $button-color;
-        color: $button-color;
-        background-color: white;
-        padding: 5px;
-        border-radius: 8px; 
-        width: 70%;
-
+        .register-form-btn {
+          font-size: 14px;
+          border: 1px solid $button-color;
+          color: $button-color;
+          background-color: white;
+          padding: 5px;
+          border-radius: 8px;
+          width: 70%;
         }
       }
     }
 
-    .login-link-container{
+    .login-link-container {
       margin-top: 1em;
       text-align: center;
       width: 70%;
 
-      .link{
-      text-decoration: none;
-      color: $title-color;
+      .link {
+        text-decoration: none;
+        color: $title-color;
       }
     }
-
   }
-
 }

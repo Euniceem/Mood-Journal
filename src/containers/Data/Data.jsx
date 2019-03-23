@@ -93,8 +93,8 @@ class Data extends Component {
       });
 
     return this.setState({
-      mood_chart_data: selectedMoodEntries,
-      emotion_chart_data: selectedEmotionEntries,
+      mood_chart_data: selectedMoodEntries.reverse(),
+      emotion_chart_data: selectedEmotionEntries.reverse(),
       activity_data: selectedActivitySums
     });
   }
