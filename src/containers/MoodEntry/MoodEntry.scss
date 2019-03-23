@@ -4,9 +4,10 @@
 .component-mood-entry {
   width: 100%;
   height: fit-content;
-  // padding-top: $margin-standard * 3;
-  margin-bottom: $margin-standard / 2;
+  background-color: $background-off-white;
   font-family: $primary-font, $font-type;
+  padding-top: $margin-standard / 5;
+  margin-bottom: $margin-standard / 2;
 
   .select-emotion {
     display: flex;

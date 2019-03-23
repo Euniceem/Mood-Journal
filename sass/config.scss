@@ -20,7 +20,8 @@ $dark-blue: #188CB0;
 $dark-purple: #9038CA;
 
 $main-color: #D2F3FF;
-$font-color: #5A5D5F;
+$pastel-selected: #FFE8D0;
+$font-color: rgb(70, 117, 144);
 
 $nav-border-color:#676C6F;
 $nav-link-color:#2E3133;
@@ -38,31 +39,33 @@ $color-save-3: rgb(9, 81, 140);
 $color-save-4: rgb(14, 140, 85);
 
 $font-color-white: white;
-$font-color-black: rgb(42, 133, 118);
-$font-color-1: rgb(14, 142, 121);
-$font-hover-1: rgb(4, 110, 93);
+$font-color-black: $font-color;
+$font-color-1: rgb(55, 103, 131);
+$font-hover-1: rgb(22, 69, 97);
 $font-active-1: rgb(172, 255, 241);
 
 $background-color-white: white;
-$background-color-1: rgb(14, 142, 121);
-$background-hover-1: rgb(4, 110, 93);
-$background-color-2: rgb(209, 245, 238);
-$background-hover-2: rgb(21, 146, 125);
-$background-color-3: rgb(4, 110, 93);
-$background-hover-3: rgb(14, 142, 121);
+$background-off-white: rgb(248, 248, 250);
+$background-color-1: rgb(80, 135, 167);
+$background-hover-1: rgb(69, 119, 148);
+$background-color-2: rgb(209, 234, 245);
+$background-hover-2: rgb(21, 117, 146);
+$background-color-3: rgb(4, 85, 110);
+$background-hover-3: rgb(14, 112, 142);
 
-$header-color-1: rgb(14, 142, 121);
-$header-hover-1: rgb(4, 110, 93);
+$header-color-1: rgb(55, 103, 131);
+$header-hover-1: rgb(30, 76, 102);
 
-$slider-thumb-color: rgb(14, 142, 121);
-$slider-hover-1: rgb(4, 110, 93);
+$slider-thumb-color: rgb(55, 103, 131);
+$slider-hover-1: rgb(30, 76, 102);
 
-$border-color-1: rgb(14, 142, 121);
-$border-hover-1: rgb(4, 110, 93);
+$border-color-1: rgb(55, 103, 131);
+$border-hover-1: rgb(30, 76, 102);
 
-$shadow-color-1: rgba(52, 167, 147, 0.6);
-$shadow-color-2: rgba(36, 98, 93, 0.3);
-$shadow-color-gray: rgba(0, 20, 20, 0.18);
+$shadow-color-1: rgba(52, 115, 167, 0.6);
+$shadow-color-2: rgba(36, 83, 98, 0.3);
+$shadow-color-gray: rgba(0, 20, 20, 0.15);
+$shadow-color-header: rgba(0, 18, 36, 0.1);
 
 $component-drop-shadow: 0px 0.3rem 0;
 $component-light-shadow: 0px 0.4rem 0.5rem 0;

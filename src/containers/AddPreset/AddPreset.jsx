@@ -36,7 +36,7 @@ class AddPreset extends Component {
       <div className="form-add-preset">
           <div className="form-wrap">
             <input onChange={ this.updateInput } type="text" value={ this.state.presetName } placeholder="Name your preset" />
-            <button onClick={ this.addToPresets }>Create Preset</button>
+            <div onClick={ this.addToPresets }><span className="text">Create Preset</span></div>
         </div>
       </div>
     );
