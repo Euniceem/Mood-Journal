@@ -6,13 +6,19 @@ const TimeSelector = props => {
 
   return (
     <div className="time-select-container">
-      <div className="average-trends">
+      <div
+        className={
+          time === 'avgDay' || time === 'avgWeek'
+            ? 'average-trends selected'
+            : 'average-trends'
+        }
+      >
         <div
           className={
             time === 'avgDay' || time === 'avgWeek' ? 'title selected' : 'title'
           }
         >
-          Average:{' '}
+          Average:
         </div>
         <div className="buttons">
           <button
@@ -34,7 +40,13 @@ const TimeSelector = props => {
         </div>
       </div>
       <div className="buttons">
-        <div className="past-trends">
+        <div
+          className={
+            time !== 'avgDay' && time !== 'avgWeek'
+              ? 'past-trends selected'
+              : 'past-trends'
+          }
+        >
           <div
             className={
               time !== 'avgDay' && time !== 'avgWeek'

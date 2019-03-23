@@ -6,7 +6,6 @@
     display: flex;
     flex-flow: row nowrap;
     align-items: center;
-    background-color: $calendar-color;
     border-top: 1px solid $calendar-border-color;
     border-bottom: 1px solid $calendar-border-color;
   }
@@ -15,7 +14,6 @@
     display: flex;
     flex-flow: row nowrap;
     align-items: center;
-    background-color: $calendar-color;
     border-bottom: 1px solid $calendar-border-color;
   }
 
@@ -24,19 +22,31 @@
     margin: 0;
     padding: 5px;
     font-size: 14px;
-    background-color: $calendar-color;
-    color: white;
+    color: $weekend-color;
   }
 
   .btn {
     padding: 3px;
     margin: 1.5px;
     font-size: 14px;
-    color: white;
+    color: $weekend-color;
   }
 
-  .selected {
-    color: $weekend-color;
-    font-size: 16px;
+  .selected.average-trends {
+    background-color: $calendar-color;
+
+    .selected {
+      color: white;
+      font-size: 16px;
+    }
+  }
+
+  .selected.past-trends {
+    background-color: $calendar-color;
+
+    .selected {
+      color: white;
+      font-size: 16px;
+    }
   }
 }
