@@ -9,13 +9,13 @@ class NotesActions extends Component {
     super(props);
 
     this.state = {
-      showForm : false
-    }
+      showForm: false
+    };
   }
 
   openForm = () => {
-    return this.setState({ showForm : true });
-  }
+    return this.setState({ showForm: true });
+  };
 
   render() {
     return (
@@ -27,7 +27,11 @@ class NotesActions extends Component {
             <div className="title">Your Activities</div>
 
             <div className="current-activities">
-              <EntryList presets={ this.props.selected } clickHandler={ this.props.removeActivityHandler } className="activity" />
+              <EntryList
+                presets={this.props.selected}
+                clickHandler={this.props.removeActivityHandler}
+                className="activity"
+              />
             </div>
           </div>
 
@@ -35,37 +39,61 @@ class NotesActions extends Component {
             <div className="title">Activity Presets</div>
 
             <div className="add-activities">
-              <EntryList presets={ this.props.unselected } clickHandler={ this.props.addActivityHandler } className="activity" />
+              <EntryList
+                presets={this.props.unselected}
+                clickHandler={this.props.addActivityHandler}
+                className="activity"
+              />
             </div>
           </div>
         </div>
 
-        <div onClick={ this.openForm } className="custom-wrap">
-          { this.state.showForm ?
-              <AddPreset onReloadData={ this.props.reloadActivities } sortEmotions={ this.props.sortEmotions } routeOnUpdate={ `/api/activities` } />
-            :
+        <div onClick={this.openForm} className="custom-wrap">
+          {this.state.showForm ? (
+            <AddPreset
+              onReloadData={this.props.reloadActivities}
+              sortEmotions={this.props.sortEmotions}
+              routeOnUpdate={`https://api.moodcatcher.com/api/activities`}
+            />
+          ) : (
             <>
               <span className="text">Add an Activity</span>
               <span className="button">+</span>
             </>
-          }
+          )}
         </div>
 
         <div className="notes-wrap">
           <div className="notes">
             <div className="title">Notes</div>
-            <textarea onChange={ this.props.handleNotes } value={ this.props.notes } placeholder="Tell us more about yourself." name="" id="" cols="30" rows="10"></textarea>
+            <textarea
+              onChange={this.props.handleNotes}
+              value={this.props.notes}
+              placeholder="Tell us more about yourself."
+              name=""
+              id=""
+              cols="30"
+              rows="10"
+            />
           </div>
         </div>
 
         <div className="buttons-wrap">
           <div className="buttons">
             <div className="close">
-              <button onClick={ this.props.openNotesAndActions }>Close</button>
+              <button onClick={this.props.openNotesAndActions}>Close</button>
             </div>
-  
+
             <div className="submit-all">
-              <button onClick={ this.props.handleSubmit } disabled={ this.props.selectedMood === 'Pick a mood!' } className={ this.props.selectedMood === 'Pick a mood!' ? "disabled" : "" }>Submit Entry</button>
+              <button
+                onClick={this.props.handleSubmit}
+                disabled={this.props.selectedMood === 'Pick a mood!'}
+                className={
+                  this.props.selectedMood === 'Pick a mood!' ? 'disabled' : ''
+                }
+              >
+                Submit Entry
+              </button>
             </div>
           </div>
         </div>
