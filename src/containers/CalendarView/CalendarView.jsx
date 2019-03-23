@@ -38,70 +38,34 @@ class CalendarView extends Component {
 
   render() {
 
-    const entryDate = this.props.entries.filter(entries => {
-      let date = new Date(entries.created_at);
-      return date.toDateString();
-
-    })
-
-    const entryDayMood = () => {
-
-      const entryDay = this.props.entries.map(entries => {
-        let date = new Date(entries.created_at).toDateString()
-        let stateDate = this.state.date.toDateString()
-
-        if (date === stateDate) {
-          if (entries.mood === "Awful") {
-            return "awful"
-          }
-          if (entries.mood === "Bad") {
-            return "bad"
-          }
-          if (entries.mood === "Average") {
-            return "average"
-          }
-          if (entries.mood === "Good") {
-            return "good"
-          }
-          if (entries.mood === "Amazing") {
-            return "amazing"
-          }
-        } else {
-          return null;
-        }
-        return entries.mood
-      })
-    }
-
-
     return (
-      <div className="calender-container">
+      <>
         <Header />
-        <h1 className="title">Calendar</h1>
-        <Calendar
-          onChange={this.onChangeDate}
-          value={this.state.date}
-          calendarType="US"
-          className="calendar-view"
-          minDetail="decade"
-          view="month"
-          onClickDay={this.onChangeDay}
-          tileClassName={`testing ${entryDayMood()}`}
-        />
-        {this.state.showDayEntry === true ?
+        <div className="calender-container">
+          <Calendar
+            onChange={this.onChangeDate}
+            value={this.state.date}
+            calendarType="US"
+            className="calendar-view"
+            minDetail="decade"
+            view="month"
+            onClickDay={this.onChangeDay}
+          />
+          {this.state.showDayEntry === true && this.props.entries ?
 
-          <div className="calendar-day-entry-container">
+            <div className="calendar-day-entry-container">
 
-            <div className="calendar-day-entry-date-title">{this.state.date.toDateString()}</div>
+              <div className="calendar-day-entry-date-title">{this.state.date.toDateString()}</div>
 
-            <CalendarEntryView entries={this.props.entries} date={this.state.date} />
+              <CalendarEntryView entries={this.props.entries} date={this.state.date} />
 
-          </div>
-          :
-          null
-        }
-      </div>
-    )
+            </div>
+            :
+            null
+          }
+        </div>
+      </>
+    );
   }
 }
 

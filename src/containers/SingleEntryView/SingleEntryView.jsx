@@ -18,8 +18,9 @@ class SingleEntryView extends Component {
     let time = new Date(entry.created_at).toLocaleTimeString();
 
     return (
+      <>
+      <Header />
       <div className="single-entry-view-main-container">
-        <Header />
         <h1 className="single-entry-view-title">{date} {time}</h1>
 
         <div className="single-entry-view-mood-activity-container">
@@ -45,7 +46,8 @@ class SingleEntryView extends Component {
         <div className="single-entry-view-notes">{entry.notes}</div>
 
       </div>
-    )
+      </>
+    );
   }
 }
 

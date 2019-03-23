@@ -1,10 +1,15 @@
 import React from 'react';
 
 const CalendarEntryEmotionsView = (props) => {
-  const emotionsViewList = props.emotions.map((emotions, index) => {
-    console.log(emotions)
-    if (emotions.default_emotion) {
 
+  const emotionsViewList = props.emotions.map((emotions, index) => {
+
+    if (!emotions.custom_emotion && !emotions.default_emotion) {
+      return (
+        <React.Fragment key={index}>.</React.Fragment>
+      )
+    }
+    if (emotions.percent !== 0) {
       return (
         <div className="calendar-day-single-entry-emotion" key={index}>
           {emotions.default_emotion
@@ -15,6 +20,7 @@ const CalendarEntryEmotionsView = (props) => {
       )
     }
   })
+
   return (
     <>
       {emotionsViewList}

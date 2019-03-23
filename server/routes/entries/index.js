@@ -8,6 +8,7 @@ const isAuthenticated = require('../isAuth');
 router.get('/entries', isAuthenticated, (req, res) => {
   const user_id = req.user.id;
 
+
   Entry.where('user_id', user_id)
     .orderBy('created_at', 'DESC')
     .fetchAll({
@@ -116,7 +117,6 @@ router.post('/entries', isAuthenticated, (req, res) => {
     default_emotions,
     custom_emotions
   } = req.body;
-
   const entry = { user_id, mood_id, notes };
 
   Entry.forge(entry)

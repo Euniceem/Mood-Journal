@@ -1,0 +1,12 @@
+@import '../../../sass/config';
+
+#icon-amazing, #icon-good, #icon-ok, #icon-bad, #icon-awful {
+  font-size: 2.8rem;
+  padding-bottom: $margin-standard / 2;
+}
+
+#icon-amazing { color: $amazing; }
+#icon-good { color: $good; }
+#icon-ok { color: $ok; }
+#icon-bad { color: $bad }
+#icon-awful { color: $awful }

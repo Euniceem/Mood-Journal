@@ -1,24 +1,26 @@
 @import '../../../sass/config';
 
 .header-container{
-display: flex;
-justify-content: space-between;
-align-items: center;
-width: 100%;
-background-color: $background-color-3;
-color: white;
-font-family: $font-family;
-overflow: hidden;
-position: fixed;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  background-color: $main-color;
+  color: $font-color;
+  font-family: $font-family;
+  box-shadow: $component-light-shadow $shadow-color-header;
+  overflow: hidden;
+  position: fixed;
+  z-index: 1;
 
   .menu-icon{
     margin-left: $margin-standard / 2;
 
     .line{
-      width: 30px;
+      width: 26px;
       height: 3px;
-      background-color: white;
-      margin: 6px 0;
+      background-color: $font-color;
+      margin: 5px 0;
     }
   }
 
@@ -29,7 +31,7 @@ position: fixed;
   
   .bm-item-list{
     background-color: whitesmoke;
-    position: fixed;
+    position: fixed ;
     top: 0;
     left: 0;
     width: 80%;
@@ -81,7 +83,7 @@ position: fixed;
 
     .username, .email{
       color: $font-color;
-     text-align: center;
+      text-align: center;
       font-size: 14px;
       margin-top: 10px;
       margin-bottom: 10px;
@@ -114,22 +116,24 @@ position: fixed;
 
   .main-title {
     font-family: $title-font;
-    font-size: 1.8rem;
+    font-weight: bold;
+    font-size: 1.5rem;
     letter-spacing: 0.02rem;
   }
 
   .link{
-    margin-top: 5px;
-    margin-bottom: 5px;
-    text-decoration: none;
-    color: white;
     display: flex;
     flex-direction: column;
+    font-size: 0.9rem;
+    color: $font-color;
+    text-decoration: none;
+    margin-top: 5px;
+    margin-bottom: 5px;
     padding: $pad-standard / 2 0 $pad-standard / 2 0;
   }
 
     #add-btn{
-    margin-right: $margin-standard / 2;
-    font-size: 50px;
+      margin-right: $margin-standard / 2;
+      font-size: 50px;
     }
 }
