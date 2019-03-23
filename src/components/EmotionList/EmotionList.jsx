@@ -1,16 +1,23 @@
 import React from 'react';
 
 const EmotionList = (props) => {
-  const emotionList = props.emotions.map((emotions, index) => {
-    if (emotions.custom_emotion) {
+  console.log(props.emotions);
+
+  const emotionList = props.emotions.map((emotions, index) => 
+  {
+    console.log(emotions.default_emotion);
       return (
         <div className="single-entry-view-emotion" key={index}>
           {emotions.custom_emotion
             ? emotions.custom_emotion.name
-            : emotions.default_emotion.name}
+          : null }
+
+          {emotions.default_emotion
+            ? emotions.default_emotion.name
+            : null
+          }
         </div>
       );
-    }
   })
 
   return (

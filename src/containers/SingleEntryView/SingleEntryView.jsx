@@ -44,6 +44,8 @@ class SingleEntryView extends Component {
         break;
     }
 
+    console.log(entry.entryEmotions);
+
     return (
       <>
       <Header />
