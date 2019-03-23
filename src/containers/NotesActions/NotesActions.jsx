@@ -42,7 +42,7 @@ class NotesActions extends Component {
 
         <div onClick={ this.openForm } className="custom-wrap">
           { this.state.showForm ?
-              <AddPreset onReloadData={ this.props.reloadActivities } sortEmotions={ this.props.sortEmotions } routeOnUpdate={ `/api/activities` } />
+              <AddPreset onReloadData={ this.props.reloadActivities } sortEmotions={ this.props.sortEmotions } routeOnUpdate={ `https://api.moodcatcher.com/api/activities` } />
             :
             <>
               <span className="text">Add an Activity</span>
