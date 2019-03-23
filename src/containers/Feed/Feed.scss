@@ -1,8 +1,14 @@
 @import '../../../sass/config';
+<<<<<<< HEAD
+=======
+
+$font-family: 'Montserrat', sans-serif;
+>>>>>>> dev
 
 .feed-container{
 font-family: $font-family;
 min-height: 100%;
+padding-top: $margin-standard * 2.7;
 padding-bottom:50px;
 
   .title{

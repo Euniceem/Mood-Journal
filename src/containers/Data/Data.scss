@@ -1,8 +1,11 @@
+@import '../../../sass/config';
+
 .data-container {
   * {
     box-sizing: border-box;
   }
   min-height: 100%;
+  padding-top: $margin-standard * 2.3;
   padding-bottom: 50px;
   text-align: center;
 }

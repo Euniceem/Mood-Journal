@@ -38,45 +38,44 @@ class CalendarView extends Component {
 
   render() {
 
-    const entryDate = this.props.entries.filter(entries => {
-      let date = new Date(entries.created_at);
-      return date.toDateString();
-
-    })
+    // const entryDate = this.props.entries.filter(entries => {
+    //   let date = new Date(entries.created_at);
+    //   return date.toDateString();
+    // })
 
     const entryDayMood = () => {
+      // const entryDay = this.props.entries.map(entries => {
+      //   let date = new Date(entries.created_at).toDateString()
+      //   let stateDate = this.state.date.toDateString()
 
-      const entryDay = this.props.entries.map(entries => {
-        let date = new Date(entries.created_at).toDateString()
-        let stateDate = this.state.date.toDateString()
-
-        if (date === stateDate) {
-          if (entries.mood === "Awful") {
-            return "awful"
-          }
-          if (entries.mood === "Bad") {
-            return "bad"
-          }
-          if (entries.mood === "Average") {
-            return "average"
-          }
-          if (entries.mood === "Good") {
-            return "good"
-          }
-          if (entries.mood === "Amazing") {
-            return "amazing"
-          }
-        } else {
-          return null;
-        }
-        return entries.mood
-      })
+      //   if (date === stateDate) {
+      //     if (entries.mood === "Awful") {
+      //       return "awful"
+      //     }
+      //     if (entries.mood === "Bad") {
+      //       return "bad"
+      //     }
+      //     if (entries.mood === "Average") {
+      //       return "average"
+      //     }
+      //     if (entries.mood === "Good") {
+      //       return "good"
+      //     }
+      //     if (entries.mood === "Amazing") {
+      //       return "amazing"
+      //     }
+      //   } else {
+      //     return null;
+      //   }
+      //   return entries.mood
+      // })
     }
 
 
     return (
+      <>
+      <Header />
       <div className="calender-container">
-        <Header />
         <h1 className="title">Calendar</h1>
         <Calendar
           onChange={this.onChangeDate}
@@ -101,7 +100,8 @@ class CalendarView extends Component {
           null
         }
       </div>
-    )
+      </>
+    );
   }
 }
 
