@@ -52,6 +52,7 @@ class App extends Component {
     let isAuthenticated = this.props.email ? this.props.isLoggedIn : null;
     return (
       <div className="App">
+        <Gen />
         <Router>
           <>
             <Switch>
