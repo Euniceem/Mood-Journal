@@ -1,18 +1,18 @@
 import React, { Component } from 'react';
-import { connect } from "react-redux";
-import { Link } from "react-router-dom";
+import { connect } from 'react-redux';
+import { Link } from 'react-router-dom';
 import { login } from '../../actions';
 import Header from '../Header';
 import './Login.scss';
 
 class Login extends Component {
   constructor(props) {
-    super(props)
+    super(props);
 
     this.state = {
       emailInput: '',
       passwordInput: ''
-    }
+    };
 
     this.handleSubmit = this.handleSubmit.bind(this);
     this.handleInputChange = this.handleInputChange.bind(this);
@@ -23,10 +23,10 @@ class Login extends Component {
 
     switch (e.target.name) {
       case 'email':
-        this.setState({ emailInput: value })
+        this.setState({ emailInput: value });
         break;
       case 'password':
-        this.setState({ passwordInput: value })
+        this.setState({ passwordInput: value });
         break;
       default:
         break;
@@ -40,65 +40,81 @@ class Login extends Component {
     user.email = this.state.emailInput;
     user.password = this.state.passwordInput;
 
-    this.props.login(user)
-      .then(() => {
+    this.props.login(user).then(response => {
+      if (response) {
         this.props.history.push('/');
-      })
+      }
+    });
     this.setState({
-      emailInput: '',
       passwordInput: ''
-    })
+    });
   }
 
   render() {
     return (
       <>
-      <Header />
-      <div className="login-container">
-        <div className="title-container">
-          <h1 className="title">Login:</h1>
+        <Header />
+        <div className="login-container">
+          <div className="title-container">
+            <h1 className="title">Login:</h1>
+          </div>
+          <div className="login-form-container">
+            <form className="login-form">
+              <div>
+                <label name="email"> Email: </label>
+              </div>
+              <div className="input-container">
+                <input
+                  className="login-input"
+                  type="text"
+                  name="email"
+                  value={this.state.emailInput}
+                  onChange={this.handleInputChange}
+                />
+              </div>
+              <div>
+                <label name="password">Password: </label>
+              </div>
+              <div className="input-container">
+                <input
+                  className="login-input"
+                  type="password"
+                  name="password"
+                  value={this.state.passwordInput}
+                  onChange={this.handleInputChange}
+                />
+              </div>
+              <div className="login-btn-container">
+                <button className="login-btn" onClick={this.handleSubmit}>
+                  LOGIN
+                </button>
+              </div>
+              <div className="register-link-container">
+                <Link to="/register" className="link">
+                  Need an account?
+                </Link>
+              </div>
+            </form>
+          </div>
         </div>
-        <div className="login-form-container">
-          <form className="login-form">
-            <div>
-              <label name="email"> Email: </label>
-            </div>
-            <div className="input-container">
-              <input className="login-input" type="text" name="email" value={this.state.emailInput} onChange={this.handleInputChange} />
-            </div>
-            <div>
-              <label name="password">Password: </label>
-            </div>
-            <div className="input-container">
-              <input className="login-input" type="password" name="password" value={this.state.passwordInput} onChange={this.handleInputChange} />
-            </div>
-            <div className="login-btn-container">
-              <button className="login-btn" onClick={this.handleSubmit}>LOGIN</button>
-            </div>
-            <div className="register-link-container">
-              <Link to='/register' className="link" >Need an account?</Link>
-            </div>
-          </form>
-        </div>
-      </div>
       </>
     );
   }
-};
+}
 
 const mapStateToProps = state => {
   return {
     user: state.moodJournalReducer
-  }
-}
+  };
+};
 
 const mapDispatchToProps = dispatch => {
   return {
     login: user => {
-      return dispatch(login(user))
+      return dispatch(login(user));
     }
-  }
-}
+  };
+};
 
 Login = connect(
   mapStateToProps,

@@ -15,7 +15,7 @@ export const FETCHED_DATA = 'FETCHED_DATA';
 
 /** Action Creators*/
 
-export const register = (email) => {
+export const register = email => {
   return dispatch => {
     return fetch('/api/register', {
       method: 'POST',
@@ -60,13 +60,15 @@ export const login = email => {
       .then(email => {
         localStorage.setItem('email', email.email);
         localStorage.setItem('loggedIn', true);
-        return dispatch({
+        dispatch({
           type: LOGIN_USER,
           payload: email
         });
+
+        return true;
       })
       .catch(err => {
-        console.log(err);
+        return false;
       });
   };
 };
@@ -88,7 +90,7 @@ export const logout = () => {
       .then(email => {
         localStorage.removeItem('email');
         localStorage.removeItem('loggedIn');
-        localStorage.removeItem('setHomePage')
+        localStorage.removeItem('setHomePage');
         return dispatch({
           type: LOGOUT_USER,
           payload: email
@@ -181,8 +183,8 @@ export const fetchData = () => {
   };
 };
 
-export const editEmail = (editedEmail) => {
-  return (dispatch) => {
+export const editEmail = editedEmail => {
+  return dispatch => {
     return fetch(`/api/profile/email`, {
       method: 'PUT',
       headers: {
@@ -190,23 +192,23 @@ export const editEmail = (editedEmail) => {
       },
       body: JSON.stringify(editedEmail)
     })
-      .then((response) => {
+      .then(response => {
         if (!response.ok) {
-          throw Error(response.statusText)
+          throw Error(response.statusText);
         }
-        return response.json()
+        return response.json();
       })
-      .then((email) => {
+      .then(email => {
         return dispatch({
           type: EDIT_EMAIL,
           payload: email
-        })
-      })
+        });
+      });
   };
 };
 
 export const editPassword = (oldPassword, editedPassword) => {
-  return (dispatch) => {
+  return dispatch => {
     return fetch(`/api/profile/password`, {
       method: 'PUT',
       headers: {
@@ -215,25 +217,25 @@ export const editPassword = (oldPassword, editedPassword) => {
       body: JSON.stringify({
         oldPassword: oldPassword.password,
         newPassword: editedPassword.password
-      }),
-    })
-      .then((response) => {
-        if (!response.ok) {
-          throw Error(response.statusText)
-        }
-        return response.json()
       })
-      .then((password) => {
+    })
+      .then(response => {
+        if (!response.ok) {
+          throw Error(response.statusText);
+        }
+        return response.json();
+      })
+      .then(password => {
         return dispatch({
           type: EDIT_PASSWORD,
           payload: password
-        })
-      })
+        });
+      });
   };
 };
 
-export const editHomepage = (page) => {
-  return (dispatch) => {
+export const editHomepage = page => {
+  return dispatch => {
     return fetch(`/api/settings`, {
       method: 'PUT',
       headers: {
@@ -241,20 +243,20 @@ export const editHomepage = (page) => {
       },
       body: JSON.stringify({ homepage: page })
     })
-      .then((response) => {
-        console.log(response)
+      .then(response => {
+        console.log(response);
         if (!response.ok) {
-          throw Error(response.statusText)
+          throw Error(response.statusText);
         }
-        return response.json()
+        return response.json();
       })
-      .then((page) => {
-        localStorage.setItem('setHomePage', page.result.homepage)
+      .then(page => {
+        localStorage.setItem('setHomePage', page.result.homepage);
         return dispatch({
           type: EDIT_HOMEPAGE,
           payload: page
-        })
-      })
+        });
+      });
   };
 };
 
@@ -301,7 +303,7 @@ export const addPreset = (presetObj, route) => {
   };
 };
 
-export const submitEntry = (data) => {
+export const submitEntry = data => {
   return dispatch => {
     return fetch(`api/entries`, {
       method: 'POST',
@@ -321,4 +323,3 @@ export const submitEntry = (data) => {
     });
   };
 };
-
